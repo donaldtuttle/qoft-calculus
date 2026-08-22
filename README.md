@@ -61,11 +61,13 @@ Do not add glyphs. Compose the existing set.
 Φ  = sampleFlux(Θλ(ψ))
 Γ  = gradient(Φ, ρ)
 ψ̃ = fuse(ψᴽ, Γ)            // ⊕
-if ρ ≥ τ for dwell ticks: ψ ← Λψ(ψ̃)
-emit Ψmeta
+if ρ ≥ τ for dwell ticks (hysteresis band): ψ ← Λψ(ψ̃)
+emit Ψmeta                 // after Λψ
 maybe Σ◯
 phase ← (phase + 1) mod 8
 ```
+
+Λψ must not write Πᴽ.
 
 ## Instantiation notes
 
@@ -75,6 +77,8 @@ phase ← (phase + 1) mod 8
 - ⊕ mix/gate formula as written in the skill
 - six basins: closure, insight, identity, tension, recall, threshold
 - entropy is a required telemetry field; the bin formula in code is an instantiation
+- hysteresis (default 0.08) holds the ρ streak through `[τ−h, τ)`; hold (default 6) is post-snap anti-chatter
+- Λψ does **not** write Πᴽ. self-model updates only in `projectReflex()`
 
 ## Run
 
@@ -83,6 +87,8 @@ Node 22+:
 ```
 npm test
 ```
+
+Determinism uses default periodic. Collapse reachability / integrity / ablation use **basin** drive — default periodic at τ=0.78 often never snaps.
 
 ## Scope
 

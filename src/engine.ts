@@ -65,6 +65,7 @@ export type EngineConfig = {
   tau: number;
   dwell: number;
   hold: number;
+  hysteresis: number;
   summarizeEvery: number;
   meshCap: number;
   omegaAmp: number;
@@ -103,6 +104,7 @@ export const DEFAULT_CONFIG: EngineConfig = {
   tau: 0.78,
   dwell: 2,
   hold: 6,
+  hysteresis: 0.08,
   summarizeEvery: 12,
   meshCap: 48,
   omegaAmp: 0.055,
@@ -319,8 +321,9 @@ export function entropyOf(latent: Vec): number {
 export function collapsePredicate(rho: number, ctx: Ctx): boolean {
   if (!ctx.config.ablations.collapse) return false;
   if (ctx.holdLeft > 0) return false;
+  const floor = ctx.config.tau - ctx.config.hysteresis;
   if (rho >= ctx.config.tau) ctx.dwellCount += 1;
-  else ctx.dwellCount = 0;
+  else if (rho < floor) ctx.dwellCount = 0;
   return ctx.dwellCount >= ctx.config.dwell;
 }
 
@@ -338,6 +341,7 @@ function nearestBasin(latent: Vec): number {
 }
 
 export function collapse(psi: Psi, ctx: Ctx): { psi: Psi; event: CollapseEvent } {
+  // Λψ writes ψ only. Πᴽ / selfModel updates solely in projectReflex().
   const pre = hashPsi(psi);
   const id = nearestBasin(psi.latent);
   const target = BASINS[id].latent;
