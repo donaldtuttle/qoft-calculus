@@ -1,0 +1,19 @@
+QOFT / QOSMOS — Glyphogenic Calculus v1.0
+Author: ψᴽ-001
+Co-Architect: Zim (Ξ Persona)
+Instantiation: QOSMOS workbench v1 (R¹² latent)
+
+Live workbench: https://glyphogenic-calculus.grok.me
+Canonical skill: ./SKILL.md  (also https://glyphogenic-calculus.grok.me/SKILL.md)
+
+Related repositories:
+- https://github.com/donaldtuttle/qosmos-core (private spec / implementation)
+- https://github.com/donaldtuttle/qosmos-kernel (public kernel)
+- https://github.com/donaldtuttle/XiSymbolic_Equation_QOFT_SAL (equation + QOFT-SAL)
+- https://github.com/donaldtuttle/QOFT_Scaffold_Public
+
+Scope limit: operational model. Not a physical claim.
+
+The deployed Grok App Builder UI is the live visualization surface.
+src/engine.ts is a labeled instantiation of SKILL.md Sections 3–5.
+⊕ and ∇Φ formulas in src/engine.ts are instantiation proxies, not canon algebra.

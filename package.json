@@ -1,0 +1,11 @@
+{
+  "name": "qoft-calculus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "QOFT Glyphogenic Calculus v1.0 — QOSMOS workbench engine and canonical skill",
+  "scripts": {
+    "test": "node --experimental-strip-types tests/determinism.ts",
+    "run": "node --experimental-strip-types -e \"import { run } from './src/engine.ts'; const r = run(32, '0x51e1d'); console.log(r.frames.at(-1));\""
+  }
+}
