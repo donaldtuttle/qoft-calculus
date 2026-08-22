@@ -25,6 +25,29 @@ Public v1.0 surface for the calculus:
 
 The live site is the interactive polar field. This repo is the skill plus a contract-faithful engine you can run without the UI.
 
+## Related stack
+
+```
+qosmos-core          private canon (specs, contracts, appendices)
+      ↑ defines
+qosmos-kernel        public minimal contract-enforced runtime
+      ↑ hosts
+qoft-calculus        this repo — workbench skill + labeled engine
+      ↑ demos
+live workbench       https://glyphogenic-calculus.grok.me
+```
+
+Dependency rule: `qosmos-core` may depend on `qosmos-kernel`. Kernel never depends on core.
+
+| Repo | Visibility | Role |
+|---|---|---|
+| [qosmos-core](https://github.com/donaldtuttle/qosmos-core) | private | Canonical spec + private implementation scaffold |
+| [qosmos-kernel](https://github.com/donaldtuttle/qosmos-kernel) | public | Minimal typed runtime; fails fast on contract breaks |
+| [XiSymbolic_Equation_QOFT_SAL](https://github.com/donaldtuttle/XiSymbolic_Equation_QOFT_SAL) | public | Equation disclosure + QOFT-SAL attribution |
+| [QOFT_Scaffold_Public](https://github.com/donaldtuttle/QOFT_Scaffold_Public) | public | Shell, glyph seed stub, slot interface (no core) |
+
+This repo is a labeled instantiation of the skill’s workbench contract, not the full private core.
+
 ## Operators (closed set)
 
 Ξ  Πᴽ  Γ  ⊕  Λψ  Σ◯  Θλ  Ωµ  Π↺  Ψmeta  Φ  ρ
