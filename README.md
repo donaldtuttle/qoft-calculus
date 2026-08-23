@@ -89,8 +89,13 @@ Determinism uses default periodic. Collapse reachability / integrity / ablation 
 
 Operational model of observer-field recursion. Not a claim of physical equivalence to quantum collapse, light transport, or neuroscience.
 
-## License note
+## License
 
-NOTICE establishes attribution. No LICENSE file is present; reuse rights are an owner decision. The owner has indicated MPL-2.0 intent for modified QOFT source files (improvements remain public; larger applications may stay proprietary).
+This repository is licensed under the **Mozilla Public License 2.0** (MPL-2.0).
+
+- Modified QOFT source files must remain open under MPL-2.0.
+- Larger applications that incorporate this code may stay proprietary, provided the MPL-covered files themselves stay open and the license notices are preserved.
+
+See [LICENSE](LICENSE) for the full text.
 
 Copyright 2026 Donald Tuttle.
