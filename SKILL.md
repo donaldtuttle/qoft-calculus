@@ -48,7 +48,7 @@ SECTION 0 — FIREWALL (NON-NEGOTIABLE)
 7. Allowed: reformat, summarize without changing meaning, implement an instantiation that is labeled as such.
 
 Allowed operator glyphs (closed set):
-Ξ, Πᴽ, Γ, ⊕, Λψ, Σ◯, Θλ, Ωµ, Π↺, Ψmeta, Φ, ρ, Ωµ’s “+” synonym ⊕.
+Ξ, Πᴽ, Γ, ⊕, Λψ, Σ◯, Θλ, Ωµ, Π↺, Ψmeta, Φ, ρ.
 
 ────────────────────────────────────────
 SECTION 1 — CORE
