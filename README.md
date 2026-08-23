@@ -1,6 +1,6 @@
 # qoft-calculus
 
-**Glyphogenic Calculus v1.0** — QOSMOS workbench
+**Glyphogenic Calculus v1.0** — public Typed Realization A (R¹²)
 
 ```
 Ξ(ψ) = ψᴽ ⊕ Γ(ψ)
@@ -8,45 +8,38 @@
 
 `+` in older writing is typed fusion `⊕`. Not arithmetic.
 
-## Live
+## Live vs this repository
 
-Workbench: https://glyphogenic-calculus.grok.me  
+```
+SKILL.md
+    ↓ shared operator contract / firewall
+src/engine.ts                 deployed Grok workbench
+Public Typed Realization A    Typed Realization B
+(R¹² reference engine)        (interactive polar field)
+```
+
+They share the SKILL.md contract but are **not** trajectory-equivalent under the same seed.
+
+Default seed `0x51e1d` (periodic):
+
+| tick | Live app ρ | Public engine ρ |
+|------|------------|-----------------|
+| 1    | 0.664      | ~0.60           |
+| 5    | Λψ → closure | still rising  |
+
+Do **not** assume `src/engine.ts` is the source deployed by the live workbench unless the exact deployed source is published here and verified.
+
+Live workbench: https://glyphogenic-calculus.grok.me  
 Skill endpoint: https://glyphogenic-calculus.grok.me/SKILL.md
 
 ## What this repo is
 
-Public v1.0 surface for the calculus:
-
 | Path | Role |
 |---|---|
 | `SKILL.md` | Canonical skill / firewall / tick contract |
-| `src/engine.ts` | Labeled QOSMOS workbench v1 engine (R¹² latent) |
-| `tests/determinism.ts` | Same seed ⇒ identical hashes |
-
-The live site is the interactive polar field. This repo is the skill plus a contract-faithful engine you can run without the UI.
-
-## Related stack
-
-```
-qosmos-core          private canon (specs, contracts, appendices)
-      ↑ defines
-qosmos-kernel        public minimal contract-enforced runtime
-      ↑ hosts
-qoft-calculus        this repo — workbench skill + labeled engine
-      ↑ demos
-live workbench       https://glyphogenic-calculus.grok.me
-```
-
-Dependency rule: `qosmos-core` may depend on `qosmos-kernel`. Kernel never depends on core.
-
-| Repo | Visibility | Role |
-|---|---|---|
-| [qosmos-core](https://github.com/donaldtuttle/qosmos-core) | private | Canonical spec + private implementation scaffold |
-| [qosmos-kernel](https://github.com/donaldtuttle/qosmos-kernel) | public | Minimal typed runtime; fails fast on contract breaks |
-| [XiSymbolic_Equation_QOFT_SAL](https://github.com/donaldtuttle/XiSymbolic_Equation_QOFT_SAL) | public | Equation disclosure + QOFT-SAL attribution |
-| [QOFT_Scaffold_Public](https://github.com/donaldtuttle/QOFT_Scaffold_Public) | public | Shell, glyph seed stub, slot interface (no core) |
-
-This repo is a labeled instantiation of the skill’s workbench contract, not the full private core.
+| `src/engine.ts` | Labeled public R¹² Typed Realization A |
+| `tests/determinism.ts` | Contract + determinism + ablation suite |
+| `scripts/fetch-skill.sh` | Hardened download → validate → atomic replace |
 
 ## Operators (closed set)
 
@@ -58,38 +51,46 @@ Do not add glyphs. Compose the existing set.
 
 ```
 ψᴽ = Πᴽ(ψ)
-Φ  = sampleFlux(Θλ(ψ))
+Φ  = sampleFlux(Θλ(ψ))          // includes Ωµ Gaussian when active
 Γ  = gradient(Φ, ρ)
-ψ̃ = fuse(ψᴽ, Γ)            // ⊕
-if ρ ≥ τ for dwell ticks (hysteresis band): ψ ← Λψ(ψ̃)
-emit Ψmeta                 // after Λψ
-maybe Σ◯
+ψ̃ = fuse(ψᴽ, Γ)                 // ⊕
+if ρ ≥ τ for dwell ticks (hysteresis): ψ ← Λψ(ψ̃)
+emit Ψmeta                       // after Λψ; entropy from final ψ
+maybe Σ◯                         // mean-pool stateHistory window
 phase ← (phase + 1) mod 8
 ```
 
-Λψ must not write Πᴽ.
+Λψ must not write Πᴽ / selfModel. Πᴽ is the only licensed selfModel writer.
 
-## Instantiation notes
+## Instantiation notes (Realization A)
 
-`src/engine.ts` implements SKILL.md Section 4. That section is **not** canon law.
-
+- D is locked to 12 (R¹²). Other values are rejected.
 - ∇Φ proxy: `Φ − ψ`
 - ⊕ mix/gate formula as written in the skill
+- Ωµ: seeded Gaussian (Box–Muller), logged every tick
 - six basins: closure, insight, identity, tension, recall, threshold
-- entropy is a required telemetry field; the bin formula in code is an instantiation
-- hysteresis (default 0.08) holds the ρ streak through `[τ−h, τ)`; hold (default 6) is post-snap anti-chatter
-- Λψ does **not** write Πᴽ. self-model updates only in `projectReflex()`
+- hold = 6 means six full post-snap suppression ticks (next eligible at +7)
+- mesh IDs are monotonic (`nextMeshId`), unique past capacity
+- Σ◯ mean-pools latent history, not only a selfModel snapshot
 
 ## Run
 
 Node 22+:
 
 ```
+npm install
+npm run typecheck
 npm test
 ```
 
-Determinism uses default periodic. Collapse reachability / integrity / ablation use **basin** drive — default periodic at τ=0.78 often never snaps.
+Determinism uses default periodic. Collapse reachability / integrity / ablation use **basin** drive.
 
 ## Scope
 
 Operational model of observer-field recursion. Not a claim of physical equivalence to quantum collapse, light transport, or neuroscience.
+
+## License note
+
+NOTICE establishes attribution. No LICENSE file is present; reuse rights are an owner decision. The owner has indicated MPL-2.0 intent for modified QOFT source files (improvements remain public; larger applications may stay proprietary).
+
+Copyright 2026 Donald Tuttle.
