@@ -22,7 +22,6 @@ Refresh local file:
 
     sh scripts/fetch-skill.sh
 
-
 Load this file as a Claude Skill, Claude Project instruction, ChatGPT Custom GPT instruction, or ChatGPT Project file. UTF-8 Unicode glyphs only. No LaTeX.
 
 ## How to use with Claude and ChatGPT
