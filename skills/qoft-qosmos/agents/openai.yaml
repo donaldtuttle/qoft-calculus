@@ -1,0 +1,7 @@
+interface:
+  display_name: "QOFT / QOSMOS"
+  short_description: "DEVELOP Kernel v1.1 candidate profile"
+  brand_color: "#D4A054"
+  default_prompt: "Use $qoft-qosmos to evaluate this task under the DEVELOP Kernel v1.1 candidate without presenting it as adopted canon."
+policy:
+  allow_implicit_invocation: false

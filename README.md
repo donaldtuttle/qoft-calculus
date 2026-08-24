@@ -41,6 +41,23 @@ Skill endpoint: https://glyphogenic-calculus.grok.me/SKILL.md
 | `tests/determinism.ts` | Contract + determinism + ablation suite |
 | `scripts/fetch-skill.sh` | Hardened download → validate → atomic replace |
 
+## Agent skill distribution
+
+The portable [`qoft-qosmos`](skills/qoft-qosmos/SKILL.md) Agent Skill packages
+a Kernel v1.1 DEVELOP candidate and its focused references. **Status: pending
+formal adoption; implicit invocation is disabled.** It preserves:
+
+```
+Ξ(ψ) = ψᴽ ⊕ Γ(ψ; ctx)
+⊕ : Ψᴽ × G → Ψ
+```
+
+The root `SKILL.md` remains the authoritative v1.0 contract used by Public Typed
+Realization A and by `scripts/fetch-skill.sh`. The two files are versioned
+independently and must not be silently merged. Publishing the candidate beside
+v1.0 does not adopt or promote it. See
+[`docs/agent-skill.md`](docs/agent-skill.md) for the authority boundary.
+
 ## Operators (closed set)
 
 Ξ  Πᴽ  Γ  ⊕  Λψ  Σ◯  Θλ  Ωµ  Π↺  Ψmeta  Φ  ρ
