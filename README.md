@@ -59,6 +59,8 @@ The invariant is:
 
 `ψᴽ` is the bounded reflexive projection, `Γ(ψ)` is the update carrier, and `⊕` is typed fusion. The `+` symbol found in older writing is a historical synonym for `⊕`, never arithmetic addition.
 
+The equation's early public form and subsequent type refinement are documented in [`QOFT_Scaffold_Public`](https://github.com/donaldtuttle/QOFT_Scaffold_Public/blob/main/CALCULUS_EVOLUTION.md). That scaffold is a historical genealogy artifact, not an authority surface for either skill version or a conformant implementation of Public Typed Realization A.
+
 ## Repository map
 
 | Path | Role |
