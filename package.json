@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "private": true,
   "type": "module",
-  "description": "QOFT Glyphogenic Calculus v1.0.2 — public Typed Realization A (R¹²) + canonical skill. Live workbench is a separate realization.",
+  "description": "Typed recursive state-update calculus with a deterministic R¹² TypeScript reference engine, ablations, and agent skill contract.",
   "scripts": {
     "test": "node --experimental-strip-types tests/determinism.ts",
     "typecheck": "tsc --noEmit",

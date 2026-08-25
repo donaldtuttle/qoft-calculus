@@ -1,16 +1,80 @@
 # qoft-calculus
 
-**Glyphogenic Calculus v1.0** — public Typed Realization A (R¹²)
+[![CI](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/ci.yml/badge.svg)](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/ci.yml)
+![Node 22+](https://img.shields.io/badge/Node-22%2B-339933?logo=nodedotjs&logoColor=white)
+![Package 1.0.2](https://img.shields.io/badge/package-1.0.2-2563EB)
+![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-6B7280)
 
+> **The contract names the operators. The engine shows what they actually do.**
+
+`qoft-calculus` is a deterministic TypeScript reference engine and agent-facing contract for studying typed recursive state updates. It is for developers and researchers who want an inspectable implementation, ablations, and reproducible traces, not evidence that QOFT describes physics, consciousness, or neural dynamics.
+
+## What you can do here
+
+- run one concrete 12-dimensional realization with a fixed seed;
+- inspect every tick, diagnostic frame, collapse event, memory update, and regime change;
+- disable individual mechanisms and test whether behavior changes;
+- verify self-model ownership, hysteresis, deterministic noise, and configuration rejection;
+- load the public agent contract without silently mixing it with the newer DEVELOP candidate;
+- compare the reference engine with the separately deployed interactive workbench.
+
+## Run it in sixty seconds
+
+Node 22+:
+
+```bash
+npm ci
+npm run typecheck
+npm test
+npm run run
 ```
+
+The test suite pins deterministic behavior, operator ownership, hysteresis, configuration validation, and individual ablations. A passing run establishes conformance for this implementation only.
+
+## The model in plain English
+
+Each tick behaves like a small, inspectable state machine:
+
+```text
+current state
+    ↓
+bounded self-model
+    ↓
+contextual flux + optional seeded modulation
+    ↓
+proposal for change
+    ↓
+typed fusion into a provisional next state
+    ↓
+diagnostics + optional thresholded projection
+    ↓
+memory, consolidation, and recurrence
+```
+
+The invariant is:
+
+```text
 Ξ(ψ) = ψᴽ ⊕ Γ(ψ)
 ```
 
-`+` in older writing is typed fusion `⊕`. Not arithmetic.
+`ψᴽ` is the bounded reflexive projection, `Γ(ψ)` is the update carrier, and `⊕` is typed fusion. The `+` symbol found in older writing is a historical synonym for `⊕`, never arithmetic addition.
 
-## Live vs this repository
+## Repository map
 
-```
+| Path | Role |
+|---|---|
+| [`SKILL.md`](SKILL.md) | Authoritative public v1.0 operator contract and firewall |
+| [`src/engine.ts`](src/engine.ts) | Public Typed Realization A, locked to R¹² |
+| [`tests/determinism.ts`](tests/determinism.ts) | Determinism, ownership, ablation, hysteresis, and validation suite |
+| [`scripts/fetch-skill.sh`](scripts/fetch-skill.sh) | Download, validate, hash, and atomically replace the public skill |
+| [`skills/qoft-qosmos/SKILL.md`](skills/qoft-qosmos/SKILL.md) | Kernel v1.1 DEVELOP candidate, pending adoption |
+| [`docs/agent-skill.md`](docs/agent-skill.md) | Authority and version boundary between the two skill surfaces |
+| [`docs/RELEASE_PLAN.md`](docs/RELEASE_PLAN.md) | Stable and DEVELOP tag coordinates |
+| [`CHANGELOG.md`](CHANGELOG.md) | Versioned implementation and documentation history |
+
+## Public engine and live workbench
+
+```text
 SKILL.md
     ↓ shared operator contract / firewall
 src/engine.ts                 deployed Grok workbench
@@ -18,101 +82,81 @@ Public Typed Realization A    Typed Realization B
 (R¹² reference engine)        (interactive polar field)
 ```
 
-They share the SKILL.md contract but are **not** trajectory-equivalent under the same seed.
+They share the public contract but are **not trajectory-equivalent under the same seed**.
 
-Default seed `0x51e1d` (periodic):
+Default seed `0x51e1d` in periodic mode:
 
-| tick | Live app ρ | Public engine ρ |
-|------|------------|-----------------|
-| 1    | 0.664      | ~0.60           |
-| 5    | Λψ → closure | still rising  |
+| Tick | Live app ρ | Public engine ρ |
+|---:|---:|---:|
+| `1` | `0.664` | about `0.60` |
+| `5` | `Λψ → closure` | still rising |
 
-Do **not** assume `src/engine.ts` is the source deployed by the live workbench unless the exact deployed source is published here and verified.
+Do not assume `src/engine.ts` is the deployed workbench source unless that exact source is published and hash-verified.
 
-Live workbench: https://glyphogenic-calculus.grok.me  
-Skill endpoint: https://glyphogenic-calculus.grok.me/SKILL.md
+Live workbench: <https://glyphogenic-calculus.grok.me>  
+Public skill endpoint: <https://glyphogenic-calculus.grok.me/SKILL.md>
 
-## What this repo is
+## Agent skill versions
 
-| Path | Role |
-|---|---|
-| `SKILL.md` | Canonical skill / firewall / tick contract |
-| `src/engine.ts` | Labeled public R¹² Typed Realization A |
-| `tests/determinism.ts` | Contract + determinism + ablation suite |
-| `scripts/fetch-skill.sh` | Hardened download → validate → atomic replace |
+The root [`SKILL.md`](SKILL.md) remains the authoritative v1.0 contract used by Public Typed Realization A and by `scripts/fetch-skill.sh`.
 
-## Agent skill distribution
+The portable [`qoft-qosmos`](skills/qoft-qosmos/SKILL.md) skill packages a **Kernel v1.1 DEVELOP candidate** with focused references. Its implicit invocation is disabled and formal adoption is pending. It preserves:
 
-The portable [`qoft-qosmos`](skills/qoft-qosmos/SKILL.md) Agent Skill packages
-a Kernel v1.1 DEVELOP candidate and its focused references. **Status: pending
-formal adoption; implicit invocation is disabled.** It preserves:
-
-```
+```text
 Ξ(ψ) = ψᴽ ⊕ Γ(ψ; ctx)
 ⊕ : Ψᴽ × G → Ψ
 ```
 
-The root `SKILL.md` remains the authoritative v1.0 contract used by Public Typed
-Realization A and by `scripts/fetch-skill.sh`. The two files are versioned
-independently and must not be silently merged. Publishing the candidate beside
-v1.0 does not adopt or promote it. See
-[`docs/agent-skill.md`](docs/agent-skill.md) for the authority boundary.
+The two skill files are versioned independently. Publishing the candidate beside v1.0 does not silently merge, supersede, adopt, or promote it.
 
-## Operators (closed set)
+## Closed operator set
 
+```text
 Ξ  Πᴽ  Γ  ⊕  Λψ  Σ◯  Θλ  Ωµ  Π↺  Ψmeta  Φ  ρ
-
-Do not add glyphs. Compose the existing set.
-
-## Tick
-
 ```
+
+Do not add glyphs to this realization. Compose the existing set or declare a local helper without promoting it into the operator alphabet.
+
+## Reference tick
+
+```text
 ψᴽ = Πᴽ(ψ)
 Φ  = sampleFlux(Θλ(ψ))          // includes Ωµ Gaussian when active
 Γ  = gradient(Φ, ρ)
 ψ̃ = fuse(ψᴽ, Γ)                 // ⊕
-if ρ ≥ τ for dwell ticks (hysteresis): ψ ← Λψ(ψ̃)
-emit Ψmeta                       // after Λψ; entropy from final ψ
+if ρ ≥ τ for dwell ticks: ψ ← Λψ(ψ̃)
+emit Ψmeta                      // after Λψ; entropy from final ψ
 maybe Σ◯                         // mean-pool stateHistory window
 phase ← (phase + 1) mod 8
 ```
 
-Λψ must not write Πᴽ / selfModel. Πᴽ is the only licensed selfModel writer.
+`Λψ` must not write `Πᴽ` or `selfModel`. `Πᴽ` is the only licensed self-model writer.
 
-## Instantiation notes (Realization A)
+## Typed Realization A details
 
-- D is locked to 12 (R¹²). Other values are rejected.
-- ∇Φ proxy: `Φ − ψ`
-- ⊕ mix/gate formula as written in the skill
-- Ωµ: seeded Gaussian (Box–Muller), logged every tick
-- six basins: closure, insight, identity, tension, recall, threshold
-- hold = 6 means six full post-snap suppression ticks (next eligible at +7)
-- mesh IDs are monotonic (`nextMeshId`), unique past capacity
-- Σ◯ mean-pools latent history, not only a selfModel snapshot
+- state dimension `D` is locked to `12`; other dimensions are rejected;
+- the local `∇Φ` proxy is `Φ − ψ`;
+- `⊕` uses the mix/gate formula declared in the root skill;
+- `Ωµ` is seeded Gaussian modulation generated once per tick with Box-Muller and logged;
+- the six local basins are closure, insight, identity, tension, recall, and threshold;
+- `hold = 6` means six full post-snap suppression ticks, with the next eligible collapse at `+7`;
+- mesh IDs are monotonic and remain unique past capacity;
+- `Σ◯` mean-pools latent state history rather than only a self-model snapshot;
+- configuration validation rejects NaN, non-finite values, and non-integer count fields.
 
-## Run
-
-Node 22+:
-
-```
-npm install
-npm run typecheck
-npm test
-```
-
-Determinism uses default periodic. Collapse reachability / integrity / ablation use **basin** drive.
+Determinism uses the default periodic drive. Collapse reachability, integrity, and mechanism ablations use basin drive.
 
 ## Scope
 
-Operational model of observer-field recursion. Not a claim of physical equivalence to quantum collapse, light transport, or neuroscience.
+This repository is an operational model of typed observer-state recursion. It does not claim physical equivalence to quantum collapse, light transport, neuroscience, or consciousness.
 
 ## License
 
-This repository is licensed under the **Mozilla Public License 2.0** (MPL-2.0).
+This repository is licensed under the **Mozilla Public License 2.0**.
 
-- Modified QOFT source files must remain open under MPL-2.0.
-- Larger applications that incorporate this code may stay proprietary, provided the MPL-covered files themselves stay open and the license notices are preserved.
+- Modified MPL-covered QOFT source files must remain available under MPL-2.0.
+- Larger applications may remain proprietary, provided the MPL-covered files and notices are preserved as required by the license.
 
-See [LICENSE](LICENSE) for the full text.
+See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
 
 Copyright 2026 Donald Tuttle.
