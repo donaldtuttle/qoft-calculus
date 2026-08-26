@@ -78,12 +78,14 @@ The simulator does not duplicate the engine. Every transition calls `xiStep`:
 ```
 
 This is runtime truth for Public Typed Realization A, but it is not full v1.0
-tick-contract conformance. Root `SKILL.md` §§3 and 5 specify `Ψmeta` assessment
-before the collapse predicate, while this engine constructs the committed frame
-after optional `Λψ`. Root Section 1 also places `Σ◯` before `Λψ`, creating a
-separate source-contract order ambiguity. The repository records both facts
-without silently changing the frozen skill or engine; correction requires a
-versioned governance decision and new deterministic fixtures.
+tick-contract conformance. Root `SKILL.md` is internally contradictory: §3
+emits `Ψmeta` before `Λψ`; §4 and the §5 tick body explicitly emit it after
+`Λψ`; and the §5 public predicate signature accepts `meta` before collapse.
+Section 1 separately lists `Σ◯` before `Λψ`. Public A selects the post-collapse
+branch stated in §4 and the §5 body. The repository records that realization
+choice without silently changing the frozen skill or engine; resolution of the
+source contract requires a versioned governance decision and new deterministic
+fixtures.
 
 The UI field click does not mutate ψ. It queues the engine's existing `pulse`
 stimulus for exactly one committed tick and restores the selected persistent

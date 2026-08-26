@@ -54,13 +54,13 @@ not promote one track into another.
 
 ### Governance and reproducibility
 
-- recorded Public Typed Realization A's post-`Λψ` `Ψmeta` frame as a known
-  deviation from root `SKILL.md` §§3/5 and recorded the root v1.0 lifecycle
-  order ambiguity;
-- changed `fetch-skill.sh` to fail closed against the reviewed SHA-256 pin,
-  default to check-only, and require explicit `--apply` for replacement;
-- added offline contract tests for approved, drifted, and unapproved skill
-  refreshes;
+- recorded root `SKILL.md` v1.0's contradictory pre/post-collapse `Ψmeta`
+  instructions and Public Typed Realization A's disclosed selection of the
+  post-collapse branch;
+- changed `fetch-skill.sh` to fail closed against the reviewed SHA-256 pin while
+  preserving the root skill's no-argument refresh command and adding `--check`;
+- added portable SHA-256 selection, public file-mode preservation, and offline
+  contract tests for approved, drifted, and unapproved skill refreshes;
 - removed the retired Memory Weather development-branch workflow trigger and
   pinned release coordinates to immutable commits.
 

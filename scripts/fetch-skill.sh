@@ -1,5 +1,5 @@
 #!/bin/sh
-# Verify the approved public skill by default; replace it only with --apply.
+# Refresh only from the approved public skill; --check never writes.
 # Usage: sh scripts/fetch-skill.sh [--check|--apply]
 set -eu
 
@@ -8,7 +8,7 @@ TARGET="$REPO_ROOT/SKILL.md"
 URL=${QOFT_SKILL_URL:-https://glyphogenic-calculus.grok.me/SKILL.md}
 EXPECTED_SHA256='fedda471e07a876bdb72cb2424986ae3eec6d002d003a680b231ea8cbd246fbb'
 CLOSED_LINE='Ξ, Πᴽ, Γ, ⊕, Λψ, Σ◯, Θλ, Ωµ, Π↺, Ψmeta, Φ, ρ.'
-MODE=check
+MODE=apply
 
 usage() {
   echo "usage: sh scripts/fetch-skill.sh [--check|--apply]" >&2
@@ -20,7 +20,8 @@ if [ "$#" -gt 1 ]; then
 fi
 
 case "${1:-}" in
-  ""|--check) MODE=check ;;
+  "") MODE=apply ;;
+  --check) MODE=check ;;
   --apply) MODE=apply ;;
   *) usage; exit 64 ;;
 esac
@@ -28,7 +29,20 @@ esac
 # Create temp on the same filesystem as TARGET so mv is atomic.
 TMP=$(mktemp "${TARGET}.tmp.XXXXXX")
 cleanup() { rm -f "$TMP"; }
-trap cleanup EXIT HUP INT TERM
+trap cleanup 0 HUP INT TERM
+
+sha256_file() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | awk '{print $1}'
+  elif command -v shasum >/dev/null 2>&1; then
+    shasum -a 256 "$1" | awk '{print $1}'
+  elif command -v openssl >/dev/null 2>&1; then
+    openssl dgst -sha256 "$1" | awk '{print $NF}'
+  else
+    echo "ERROR: no SHA-256 tool found (sha256sum, shasum, or openssl)" >&2
+    exit 1
+  fi
+}
 
 echo "fetching $URL ..."
 if ! HTTP_CODE=$(curl -fsSL -w "%{http_code}" -o "$TMP" "$URL"); then
@@ -63,7 +77,7 @@ if command -v iconv >/dev/null 2>&1; then
   fi
 fi
 
-if ! head -1 "$TMP" | grep -q '^---$'; then
+if ! head -n 1 "$TMP" | grep -q '^---$'; then
   echo "ERROR: missing YAML frontmatter start" >&2
   exit 1
 fi
@@ -86,7 +100,7 @@ if grep -q "Ωµ’s" "$TMP"; then
   exit 1
 fi
 
-NEW_HASH=$(sha256sum "$TMP" | awk '{print $1}')
+NEW_HASH=$(sha256_file "$TMP")
 echo "downloaded SHA-256: $NEW_HASH"
 echo "approved   SHA-256: $EXPECTED_SHA256"
 
@@ -96,7 +110,7 @@ if [ "$NEW_HASH" != "$EXPECTED_SHA256" ]; then
 fi
 
 if [ -f "$TARGET" ]; then
-  OLD_HASH=$(sha256sum "$TARGET" | awk '{print $1}')
+  OLD_HASH=$(sha256_file "$TARGET")
   echo "repository SHA-256: $OLD_HASH"
   if [ "$NEW_HASH" = "$OLD_HASH" ]; then
     echo "approved skill present; no drift"
@@ -112,6 +126,7 @@ if [ "$MODE" = check ]; then
   exit 2
 fi
 
+chmod 0644 "$TMP"
 mv -f "$TMP" "$TARGET"
-trap - EXIT HUP INT TERM
+trap - 0 HUP INT TERM
 echo "wrote approved skill to $TARGET"

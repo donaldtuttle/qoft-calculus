@@ -123,7 +123,7 @@ The equation's early public form and subsequent type refinement are documented i
 | [`apps/simulator`](apps/simulator) | Original interactive visualizer around Public Typed Realization A |
 | [`apps/memory-weather`](apps/memory-weather) | Memory Weather v0.1.1 DEVELOP typed realization and auditable viewport |
 | [`apps/memory-weather-lab`](apps/memory-weather-lab) | React viewport of Memory Weather v0.1.1; same engine, not a replacement |
-| [`scripts/fetch-skill.sh`](scripts/fetch-skill.sh) | Verify the reviewed skill hash; replace only with explicit `--apply` |
+| [`scripts/fetch-skill.sh`](scripts/fetch-skill.sh) | Refresh only from the reviewed hash; use `--check` for a no-write audit |
 | [`skills/qoft-qosmos/SKILL.md`](skills/qoft-qosmos/SKILL.md) | Kernel v1.1 DEVELOP candidate, pending adoption |
 | [`docs/agent-skill.md`](docs/agent-skill.md) | Authority and version boundary between the two skill surfaces |
 | [`docs/RELEASE_PLAN.md`](docs/RELEASE_PLAN.md) | Stable and DEVELOP tag coordinates |
@@ -175,7 +175,7 @@ Public skill endpoint: <https://glyphogenic-calculus.grok.me/SKILL.md>
 
 ## Agent skill versions
 
-The root [`SKILL.md`](SKILL.md) remains the authoritative v1.0 contract used by Public Typed Realization A. `scripts/fetch-skill.sh` verifies that surface against a reviewed SHA-256 pin; it is check-only by default and replaces the file only with explicit `--apply`.
+The root [`SKILL.md`](SKILL.md) remains the authoritative v1.0 contract used by Public Typed Realization A. `scripts/fetch-skill.sh` preserves its documented no-argument refresh command, but writes only when the downloaded bytes match the reviewed SHA-256 pin; use `--check` for a no-write audit or `--apply` for an explicit refresh.
 
 The portable [`qoft-qosmos`](skills/qoft-qosmos/SKILL.md) skill packages a **Kernel v1.1 DEVELOP candidate** with focused references. Its implicit invocation is disabled and formal adoption is pending. It preserves:
 
@@ -207,13 +207,14 @@ maybe Σ◯                         // mean-pool stateHistory window
 phase ← (phase + 1) mod 8
 ```
 
-This block records Public Typed Realization A's implemented order. It constructs
-`Ψmeta` after optional `Λψ`. Root `SKILL.md` §§3 and 5 specify a pre-collapse
-assessment, while its Section 1 lifecycle places `Σ◯` before `Λψ`; that is a
-documented v1.0 order ambiguity. Until a versioned governance amendment and
-engine migration are reviewed, treat Public A's post-collapse frame as a known
-realization-level deviation. The tests establish the runtime invariants above,
-not complete tick-contract conformance.
+This block records Public Typed Realization A's implemented order. Root
+`SKILL.md` v1.0 is internally contradictory: §3 emits `Ψmeta` before `Λψ`, §4
+and the §5 tick body explicitly emit it after `Λψ`, and the §5 public predicate
+signature again accepts `meta` before collapse. Section 1 separately lists
+`Σ◯` before `Λψ`. Public A selects the post-collapse branch stated in §4 and the
+§5 body; this is a disclosed realization choice under an ambiguous contract,
+not a deviation from an unambiguous rule. The tests establish the runtime
+invariants above, not complete tick-contract conformance.
 
 `Λψ` must not write `Πᴽ` or `selfModel`. `Πᴽ` is the only licensed self-model writer.
 
