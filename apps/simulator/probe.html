@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Compact deterministic probe for QOFT Public Typed Realization A (R12). Every transition is delegated to the repository xiStep engine." />
+  <meta name="theme-color" content="#071014" />
+  <title>QOSMOS R¹² compact engine probe</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071014;
+      --panel: #0d1a22;
+      --panel-2: #101f28;
+      --line: #1d3038;
+      --line-hi: #2c4651;
+      --ink: #d9e7eb;
+      --mut: #7f97a0;
+      --dim: #6f8790;
+      --blue: #4da3ff;
+      --orange: #ff7a45;
+      --teal: #35c99a;
+      --red: #ff5c5c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      max-width: 600px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 16px 16px 40px;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    h1 { margin: 0; font-size: 17px; font-weight: 650; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .lab { color: var(--mut); font-size: 12px; }
+    .dim { color: var(--dim); }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+
+    .badge {
+      max-width: 255px;
+      overflow: hidden;
+      padding: 3px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--teal);
+      font-size: 11px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .engine-path {
+      margin: 5px 0 12px;
+      color: var(--dim);
+      font: 10px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .card {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+    }
+
+    .g2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    button,
+    select,
+    input { font: inherit; }
+
+    button,
+    select {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #12222b;
+      color: var(--ink);
+    }
+
+    button { padding: 9px 12px; cursor: pointer; }
+    button:hover { border-color: var(--line-hi); background: #172b35; }
+    button:active { transform: scale(0.98); }
+    button:disabled { cursor: not-allowed; opacity: 0.45; }
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible,
+    [role="button"]:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+    input[type="range"] { flex: 1; min-width: 0; accent-color: var(--blue); }
+    select { flex: 1; padding: 8px; }
+
+    label.chk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      color: var(--mut);
+      font-size: 13px;
+    }
+
+    .h {
+      margin: 18px 0 8px;
+      color: var(--dim);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metric { font-size: 22px; }
+
+    .ev {
+      padding: 5px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--mut);
+      font-size: 11px;
+    }
+
+    .ev:last-child { border-bottom: 0; }
+
+    pre {
+      max-height: 260px;
+      overflow: auto;
+      margin: 8px 0 0;
+      color: var(--mut);
+      font-size: 11px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    svg { display: block; width: 100%; }
+
+    #stage {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      cursor: crosshair;
+    }
+
+    .boundary {
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      color: var(--dim);
+      font-size: 10px;
+    }
+
+    @media (max-width: 420px) {
+      body { padding: 12px 12px 32px; }
+      .topline { align-items: flex-start; }
+      .top-actions { align-items: flex-end; flex-direction: column-reverse; }
+      .badge { max-width: 200px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topline">
+      <h1>QOSMOS R¹² compact probe</h1>
+      <div class="top-actions">
+        <a class="lab" href="./">full simulator</a>
+        <span class="badge" id="badge">engine: unavailable</span>
+      </div>
+    </div>
+    <div class="engine-path" id="engine-path">Awaiting verified engine binding; no fallback will start.</div>
+    <div class="mono lab">
+      t<span id="tick">—</span> · hash <span id="hash">--------</span> · trace <span id="digest">--------</span>
+    </div>
+  </header>
+
+  <main id="probe-surface" inert>
+  <div class="h">ψ state · ψᴽ self-model · Γ components</div>
+  <svg id="stage" viewBox="0 0 340 250" role="button" tabindex="-1" aria-disabled="true"
+       aria-describedby="stage-help" aria-label="Twelve-axis observer field; activate for a one-tick Phi pulse; while paused this advances one tick">
+    <g id="grid"></g>
+    <polygon id="p-self" fill="none" stroke="#7f97a0" stroke-width="1.5" stroke-dasharray="4 3"></polygon>
+    <polygon id="p-psi" fill="#4da3ff" fill-opacity="0.10" stroke="#4da3ff" stroke-width="2" stroke-linejoin="round"></polygon>
+    <g id="p-gamma"></g>
+    <g id="axis-labels"></g>
+  </svg>
+  <div class="lab" id="stage-help" style="margin-top:6px">Activate the stage to apply one engine-owned Φ pulse. While paused, it advances exactly one tick.</div>
+
+  <div class="g2" style="margin-top:10px">
+    <div class="card"><div class="lab">ρ coherence</div><div class="mono metric" id="rho">—</div></div>
+    <div class="card"><div class="lab">entropy</div><div class="mono metric" id="entropy">—</div></div>
+    <div class="card"><div class="lab">‖Γ‖ · cap 1.4</div><div class="mono metric" id="gamma">—</div></div>
+    <div class="card"><div class="lab">Σ◯ nodes · status</div><div class="mono metric" id="mesh">—</div></div>
+  </div>
+
+  <div class="h">ρ solid · entropy dashed · τ dotted</div>
+  <svg id="spark" viewBox="0 0 340 76" role="img" aria-labelledby="spark-title spark-desc"
+       style="border:1px solid var(--line);border-radius:10px;background:var(--panel)">
+    <title id="spark-title">Coherence and entropy telemetry</title>
+    <desc id="spark-desc">Engine binding required.</desc>
+    <line id="tau-line" x1="0" x2="340" stroke="#ff5c5c" stroke-width="1" stroke-dasharray="2 4"></line>
+    <polyline id="rho-line" fill="none" stroke="#4da3ff" stroke-width="2" stroke-linejoin="round"></polyline>
+    <polyline id="entropy-line" fill="none" stroke="#7f97a0" stroke-width="1.5" stroke-dasharray="4 3"></polyline>
+  </svg>
+  <div class="lab" id="summary" style="margin-top:6px">Engine binding required.</div>
+
+  <div class="h">controls · Space toggles run · stage Enter applies Φ</div>
+  <div class="g2">
+    <button id="play">run</button>
+    <button id="step">step</button>
+    <button id="pulse">Φ pulse</button>
+    <button id="reseed">reseed</button>
+  </div>
+  <div class="row"><label class="lab" for="tau" style="min-width:72px">τ collapse</label><input type="range" id="tau" min="0.40" max="0.99" step="0.01" value="0.78"><output class="mono" id="tau-out" for="tau" style="min-width:40px">0.78</output></div>
+  <div class="row"><label class="lab" for="gamma-scale" style="min-width:72px">Γ scale</label><input type="range" id="gamma-scale" min="0.05" max="0.80" step="0.01" value="0.32"><output class="mono" id="gamma-out" for="gamma-scale" style="min-width:40px">0.32</output></div>
+  <div class="row"><label class="lab" for="omega" style="min-width:72px">Ωµ amp</label><input type="range" id="omega" min="0" max="0.20" step="0.005" value="0.055"><output class="mono" id="omega-out" for="omega" style="min-width:40px">0.055</output></div>
+  <div class="row"><label class="lab" for="speed" style="min-width:72px">speed</label><input type="range" id="speed" min="1" max="30" step="1" value="12"><output class="mono" id="speed-out" for="speed" style="min-width:40px">12</output></div>
+  <div class="row"><label class="lab" for="mode" style="min-width:72px">Φ mode</label><select id="mode"></select></div>
+
+  <div class="h">ablations · an edit starts a fresh replayable run</div>
+  <div class="g2">
+    <label class="chk"><input type="checkbox" id="ab-memory" data-ablation="memory">Θλ off</label>
+    <label class="chk"><input type="checkbox" id="ab-omega" data-ablation="omega">Ωµ off</label>
+    <label class="chk"><input type="checkbox" id="ab-collapse" data-ablation="collapse">Λψ off</label>
+    <label class="chk"><input type="checkbox" id="ab-summarize" data-ablation="summarize">Σ◯ off</label>
+  </div>
+
+  <div class="h">Λψ events</div>
+  <div class="card" id="events" style="min-height:44px"><span class="lab">engine binding required</span></div>
+
+  <div class="h">trace + Realization A parity</div>
+  <div class="g2">
+    <button id="verify">verify current replay</button>
+    <button id="reference">64-tick A reference</button>
+    <button id="export" style="grid-column:1 / -1">export trace JSON</button>
+  </div>
+  <pre id="out" class="card" aria-live="polite"></pre>
+  </main>
+
+  <footer class="boundary">
+    Typed Realization A software telemetry only. The local trace digest is a probe helper, not a canonical field or cryptographic signature. No physical, quantum, neural, or consciousness claim is implied.
+  </footer>
+
+  <script type="module" src="/src/probe.ts"></script>
+</body>
+</html>

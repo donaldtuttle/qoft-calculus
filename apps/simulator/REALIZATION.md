@@ -8,6 +8,12 @@ This application is an interface around [`../../src/engine.ts`](../../src/engine
 It does not implement or claim trajectory equivalence with the separately
 deployed Grok workbench (Typed Realization B).
 
+The build exposes a full dashboard at `index.html` and a compact radar probe at
+`probe.html`. Both use the same `QosmosSession` adapter and `xiStep` transition
+path. The compact page has no copied numerical model, dynamic engine seam, or
+fallback realization; initialization failure stops the page instead of
+producing synthetic frames.
+
 ## Authority and evidence boundary
 
 The targeted type spine is:
@@ -75,6 +81,12 @@ stimulus for exactly one committed tick and restores the selected persistent
 stimulus immediately afterward. The export records the applied stimulus at
 every step, so the input schedule is replayable.
 
+The compact probe deliberately commits a one-tick pulse immediately when
+paused, matching its small step-oriented interaction. During playback the pulse
+waits for the next scheduled tick. The full dashboard keeps paused pulses queued
+until the user explicitly advances. Both paths still call `queuePulse()` and
+commit only through `QosmosSession.step()` or `tick()`.
+
 Changing τ, Γ scale, Ωµ amplitude, or an ablation starts a new run. Playback
 speed is presentation-only and does not start a new run.
 
@@ -83,6 +95,11 @@ bounded 256-frame window; the full trace is cloned only when the user exports
 or explicitly runs verification. Current-export verification reconstructs the
 session from its seed, fixed configuration, and per-tick stimulus schedule,
 then compares every frame, event, state sample, memory node, and hash.
+
+The compact probe additionally presents a chained FNV trace digest over the
+post-tick ψ hashes. This digest is a local UI/parity helper, not a QOFT operator,
+canonical field, or cryptographic authenticity claim. Its 64-tick default
+fixture must terminate at the root-engine pin `3ad463b1`.
 
 ## Local equations and constants
 
