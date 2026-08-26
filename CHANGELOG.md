@@ -18,6 +18,20 @@
   Realization A session/`xiStep` path, with no silent fallback;
 - added a pinned 64-tick reference, probe-local trace digest, direct
   session-versus-`xiStep` parity coverage, and fail-closed trace export.
+- added `apps/memory-weather` v0.1.1 on the retained simulator development
+  branch as a separate DEVELOP typed realization;
+- declared its `⟦·⟧MW` simulation interpretation, environment-indexed fusion
+  bridge, pre-predicate Ψmeta assessment, and scheduler-level Π↺ binding;
+- added projection provenance, a preregistered simultaneous-versus-staged
+  routing experiment, a dependency-free offline build, and 32 deterministic
+  regression tests;
+- added a dedicated Memory Weather CI workflow without changing `src/engine.ts`,
+  root `SKILL.md`, or the r2.2 candidate files.
+- added `apps/memory-weather-lab`, a React + Vite viewport of Memory Weather
+  v0.1.1 that copies the sibling engine factory bodies into ESM wrappers;
+- pinned lab replay to the published demo hash `mw-fnv64:e199888bbf930070` and
+  added a vendor-drift check so the vanilla HTML instrument stays the source of
+  truth.
 
 This work does not adopt the v1.1 candidate or change core engine behavior.
 

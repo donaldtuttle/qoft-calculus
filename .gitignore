@@ -1,4 +1,6 @@
 node_modules/
 dist/
+!apps/memory-weather/dist/
+!apps/memory-weather/dist/memory-weather.html
 .DS_Store
 *.log
