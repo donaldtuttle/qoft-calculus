@@ -39,10 +39,14 @@ not promote one track into another.
 
 ### Hosting
 
-- added a pinned GitHub Pages workflow for the dependency-free Memory Weather
-  artifact;
-- publication remains pending repository-owner Pages enablement, so no live
-  repository demo URL is claimed yet;
+- published the exact manifest-covered Memory Weather artifact, the full
+  Public A simulator, the compact no-fallback probe, and the React Memory
+  Weather viewport as distinct routes in one GitHub Pages artifact;
+- added a mobile-friendly app launcher and deterministic route/asset checks;
+- retained `/` and `/memory-weather.html` as compatibility redirects to the
+  exact manifest-covered artifact at `/memory-weather/`;
+- kept hosting strictly separate from realization identity: this packaging
+  changes no engine, trajectory contract, realization version, or canon status;
 - recorded the hosted QOSMOS R¹² probe at https://qosmos-r-12.grok.me
   (named-spine Realization A radar + operator guide at `/guide`); this is a
   Grok-hosted instrument, not a replacement for `apps/simulator` or the

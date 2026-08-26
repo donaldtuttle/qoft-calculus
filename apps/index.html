@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Executable browser instruments from the qoft-calculus repository.">
+    <meta name="theme-color" content="#071014">
+    <title>QOSMOS Research Apps</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #071014;
+        --panel-2: #10232d;
+        --line: #203943;
+        --ink: #e4f0f3;
+        --muted: #94aab2;
+        --cyan: #55b7ff;
+        --teal: #42d4aa;
+        --gold: #ffb86b;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 15% 0%, rgba(77, 163, 255, 0.14), transparent 32rem),
+          radial-gradient(circle at 90% 20%, rgba(53, 201, 154, 0.08), transparent 28rem),
+          var(--bg);
+        color: var(--ink);
+        font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      main { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 64px 0 48px; }
+      header { max-width: 760px; margin-bottom: 30px; }
+      .eyebrow { color: var(--teal); font: 700 12px/1.4 ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+      h1 { margin: 10px 0 12px; font-size: clamp(34px, 8vw, 64px); line-height: 1.02; letter-spacing: -0.04em; }
+      .equation { color: var(--cyan); font: 600 clamp(17px, 4vw, 23px)/1.4 ui-monospace, monospace; }
+      .intro { max-width: 700px; color: var(--muted); font-size: 17px; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .card {
+        display: flex;
+        min-height: 240px;
+        flex-direction: column;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: linear-gradient(145deg, rgba(16, 35, 45, 0.96), rgba(10, 24, 31, 0.96));
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+      }
+      .card:hover { transform: translateY(-3px); border-color: var(--cyan); background: var(--panel-2); }
+      .card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+      .tag { align-self: flex-start; padding: 4px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--teal); font: 700 11px/1.4 ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+      h2 { margin: 18px 0 8px; font-size: 23px; line-height: 1.2; }
+      .card p { margin: 0; color: var(--muted); }
+      .open { margin-top: auto; padding-top: 22px; color: var(--cyan); font-weight: 700; }
+      .boundary { margin-top: 24px; padding: 18px 20px; border-left: 3px solid var(--gold); background: rgba(255, 184, 107, 0.07); color: var(--muted); }
+      footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 30px; color: var(--muted); font-size: 13px; }
+      footer a { color: var(--cyan); }
+      @media (max-width: 700px) {
+        main { padding-top: 38px; }
+        .grid { grid-template-columns: 1fr; }
+        .card { min-height: 210px; }
+        footer { flex-direction: column; }
+      }
+      @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="eyebrow">qoft-calculus · executable browser instruments</div>
+        <h1>QOSMOS Research Apps</h1>
+        <div class="equation">Ξ(ψ) = ψᴽ ⊕ Γ(ψ; ctx)</div>
+        <p class="intro">Four inspectable interfaces, hosted together and kept rigorously distinct. Each runs locally in your browser; GitHub Pages provides static files, not a hidden server or daemon.</p>
+      </header>
+
+      <section class="grid" aria-label="Available applications">
+        <a class="card" href="../memory-weather/">
+          <span class="tag">DEVELOP · Memory Weather v0.1.1</span>
+          <h2>Memory Weather</h2>
+          <p>The dependency-free observer-field viewport with deterministic replay, projection provenance, and its own declared JavaScript realization.</p>
+          <span class="open">Open Memory Weather →</span>
+        </a>
+
+        <a class="card" href="../simulator/">
+          <span class="tag">Public Typed Realization A</span>
+          <h2>R¹² Simulator</h2>
+          <p>The full visualizer around the repository engine: live field state, Ψmeta telemetry, Λψ events, Σ◯ memory, ablations, export, and verification.</p>
+          <span class="open">Open full simulator →</span>
+        </a>
+
+        <a class="card" href="../simulator/probe.html">
+          <span class="tag">Public A · fallback disabled</span>
+          <h2>Compact Probe</h2>
+          <p>A focused radar and parity instrument on the same <code>QosmosSession → xiStep</code> path, with replay checks and a pinned 64-tick reference.</p>
+          <span class="open">Open compact probe →</span>
+        </a>
+
+        <a class="card" href="../memory-weather-lab/">
+          <span class="tag">DEVELOP · React viewport</span>
+          <h2>Memory Weather Lab</h2>
+          <p>A richer spatial viewport of the same Memory Weather engine and deterministic fixtures—not a third realization or replacement engine.</p>
+          <span class="open">Open research lab →</span>
+        </a>
+      </section>
+
+      <aside class="boundary">
+        Shared hosting is packaging only. It does not merge these engines, make their trajectories equivalent, confer canonical status, or identify them with the separate Grok Typed Realization B.
+      </aside>
+
+      <footer>
+        <span>Operational software models—not evidence of quantum physics, consciousness, or neural dynamics.</span>
+        <a href="https://github.com/donaldtuttle/qoft-calculus/tree/main/apps/">Inspect the source on GitHub</a>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -11,6 +11,8 @@ Two views ship from the same tested session adapter:
   standalone presentation concept, now wired to `QosmosSession → xiStep` with
   no inline engine or fallback dynamics.
 
+Live: [full simulator](https://donaldtuttle.github.io/qoft-calculus/simulator/) · [compact probe](https://donaldtuttle.github.io/qoft-calculus/simulator/probe.html)
+
 ## Run locally
 
 Requires Node 22.12.0 or newer (the minimum supported by the pinned Vite 8

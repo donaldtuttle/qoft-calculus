@@ -4,6 +4,7 @@
 ![Node 22.12+](https://img.shields.io/badge/Node-22.12%2B-339933?logo=nodedotjs&logoColor=white)
 ![Package 1.0.2](https://img.shields.io/badge/package-1.0.2-2563EB)
 ![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-6B7280)
+[![Pages](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/deploy-memory-weather-pages.yml/badge.svg)](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/deploy-memory-weather-pages.yml)
 [![Live probe](https://img.shields.io/badge/live-QOSMOS%20R12%20probe-4DA3FF)](https://qosmos-r-12.grok.me)
 
 > **The contract names the operators. The engine shows what they actually do.**
@@ -14,15 +15,23 @@
 
 | Surface | Realization | URL |
 |---|---|---|
+| **Repository app launcher** | hosting index; no engine | [donaldtuttle.github.io/qoft-calculus/apps](https://donaldtuttle.github.io/qoft-calculus/apps/) |
+| **Memory Weather** | v0.1.1 DEVELOP typed realization | [donaldtuttle.github.io/qoft-calculus/memory-weather](https://donaldtuttle.github.io/qoft-calculus/memory-weather/) |
+| **QOSMOS R¹² simulator** | Public Typed Realization A | [donaldtuttle.github.io/qoft-calculus/simulator](https://donaldtuttle.github.io/qoft-calculus/simulator/) |
+| **Compact repository probe** | Public A via `QosmosSession → xiStep`; no fallback | [simulator/probe.html](https://donaldtuttle.github.io/qoft-calculus/simulator/probe.html) |
+| **Memory Weather Lab** | sync-checked React viewport of the v0.1.1 Memory Weather realization | [memory-weather-lab](https://donaldtuttle.github.io/qoft-calculus/memory-weather-lab/) |
 | **QOSMOS R¹² probe** | named-spine Realization A + CE-9 Ω-map | [qosmos-r-12.grok.me](https://qosmos-r-12.grok.me) |
 | Operator guide | same probe | [qosmos-r-12.grok.me/guide](https://qosmos-r-12.grok.me/guide) |
 | Glyphogenic Calculus workbench | Typed Realization B | [glyphogenic-calculus.grok.me](https://glyphogenic-calculus.grok.me) |
 
-The probe is a 12-axis radar instrument: run / step / Φ pulse, independent ablations, spark telemetry, replay digest, and A/C parity. It is a **separate hosted surface** from both `apps/simulator` and the Realization B workbench, and it is **not** claimed trajectory-equivalent to `src/engine.ts` under the same seed.
+The four hosted repository interfaces run client-side from one GitHub Pages package; Pages supplies static files, not a Python daemon, persistent backend, or server-side state. The existing `/` and `/memory-weather.html` addresses remain compatibility redirects to the exact manifest-covered app at `/memory-weather/`. Shared hosting does not merge the engines, imply trajectory equivalence, confer canonical status, or identify any repository interface with the separate Grok Typed Realization B.
+
+The Grok-hosted probe is a 12-axis radar instrument: run / step / Φ pulse, independent ablations, spark telemetry, replay digest, and A/C parity. It is a **separate hosted surface** from both `apps/simulator` and the Realization B workbench, and it is **not** claimed trajectory-equivalent to `src/engine.ts` under the same seed.
 
 ## What you can do here
 
 - open the hosted [QOSMOS R¹² probe](https://qosmos-r-12.grok.me) without installing anything;
+- launch every hosted repository interface from the [QOSMOS Research Apps index](https://donaldtuttle.github.io/qoft-calculus/apps/);
 - run one concrete 12-dimensional realization with a fixed seed;
 - explore that realization in an interactive browser simulator;
 - run the separate Memory Weather v0.1.1 observer-field viewport offline;
@@ -49,6 +58,8 @@ The test suite pins deterministic behavior, operator ownership, hysteresis, conf
 
 Interactive simulator:
 
+Live: [full R¹² simulator](https://donaldtuttle.github.io/qoft-calculus/simulator/) · [compact probe](https://donaldtuttle.github.io/qoft-calculus/simulator/probe.html)
+
 ```bash
 cd apps/simulator
 npm ci
@@ -69,6 +80,8 @@ initialize and contains no synthetic fallback realization.
 
 Memory Weather viewport:
 
+Live: [Memory Weather v0.1.1](https://donaldtuttle.github.io/qoft-calculus/memory-weather/)
+
 ```bash
 cd apps/memory-weather
 npm run verify
@@ -82,6 +95,8 @@ provenance, staged-routing experiment, and deterministic replay fixtures. It
 does not replace the original simulator or the root TypeScript engine.
 
 React Memory Weather lab (same engine, same hashes):
+
+Live: [Memory Weather Lab](https://donaldtuttle.github.io/qoft-calculus/memory-weather-lab/)
 
 ```bash
 cd apps/memory-weather-lab
