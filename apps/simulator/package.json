@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "node --experimental-strip-types tests/session.ts",
+    "test": "node --experimental-strip-types tests/session.ts && node --experimental-strip-types tests/probe.ts",
     "verify:provenance": "node scripts/verify-provenance.mjs",
     "check": "npm run verify:provenance && npm run test && npm run build"
   },

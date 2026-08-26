@@ -48,6 +48,10 @@ determinism/integrity checks. See
 [`apps/simulator/REALIZATION.md`](apps/simulator/REALIZATION.md) for the exact
 canonical-target/runtime boundary.
 
+The same build includes `probe.html`, a compact radar and parity view wired to
+the identical `QosmosSession → xiStep` path. It fails closed if the engine cannot
+initialize and contains no synthetic fallback realization.
+
 ## The model in plain English
 
 Each tick behaves like a small, inspectable state machine:

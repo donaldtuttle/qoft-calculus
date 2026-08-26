@@ -14,6 +14,10 @@
 - added an `xiStep`-only session adapter, recorded one-tick Φ pulse scheduling,
   bounded event history, trace export, and browser-safe implementation checks;
 - added simulator tests and a dedicated CI build workflow.
+- added a compact `probe.html` entry point wired directly to the existing
+  Realization A session/`xiStep` path, with no silent fallback;
+- added a pinned 64-tick reference, probe-local trace digest, direct
+  session-versus-`xiStep` parity coverage, and fail-closed trace export.
 
 This work does not adopt the v1.1 candidate or change core engine behavior.
 

@@ -34,6 +34,7 @@ app.innerHTML = `
         <div class="status-chip"><span>phase</span><strong id="status-phase">0</strong></div>
         <div class="status-chip" id="status-mode"><span>engine</span><strong>paused</strong></div>
         <div class="status-chip"><span>hash</span><strong id="status-hash">—</strong></div>
+        <a class="status-chip status-link" href="./probe.html"><span>view</span><strong>probe</strong></a>
       </div>
     </header>
 

@@ -164,6 +164,20 @@ button {
   text-align: center;
 }
 
+.status-link {
+  text-decoration: none;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.status-link:hover {
+  border-color: var(--line-strong);
+  background: rgba(88, 215, 202, 0.08);
+}
+
+.status-link:focus-visible {
+  box-shadow: 0 0 0 2px #071014, 0 0 0 4px var(--cyan);
+}
+
 .status-chip strong {
   display: block;
   margin-top: 4px;
