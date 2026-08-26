@@ -4,13 +4,25 @@
 ![Node 22.12+](https://img.shields.io/badge/Node-22.12%2B-339933?logo=nodedotjs&logoColor=white)
 ![Package 1.0.2](https://img.shields.io/badge/package-1.0.2-2563EB)
 ![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-6B7280)
+[![Live probe](https://img.shields.io/badge/live-QOSMOS%20R12%20probe-4DA3FF)](https://qosmos-r-12.grok.me)
 
 > **The contract names the operators. The engine shows what they actually do.**
 
 `qoft-calculus` is a deterministic TypeScript reference engine and agent-facing contract for studying typed recursive state updates. It is for developers and researchers who want an inspectable implementation, ablations, and reproducible traces, not evidence that QOFT describes physics, consciousness, or neural dynamics.
 
+## Live demos
+
+| Surface | Realization | URL |
+|---|---|---|
+| **QOSMOS R¹² probe** | named-spine Realization A + CE-9 Ω-map | [qosmos-r-12.grok.me](https://qosmos-r-12.grok.me) |
+| Operator guide | same probe | [qosmos-r-12.grok.me/guide](https://qosmos-r-12.grok.me/guide) |
+| Glyphogenic Calculus workbench | Typed Realization B | [glyphogenic-calculus.grok.me](https://glyphogenic-calculus.grok.me) |
+
+The probe is a 12-axis radar instrument: run / step / Φ pulse, independent ablations, spark telemetry, replay digest, and A/C parity. It is a **separate hosted surface** from both `apps/simulator` and the Realization B workbench, and it is **not** claimed trajectory-equivalent to `src/engine.ts` under the same seed.
+
 ## What you can do here
 
+- open the hosted [QOSMOS R¹² probe](https://qosmos-r-12.grok.me) without installing anything;
 - run one concrete 12-dimensional realization with a fixed seed;
 - explore that realization in an interactive browser simulator;
 - run the separate Memory Weather v0.1.1 observer-field viewport offline;
@@ -106,10 +118,10 @@ memory, consolidation, and recurrence
 The invariant is:
 
 ```text
-Ξ(ψ) = ψᴽ ⊕ Γ(ψ)
+Ξ(ψ) = ψ꜍ ⊕ Γ(ψ)
 ```
 
-`ψᴽ` is the bounded reflexive projection, `Γ(ψ)` is the update carrier, and `⊕` is typed fusion. The `+` symbol found in older writing is a historical synonym for `⊕`, never arithmetic addition.
+`ψ꜍` is the bounded reflexive projection, `Γ(ψ)` is the update carrier, and `⊕` is typed fusion. The `+` symbol found in older writing is a historical synonym for `⊕`, never arithmetic addition.
 
 The equation's early public form and subsequent type refinement are documented in [`QOFT_Scaffold_Public`](https://github.com/donaldtuttle/QOFT_Scaffold_Public/blob/main/CALCULUS_EVOLUTION.md). That scaffold is a historical genealogy artifact, not an authority surface for either skill version or a conformant implementation of Public Typed Realization A.
 
@@ -143,6 +155,9 @@ Memory Weather v0.1.1 DEVELOP typed realization
 apps/memory-weather-lab
 React viewport of that same v0.1.1 engine
 
+QOSMOS R¹² probe (Grok-hosted)
+named-spine Realization A radar instrument
+
 separate deployed Grok workbench
 Typed Realization B
 ```
@@ -151,6 +166,11 @@ The repository simulator is a new interface around `src/engine.ts` and therefore
 uses Realization A trajectories. The Grok workbench remains separate Typed
 Realization B; the two realizations are **not trajectory-equivalent under the
 same seed**.
+
+The hosted QOSMOS R¹² probe is a Grok-published radar instrument on the
+named-spine Realization A path (Π꜍ Θλ Ωµ Φ Γ ⊕ ρ Λψ Σ◯ + CE-9 Ω-map). It is
+not a replacement for `apps/simulator`, and it is not claimed to be byte-identical
+to `src/engine.ts`.
 
 Memory Weather has its own declared interpretation map into `Ψsim`, explicit
 projection provenance, and realization-local fusion policy. Its structural
@@ -170,6 +190,8 @@ Default seed `0x51e1d` in periodic mode:
 
 Do not assume `src/engine.ts` is the deployed workbench source unless that exact source is published and hash-verified.
 
+QOSMOS R¹² probe (named-spine Realization A): <https://qosmos-r-12.grok.me>  
+Operator guide: <https://qosmos-r-12.grok.me/guide>  
 Grok Typed Realization B: <https://glyphogenic-calculus.grok.me>  
 Public skill endpoint: <https://glyphogenic-calculus.grok.me/SKILL.md>
 
@@ -180,8 +202,8 @@ The root [`SKILL.md`](SKILL.md) remains the authoritative v1.0 contract used by 
 The portable [`qoft-qosmos`](skills/qoft-qosmos/SKILL.md) skill packages a **Kernel v1.1 DEVELOP candidate** with focused references. Its implicit invocation is disabled and formal adoption is pending. It preserves:
 
 ```text
-Ξ(ψ) = ψᴽ ⊕ Γ(ψ; ctx)
-⊕ : Ψᴽ × G → Ψ
+Ξ(ψ) = ψ꜍ ⊕ Γ(ψ; ctx)
+⊕ : Ψ꜍ × G → Ψ
 ```
 
 The two skill files are versioned independently. Publishing the candidate beside v1.0 does not silently merge, supersede, adopt, or promote it.
@@ -189,7 +211,7 @@ The two skill files are versioned independently. Publishing the candidate beside
 ## Closed operator set
 
 ```text
-Ξ  Πᴽ  Γ  ⊕  Λψ  Σ◯  Θλ  Ωµ  Π↺  Ψmeta  Φ  ρ
+Ξ  Π꜍  Γ  ⊕  Λψ  Σ◯  Θλ  Ωµ  Π↺  Ψmeta  Φ  ρ
 ```
 
 Do not add glyphs to this realization. Compose the existing set or declare a local helper without promoting it into the operator alphabet.
@@ -197,10 +219,10 @@ Do not add glyphs to this realization. Compose the existing set or declare a loc
 ## Reference tick
 
 ```text
-ψᴽ = Πᴽ(ψ)
+ψ꜍ = Π꜍(ψ)
 Φ  = sampleFlux(Θλ(ψ))          // includes Ωµ Gaussian when active
 Γ  = gradient(Φ, ρ)
-ψ̃ = fuse(ψᴽ, Γ)                 // ⊕
+ψ̃ = fuse(ψ꜍, Γ)                 // ⊕
 if ρ ≥ τ for dwell ticks: ψ ← Λψ(ψ̃)
 emit Ψmeta                      // after Λψ; entropy from final ψ
 maybe Σ◯                         // mean-pool stateHistory window
@@ -216,7 +238,7 @@ signature again accepts `meta` before collapse. Section 1 separately lists
 not a deviation from an unambiguous rule. The tests establish the runtime
 invariants above, not complete tick-contract conformance.
 
-`Λψ` must not write `Πᴽ` or `selfModel`. `Πᴽ` is the only licensed self-model writer.
+`Λψ` must not write `Π꜍` or `selfModel`. `Π꜍` is the only licensed self-model writer.
 
 ## Typed Realization A details
 

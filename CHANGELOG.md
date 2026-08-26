@@ -42,7 +42,12 @@ not promote one track into another.
 - added a pinned GitHub Pages workflow for the dependency-free Memory Weather
   artifact;
 - publication remains pending repository-owner Pages enablement, so no live
-  repository demo URL is claimed yet.
+  repository demo URL is claimed yet;
+- recorded the hosted QOSMOS R¹² probe at https://qosmos-r-12.grok.me
+  (named-spine Realization A radar + operator guide at `/guide`); this is a
+  Grok-hosted instrument, not a replacement for `apps/simulator` or the
+  Realization B workbench, and no trajectory-equivalence claim is made against
+  `src/engine.ts`.
 
 ### Memory Weather Lab
 
