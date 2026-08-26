@@ -81,6 +81,12 @@ stimulus for exactly one committed tick and restores the selected persistent
 stimulus immediately afterward. The export records the applied stimulus at
 every step, so the input schedule is replayable.
 
+The compact probe deliberately commits a one-tick pulse immediately when
+paused, matching its small step-oriented interaction. During playback the pulse
+waits for the next scheduled tick. The full dashboard keeps paused pulses queued
+until the user explicitly advances. Both paths still call `queuePulse()` and
+commit only through `QosmosSession.step()` or `tick()`.
+
 Changing τ, Γ scale, Ωµ amplitude, or an ablation starts a new run. Playback
 speed is presentation-only and does not start a new run.
 

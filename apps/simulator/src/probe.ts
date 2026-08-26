@@ -244,7 +244,7 @@ function boot(): void {
     stage.tabIndex = atLimit ? -1 : 0;
     stage.setAttribute(
       "aria-label",
-      `Twelve-axis observer field at tick ${snapshot.psi.t}; coherence ${rho.toFixed(3)}; ${snapshot.pulsePending ? "Phi pulse queued" : "activate for one Phi pulse"}.`,
+      `Twelve-axis observer field at tick ${snapshot.psi.t}; coherence ${rho.toFixed(3)}; ${snapshot.pulsePending ? "Phi pulse queued" : "activate for one Phi pulse; while paused this advances one tick"}.`,
     );
 
     required<HTMLInputElement>("tau").value = String(snapshot.config.tau);
@@ -317,7 +317,7 @@ function boot(): void {
     }
   }
 
-  function queuePulse(): void {
+  function applyPulse(): void {
     if (atTickLimit()) return;
     try {
       session.queuePulse();
@@ -362,7 +362,7 @@ function boot(): void {
 
   required<HTMLButtonElement>("play").addEventListener("click", togglePlay);
   required<HTMLButtonElement>("step").addEventListener("click", stepOnce);
-  required<HTMLButtonElement>("pulse").addEventListener("click", queuePulse);
+  required<HTMLButtonElement>("pulse").addEventListener("click", applyPulse);
   required<HTMLButtonElement>("reseed").addEventListener("click", () => {
     const seed = new Uint32Array(1);
     crypto.getRandomValues(seed);
@@ -415,12 +415,12 @@ function boot(): void {
   });
 
   const stage = required<SVGSVGElement>("stage");
-  stage.addEventListener("click", queuePulse);
+  stage.addEventListener("click", applyPulse);
   stage.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       event.stopPropagation();
-      queuePulse();
+      applyPulse();
     }
   });
 
@@ -488,16 +488,9 @@ function boot(): void {
     if (event.defaultPrevented) return;
     const target = event.target as HTMLElement | null;
     if (target?.closest("input, textarea, select, button, a[href], [role='button'], [contenteditable='true']")) return;
-    const key = event.key.toLowerCase();
     if (event.code === "Space") {
       event.preventDefault();
       togglePlay();
-    } else if (key === "s") {
-      event.preventDefault();
-      stepOnce();
-    } else if (key === "p") {
-      event.preventDefault();
-      queuePulse();
     }
   });
 

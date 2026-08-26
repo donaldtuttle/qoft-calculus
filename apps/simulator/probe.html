@@ -199,14 +199,14 @@
   <main id="probe-surface" inert>
   <div class="h">ψ state · ψᴽ self-model · Γ components</div>
   <svg id="stage" viewBox="0 0 340 250" role="button" tabindex="-1" aria-disabled="true"
-       aria-describedby="stage-help" aria-label="Twelve-axis observer field; activate for a one-tick Phi pulse">
+       aria-describedby="stage-help" aria-label="Twelve-axis observer field; activate for a one-tick Phi pulse; while paused this advances one tick">
     <g id="grid"></g>
     <polygon id="p-self" fill="none" stroke="#7f97a0" stroke-width="1.5" stroke-dasharray="4 3"></polygon>
     <polygon id="p-psi" fill="#4da3ff" fill-opacity="0.10" stroke="#4da3ff" stroke-width="2" stroke-linejoin="round"></polygon>
     <g id="p-gamma"></g>
     <g id="axis-labels"></g>
   </svg>
-  <div class="lab" id="stage-help" style="margin-top:6px">Click the stage or press P to queue one engine-owned Φ pulse.</div>
+  <div class="lab" id="stage-help" style="margin-top:6px">Activate the stage to apply one engine-owned Φ pulse. While paused, it advances exactly one tick.</div>
 
   <div class="g2" style="margin-top:10px">
     <div class="card"><div class="lab">ρ coherence</div><div class="mono metric" id="rho">—</div></div>
@@ -226,7 +226,7 @@
   </svg>
   <div class="lab" id="summary" style="margin-top:6px">Engine binding required.</div>
 
-  <div class="h">controls · Space run · S step · P pulse</div>
+  <div class="h">controls · Space toggles run · stage Enter applies Φ</div>
   <div class="g2">
     <button id="play">run</button>
     <button id="step">step</button>
