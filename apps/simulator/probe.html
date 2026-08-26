@@ -16,7 +16,7 @@
       --line-hi: #2c4651;
       --ink: #d9e7eb;
       --mut: #7f97a0;
-      --dim: #4d6570;
+      --dim: #6f8790;
       --blue: #4da3ff;
       --orange: #ff7a45;
       --teal: #35c99a;
@@ -187,17 +187,18 @@
       <h1>QOSMOS R¹² compact probe</h1>
       <div class="top-actions">
         <a class="lab" href="./">full simulator</a>
-        <span class="badge" id="badge">engine: loading…</span>
+        <span class="badge" id="badge">engine: unavailable</span>
       </div>
     </div>
-    <div class="engine-path" id="engine-path">binding engine…</div>
+    <div class="engine-path" id="engine-path">Awaiting verified engine binding; no fallback will start.</div>
     <div class="mono lab">
       t<span id="tick">0</span> · h <span id="hash">--------</span> · trace <span id="digest">00000000</span>
     </div>
   </header>
 
+  <main id="probe-surface" inert>
   <div class="h">ψ state · ψᴽ self-model · Γ components</div>
-  <svg id="stage" viewBox="0 0 340 250" role="button" tabindex="0"
+  <svg id="stage" viewBox="0 0 340 250" role="button" tabindex="-1" aria-disabled="true"
        aria-describedby="stage-help" aria-label="Twelve-axis observer field; activate for a one-tick Phi pulse">
     <g id="grid"></g>
     <polygon id="p-self" fill="none" stroke="#7f97a0" stroke-width="1.5" stroke-dasharray="4 3"></polygon>
@@ -223,7 +224,7 @@
     <polyline id="rho-line" fill="none" stroke="#4da3ff" stroke-width="2" stroke-linejoin="round"></polyline>
     <polyline id="entropy-line" fill="none" stroke="#7f97a0" stroke-width="1.5" stroke-dasharray="4 3"></polyline>
   </svg>
-  <div class="lab" id="summary" aria-live="polite" style="margin-top:6px">Awaiting first committed tick.</div>
+  <div class="lab" id="summary" style="margin-top:6px">Awaiting first committed tick.</div>
 
   <div class="h">controls · Space run · S step · P pulse</div>
   <div class="g2">
@@ -256,6 +257,7 @@
     <button id="export" style="grid-column:1 / -1">export trace JSON</button>
   </div>
   <pre id="out" class="card" aria-live="polite"></pre>
+  </main>
 
   <footer class="boundary">
     Typed Realization A software telemetry only. The local trace digest is a probe helper, not a canonical field or cryptographic signature. No physical, quantum, neural, or consciousness claim is implied.

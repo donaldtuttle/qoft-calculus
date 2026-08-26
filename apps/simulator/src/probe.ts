@@ -86,7 +86,7 @@ function drawRadarGrid(): void {
       y: (CY + Math.sin(angle) * (R + 16) + 4).toFixed(1),
       "text-anchor": "middle",
       "font-size": "11",
-      fill: "#4d6570",
+      fill: "#6f8790",
     });
     label.textContent = String(index + 1);
     labelNodes.push(label);
@@ -105,11 +105,12 @@ function sparkPoints(frames: readonly PsiMetaFrame[], field: "rho" | "entropy"):
 }
 
 function disableEngineControls(message: string): void {
+  required<HTMLElement>("probe-surface").setAttribute("inert", "");
   document.querySelectorAll<HTMLButtonElement | HTMLInputElement | HTMLSelectElement>("button, input, select")
     .forEach((control) => { control.disabled = true; });
   const stage = required<SVGSVGElement>("stage");
   stage.setAttribute("aria-disabled", "true");
-  stage.removeAttribute("tabindex");
+  stage.tabIndex = -1;
   required<HTMLElement>("badge").textContent = "engine: unavailable";
   required<HTMLElement>("engine-path").textContent = "No fallback was started.";
   required<HTMLElement>("summary").textContent = message;
@@ -179,10 +180,12 @@ function boot(): void {
     const holdTicks = probeHoldTicks(snapshot);
     const regime = latest?.collapseTriggered
       ? "Λψ"
+      : !snapshot.config.ablations.collapse
+        ? "Λψ off"
       : holdTicks > 0
         ? `hold ${holdTicks}`
         : rho >= snapshot.config.tau
-          ? "near-Λψ"
+          ? "ρ≥τ"
           : "drift";
 
     required<SVGPolygonElement>("p-psi").setAttribute("points", radarPoints(snapshot.psi.latent));
@@ -236,8 +239,10 @@ function boot(): void {
     play.disabled = atLimit;
     required<HTMLButtonElement>("step").disabled = atLimit;
     required<HTMLButtonElement>("pulse").disabled = atLimit;
-    required<SVGSVGElement>("stage").setAttribute("aria-disabled", String(atLimit));
-    required<SVGSVGElement>("stage").setAttribute(
+    const stage = required<SVGSVGElement>("stage");
+    stage.setAttribute("aria-disabled", String(atLimit));
+    stage.tabIndex = atLimit ? -1 : 0;
+    stage.setAttribute(
       "aria-label",
       `Twelve-axis observer field at tick ${snapshot.psi.t}; coherence ${rho.toFixed(3)}; ${snapshot.pulsePending ? "Phi pulse queued" : "activate for one Phi pulse"}.`,
     );
@@ -284,13 +289,25 @@ function boot(): void {
     }, 1000 / ticksPerSecond);
   }
 
+  function atTickLimit(): boolean {
+    const snapshot = session.snapshot();
+    if (snapshot.frameCount < snapshot.maxTicks) return false;
+    session.pause();
+    stopTimer();
+    report(`Reached the ${snapshot.maxTicks}-tick safety limit. Reset or reseed before advancing.`);
+    draw();
+    return true;
+  }
+
   function togglePlay(): void {
+    if (atTickLimit()) return;
     session.togglePlaying();
     draw();
     syncTimer();
   }
 
   function stepOnce(): void {
+    if (atTickLimit()) return;
     session.pause();
     stopTimer();
     try {
@@ -301,6 +318,7 @@ function boot(): void {
   }
 
   function queuePulse(): void {
+    if (atTickLimit()) return;
     try {
       session.queuePulse();
       if (session.snapshot().playing) draw();
@@ -486,6 +504,12 @@ function boot(): void {
   window.addEventListener("beforeunload", stopTimer);
   drawRadarGrid();
   draw();
+  required<HTMLElement>("probe-surface").removeAttribute("inert");
 }
 
-boot();
+try {
+  boot();
+} catch (error) {
+  const detail = error instanceof Error ? error.message : "Unknown compact probe startup error";
+  disableEngineControls(`Engine unavailable: ${detail}`);
+}
