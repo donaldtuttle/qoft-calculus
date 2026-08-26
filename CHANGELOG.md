@@ -14,6 +14,15 @@
 - added an `xiStep`-only session adapter, recorded one-tick Φ pulse scheduling,
   bounded event history, trace export, and browser-safe implementation checks;
 - added simulator tests and a dedicated CI build workflow.
+- added `apps/memory-weather` v0.1.1 on the retained simulator development
+  branch as a separate DEVELOP typed realization;
+- declared its `⟦·⟧MW` simulation interpretation, environment-indexed fusion
+  bridge, pre-predicate Ψmeta assessment, and scheduler-level Π↺ binding;
+- added projection provenance, a preregistered simultaneous-versus-staged
+  routing experiment, a dependency-free offline build, and 32 deterministic
+  regression tests;
+- added a dedicated Memory Weather CI workflow without changing `src/engine.ts`,
+  root `SKILL.md`, or the r2.2 candidate files.
 
 This work does not adopt the v1.1 candidate or change core engine behavior.
 

@@ -13,6 +13,7 @@
 
 - run one concrete 12-dimensional realization with a fixed seed;
 - explore that realization in an interactive browser simulator;
+- run the separate Memory Weather v0.1.1 observer-field viewport offline;
 - inspect every tick, diagnostic frame, collapse event, memory update, and regime change;
 - disable individual mechanisms and test whether behavior changes;
 - verify self-model ownership, hysteresis, deterministic noise, and configuration rejection;
@@ -47,6 +48,20 @@ collapse hashes, the Σ◯ memory mesh, trace export, and browser-safe
 determinism/integrity checks. See
 [`apps/simulator/REALIZATION.md`](apps/simulator/REALIZATION.md) for the exact
 canonical-target/runtime boundary.
+
+Memory Weather viewport:
+
+```bash
+cd apps/memory-weather
+npm run verify
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000`, or open the dependency-free
+`apps/memory-weather/dist/memory-weather.html` directly. Memory Weather is a
+separate DEVELOP typed realization with its own JavaScript engine, projection
+provenance, staged-routing experiment, and deterministic replay fixtures. It
+does not replace the original simulator or the root TypeScript engine.
 
 ## The model in plain English
 
@@ -86,19 +101,23 @@ The equation's early public form and subsequent type refinement are documented i
 | [`src/engine.ts`](src/engine.ts) | Public Typed Realization A, locked to R¹² |
 | [`tests/determinism.ts`](tests/determinism.ts) | Determinism, ownership, ablation, hysteresis, and validation suite |
 | [`apps/simulator`](apps/simulator) | Original interactive visualizer around Public Typed Realization A |
+| [`apps/memory-weather`](apps/memory-weather) | Memory Weather v0.1.1 DEVELOP typed realization and auditable viewport |
 | [`scripts/fetch-skill.sh`](scripts/fetch-skill.sh) | Download, validate, hash, and atomically replace the public skill |
 | [`skills/qoft-qosmos/SKILL.md`](skills/qoft-qosmos/SKILL.md) | Kernel v1.1 DEVELOP candidate, pending adoption |
 | [`docs/agent-skill.md`](docs/agent-skill.md) | Authority and version boundary between the two skill surfaces |
 | [`docs/RELEASE_PLAN.md`](docs/RELEASE_PLAN.md) | Stable and DEVELOP tag coordinates |
 | [`CHANGELOG.md`](CHANGELOG.md) | Versioned implementation and documentation history |
 
-## Public engine, repository simulator, and Grok workbench
+## Public engine, repository apps, and Grok workbench
 
 ```text
 root SKILL.md v1.0
     ↓ public operator contract / firewall
 src/engine.ts ── apps/simulator
 Public Typed Realization A
+
+apps/memory-weather
+Memory Weather v0.1.1 DEVELOP typed realization
 
 separate deployed Grok workbench
 Typed Realization B
@@ -108,6 +127,12 @@ The repository simulator is a new interface around `src/engine.ts` and therefore
 uses Realization A trajectories. The Grok workbench remains separate Typed
 Realization B; the two realizations are **not trajectory-equivalent under the
 same seed**.
+
+Memory Weather has its own declared interpretation map into `Ψsim`, explicit
+projection provenance, and realization-local fusion policy. Its structural
+compatibility with the r2.2 type spine is not a claim of trajectory equivalence
+with either Public Typed Realization A or the Grok workbench, and it carries no
+canonical weight.
 
 Default seed `0x51e1d` in periodic mode:
 
