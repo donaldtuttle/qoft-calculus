@@ -51,11 +51,12 @@ remain in [`apps/memory-weather/docs`](../memory-weather/docs).
 
 ## Controls
 
-Transport, layers, inscription, Θλ recall, Λψ, observer B, replay import/export,
-and keyboard shortcuts (`Space`, `.`, `R`, `1`/`2`/`3`) match the sibling
-viewport. Clicking the 2D field supplies a realization-local forcing target
-through the declared inverse projection; ten hidden components receive no
-invented information.
+Transport, layers, inscription, Θλ recall, Λψ, observer B, and replay
+import/export match the sibling viewport. `Space` toggles run/pause when focus
+is outside an interactive control. Step, reset, and view changes use explicit
+buttons. X/Y sliders provide keyboard forcing coordinates, and four buttons
+provide keyboard terrain orbit. Clicking the 2D field remains available for
+pointer forcing. Ten hidden components receive no invented information.
 
 ## Engine copies
 

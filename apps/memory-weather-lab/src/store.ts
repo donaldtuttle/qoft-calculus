@@ -62,6 +62,8 @@ export const ABLATION_KEYS = [
   ["reflexAdaptation", "Πᴽ adaptation"],
 ] as const;
 
+export const PUBLISHED_DEMO_HASH = "mw-fnv64:e199888bbf930070";
+
 export const SCALAR_OPTIONS: { value: ScalarMode; label: string }[] = [
   { value: "weather", label: "Weather composite" },
   { value: "potential", label: "Attractor potential" },
@@ -110,6 +112,12 @@ function cloneConfig(seed: number, ui: LabState) {
   };
 }
 
+function uiAblationsFromState(state: any) {
+  return Object.fromEntries(
+    ABLATION_KEYS.map(([key]) => [key, Boolean(state.config.ablations[key])]),
+  );
+}
+
 function playDemo(config: Record<string, unknown>) {
   const state = Engine.createState(config);
   Engine.inscribeMemory(state, "observer field", 1.15);
@@ -127,8 +135,18 @@ function playDemo(config: Record<string, unknown>) {
   return state;
 }
 
+export function createPublishedDemo() {
+  const state = playDemo({ seed: 12062026 });
+  if (state.currentHash !== PUBLISHED_DEMO_HASH) {
+    throw new Error(
+      `Published demo drift: expected ${PUBLISHED_DEMO_HASH}, received ${state.currentHash}`,
+    );
+  }
+  return state;
+}
+
 const initialProjection = Projection.createProjection();
-const initialState = playDemo({ seed: 12062026 });
+const initialState = createPublishedDemo();
 const initialField = Field.buildField(initialState, initialProjection, { size: 45 });
 
 
@@ -415,8 +433,7 @@ export const useLab = create<LabState>((set, get) => ({
     }
   },
   loadDemo: () => {
-    const ui = get();
-    sim.state = playDemo(cloneConfig(12062026, ui));
+    sim.state = createPublishedDemo();
     sim.peerState = null;
     sim.currentForcing = null;
     sim.selectedEvent = null;
@@ -428,8 +445,10 @@ export const useLab = create<LabState>((set, get) => ({
       stimulusMode: sim.state.ctx.stimulusMode,
       amplitude: sim.state.ctx.stimulusAmplitude,
       selectedBasin: sim.state.ctx.selectedBasin,
+      coupling: sim.state.config.couplingStrength,
+      ablations: uiAblationsFromState(sim.state),
       selectedPoint: null,
-      toast: "Loaded the deterministic 96-tick demonstration run.",
+      toast: "Loaded the pinned deterministic 96-tick demonstration run.",
       rev: s.rev + 1,
     }));
   },

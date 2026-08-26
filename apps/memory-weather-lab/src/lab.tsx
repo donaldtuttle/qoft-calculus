@@ -1,4 +1,5 @@
 import { useEffect, type ChangeEvent } from "react";
+import { routeGlobalKey } from "./keyboard";
 import { Viewport } from "./viewport";
 import {
   ABLATION_KEYS,
@@ -161,20 +162,15 @@ export function Lab() {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      const tag = document.activeElement && (document.activeElement as HTMLElement).tagName;
-      if (["INPUT", "SELECT", "TEXTAREA", "BUTTON"].includes(tag || "")) return;
-      if (event.code === "Space") {
+      const action = routeGlobalKey(event.code, event.target as HTMLElement | null);
+      if (action === "toggle-run") {
         event.preventDefault();
         setRunning(!useLab.getState().running);
-      } else if (event.key === ".") stepOnce();
-      else if (event.key.toLowerCase() === "r") resetEngine();
-      else if (event.key === "1") setView("weather");
-      else if (event.key === "2") setView("field");
-      else if (event.key === "3") setView("terrain");
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [resetEngine, setRunning, setView, stepOnce]);
+  }, [setRunning]);
 
   const frame = latestFrame();
   const weather = frame ? frame.weather : { label: "Unformed field", rationale: "No committed tick yet" };
@@ -204,7 +200,13 @@ export function Lab() {
           <span className={`status-chip live${running ? " running" : ""}`}>{running ? "running" : "paused"}</span>
         </div>
         <div className="transport" aria-label="Simulation transport">
-          <button className="primary" type="button" aria-pressed={running} onClick={() => setRunning(!running)}>
+          <button
+            className="primary"
+            type="button"
+            aria-pressed={running}
+            aria-keyshortcuts="Space"
+            onClick={() => setRunning(!running)}
+          >
             <span aria-hidden="true">{running ? "Ⅱ" : "▶"}</span> {running ? "Pause" : "Run"}
           </button>
           <button type="button" onClick={() => stepOnce()}>
@@ -368,6 +370,20 @@ function ForcingControls() {
   const setAmplitude = useLab((s) => s.setAmplitude);
   const selectedBasin = useLab((s) => s.selectedBasin);
   const setSelectedBasin = useLab((s) => s.setSelectedBasin);
+  const selectedPoint = useLab((s) => s.selectedPoint);
+  const pickPoint = useLab((s) => s.pickPoint);
+  const extent = Number(sim.field.spec.extent);
+  const forcingX = selectedPoint?.x ?? 0;
+  const forcingY = selectedPoint?.y ?? 0;
+  const setForcingCoordinate = (axis: "x" | "y", value: number) => {
+    pickPoint(
+      {
+        x: axis === "x" ? value : forcingX,
+        y: axis === "y" ? value : forcingY,
+      },
+      null,
+    );
+  };
 
   return (
     <section>
@@ -405,9 +421,40 @@ function ForcingControls() {
           ))}
         </select>
       </label>
+      <div className="coordinate-grid" role="group" aria-label="Viewport forcing coordinates">
+        <label className="range-row">
+          <span>
+            Forcing X <output>{forcingX.toFixed(2)}</output>
+          </span>
+          <input
+            type="range"
+            min={-extent}
+            max={extent}
+            step="0.05"
+            value={forcingX}
+            onChange={(event) => setForcingCoordinate("x", Number(event.target.value))}
+          />
+        </label>
+        <label className="range-row">
+          <span>
+            Forcing Y <output>{forcingY.toFixed(2)}</output>
+          </span>
+          <input
+            type="range"
+            min={-extent}
+            max={extent}
+            step="0.05"
+            value={forcingY}
+            onChange={(event) => setForcingCoordinate("y", Number(event.target.value))}
+          />
+        </label>
+        <button type="button" onClick={() => pickPoint({ x: forcingX, y: forcingY }, null)}>
+          Apply coordinate forcing
+        </button>
+      </div>
       <p className="fine-print">
-        Click the 2D viewport to supply an explicit forcing target. Ten hidden components receive no invented
-        information.
+        Click the 2D viewport or use the keyboard-adjustable X/Y controls to supply an explicit forcing target.
+        Ten hidden components receive no invented information.
       </p>
     </section>
   );

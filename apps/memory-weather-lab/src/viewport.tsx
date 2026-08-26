@@ -90,13 +90,12 @@ export function Viewport() {
   const sample = selectedPoint ? Field.sampleAt(sim.field, selectedPoint.x, selectedPoint.y) : null;
 
   return (
-    <div className="viewport-wrap" id="viewport" ref={wrapRef}>
+    <div className="viewport-wrap" id="viewport" ref={wrapRef} tabIndex={-1}>
       <canvas
         id="fieldCanvas"
         ref={canvasRef}
-        tabIndex={0}
         role="img"
-        aria-label="Memory Weather viewport"
+        aria-label="Memory Weather viewport; keyboard forcing is available in the X and Y controls"
         onPointerDown={(event) => {
           const renderer = rendererRef.current;
           if (!renderer) return;
@@ -140,6 +139,14 @@ export function Viewport() {
           setOrbit(renderer.yaw, clamp(renderer.pitch + Math.sign(event.deltaY) * 0.05, 0.35, 1.28));
         }}
       />
+      {view === "terrain" ? (
+        <div className="orbit-controls" role="group" aria-label="Terrain orbit controls">
+          <button type="button" aria-label="Rotate terrain left" onClick={() => setOrbit(yaw - 0.12, pitch)}>←</button>
+          <button type="button" aria-label="Tilt terrain up" onClick={() => setOrbit(yaw, clamp(pitch - 0.08, 0.35, 1.28))}>↑</button>
+          <button type="button" aria-label="Tilt terrain down" onClick={() => setOrbit(yaw, clamp(pitch + 0.08, 0.35, 1.28))}>↓</button>
+          <button type="button" aria-label="Rotate terrain right" onClick={() => setOrbit(yaw + 0.12, pitch)}>→</button>
+        </div>
+      ) : null}
       <div className="canvas-legend" aria-hidden="true">
         <span>low</span>
         <i />
@@ -148,7 +155,7 @@ export function Viewport() {
       {selectedPoint && sample ? (
         <div className="selection-readout">
           forcing target ({selectedPoint.x.toFixed(2)}, {selectedPoint.y.toFixed(2)}) · ρ{" "}
-          {format(sample.coherence)} · Λ margin {format(sample.collapseMargin)} · next tick
+          {format(sample.coherence)} · Λψ readiness margin {format(sample.collapseMargin)} · next tick
         </div>
       ) : null}
     </div>

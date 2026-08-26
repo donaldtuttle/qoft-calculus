@@ -8,7 +8,7 @@
   --line-strong: rgba(180, 211, 211, 0.25);
   --ink: #dfeeea;
   --muted: #88a09f;
-  --dim: #5e7477;
+  --dim: #789091;
   --teal: #91d7ca;
   --teal-strong: #b8efe2;
   --amber: #efbd73;
@@ -38,7 +38,7 @@ button {
 }
 button:hover { border-color: var(--line-strong); background: #142432; }
 button:active { transform: translateY(1px); }
-button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, canvas:focus-visible {
+button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, .viewport-wrap:focus-visible {
   outline: 2px solid var(--teal);
   outline-offset: 2px;
 }
@@ -115,6 +115,7 @@ small { color: var(--muted); }
 
 .select-row, .range-row { display: grid; gap: 0.42rem; color: var(--muted); font-size: 0.72rem; }
 .select-row + .select-row, .select-row + .range-row, .range-row + .select-row, .range-row + .button-row { margin-top: 0.72rem; }
+.coordinate-grid { margin-top: 0.72rem; display: grid; gap: 0.65rem; }
 .select-row select, .select-row input, input[type="text"] { width: 100%; min-height: 40px; padding: 0.55rem 0.65rem; }
 .range-row > span { display: flex; justify-content: space-between; gap: 1rem; }
 .range-row output { color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
@@ -141,7 +142,9 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
 .viewport-meta { display: flex; gap: 0.7rem; color: var(--dim); font: 0.63rem ui-monospace, SFMono-Regular, Menlo, monospace; }
 .viewport-wrap { position: relative; overflow: hidden; min-height: 0; border: 1px solid var(--line); border-radius: var(--radius); background: #040a10; box-shadow: var(--shadow); }
 #fieldCanvas { display: block; width: 100%; height: 100%; min-height: 330px; touch-action: none; }
-.canvas-legend { position: absolute; right: 1rem; bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; color: rgba(219, 235, 231, 0.55); font-size: 0.58rem; pointer-events: none; }
+.orbit-controls { position: absolute; z-index: 2; top: 0.7rem; right: 0.7rem; display: grid; grid-template-columns: repeat(2, 42px); gap: 0.3rem; }
+.orbit-controls button { min-height: 42px; padding: 0.35rem; background: rgba(13, 24, 35, 0.9); }
+.canvas-legend { position: absolute; right: 1rem; bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; color: rgba(219, 235, 231, 0.72); font-size: 0.58rem; pointer-events: none; }
 .canvas-legend i { width: 74px; height: 6px; border-radius: 99px; background: linear-gradient(90deg, #07101c, #175a72, #2e9c91, #f0be67); }
 .selection-readout { position: absolute; left: 1rem; bottom: 1rem; max-width: 260px; padding: 0.5rem 0.62rem; border: 1px solid var(--line); border-radius: 8px; background: rgba(5, 11, 18, 0.86); color: var(--muted); font: 0.62rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; pointer-events: none; }
 .repro-bar { min-height: 46px; padding: 0.45rem 0.7rem; display: grid; grid-template-columns: 0.55fr 0.55fr 1.2fr 1.2fr 1.2fr; gap: 0.6rem; align-items: center; }
