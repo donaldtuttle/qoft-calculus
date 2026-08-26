@@ -192,7 +192,7 @@
     </div>
     <div class="engine-path" id="engine-path">Awaiting verified engine binding; no fallback will start.</div>
     <div class="mono lab">
-      t<span id="tick">0</span> · h <span id="hash">--------</span> · trace <span id="digest">00000000</span>
+      t<span id="tick">—</span> · hash <span id="hash">--------</span> · trace <span id="digest">--------</span>
     </div>
   </header>
 
@@ -209,22 +209,22 @@
   <div class="lab" id="stage-help" style="margin-top:6px">Click the stage or press P to queue one engine-owned Φ pulse.</div>
 
   <div class="g2" style="margin-top:10px">
-    <div class="card"><div class="lab">ρ coherence</div><div class="mono metric" id="rho">0.420</div></div>
-    <div class="card"><div class="lab">H entropy</div><div class="mono metric" id="entropy">—</div></div>
+    <div class="card"><div class="lab">ρ coherence</div><div class="mono metric" id="rho">—</div></div>
+    <div class="card"><div class="lab">entropy</div><div class="mono metric" id="entropy">—</div></div>
     <div class="card"><div class="lab">‖Γ‖ · cap 1.4</div><div class="mono metric" id="gamma">—</div></div>
-    <div class="card"><div class="lab">Σ◯ nodes · regime</div><div class="mono metric" id="mesh">0 · drift</div></div>
+    <div class="card"><div class="lab">Σ◯ nodes · status</div><div class="mono metric" id="mesh">—</div></div>
   </div>
 
-  <div class="h">ρ solid · H dashed · τ dotted</div>
+  <div class="h">ρ solid · entropy dashed · τ dotted</div>
   <svg id="spark" viewBox="0 0 340 76" role="img" aria-labelledby="spark-title spark-desc"
        style="border:1px solid var(--line);border-radius:10px;background:var(--panel)">
     <title id="spark-title">Coherence and entropy telemetry</title>
-    <desc id="spark-desc">Awaiting the first committed tick.</desc>
+    <desc id="spark-desc">Engine binding required.</desc>
     <line id="tau-line" x1="0" x2="340" stroke="#ff5c5c" stroke-width="1" stroke-dasharray="2 4"></line>
     <polyline id="rho-line" fill="none" stroke="#4da3ff" stroke-width="2" stroke-linejoin="round"></polyline>
     <polyline id="entropy-line" fill="none" stroke="#7f97a0" stroke-width="1.5" stroke-dasharray="4 3"></polyline>
   </svg>
-  <div class="lab" id="summary" style="margin-top:6px">Awaiting first committed tick.</div>
+  <div class="lab" id="summary" style="margin-top:6px">Engine binding required.</div>
 
   <div class="h">controls · Space run · S step · P pulse</div>
   <div class="g2">
@@ -248,7 +248,7 @@
   </div>
 
   <div class="h">Λψ events</div>
-  <div class="card" id="events" style="min-height:44px"><span class="lab">no collapse yet</span></div>
+  <div class="card" id="events" style="min-height:44px"><span class="lab">engine binding required</span></div>
 
   <div class="h">trace + Realization A parity</div>
   <div class="g2">

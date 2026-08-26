@@ -738,7 +738,7 @@ required<HTMLButtonElement>("#run-checks-button").addEventListener("click", () =
 window.addEventListener("keydown", (event) => {
   if (event.defaultPrevented) return;
   const target = event.target as HTMLElement | null;
-  if (target?.matches("input, textarea, select, button")) return;
+  if (target?.closest("input, textarea, select, button, a[href], [role='button'], [contenteditable='true']")) return;
   if (event.code === "Space") {
     event.preventDefault();
     session.togglePlaying();

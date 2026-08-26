@@ -178,7 +178,7 @@ function boot(): void {
     const latest = snapshot.latestFrame;
     const rho = latest?.rho ?? snapshot.psi.coherence;
     const holdTicks = probeHoldTicks(snapshot);
-    const regime = latest?.collapseTriggered
+    const thresholdStatus = latest?.collapseTriggered
       ? "Λψ"
       : !snapshot.config.ablations.collapse
         ? "Λψ off"
@@ -186,7 +186,7 @@ function boot(): void {
         ? `hold ${holdTicks}`
         : rho >= snapshot.config.tau
           ? "ρ≥τ"
-          : "drift";
+          : "ρ<τ";
 
     required<SVGPolygonElement>("p-psi").setAttribute("points", radarPoints(snapshot.psi.latent));
     required<SVGPolygonElement>("p-self").setAttribute("points", radarPoints(snapshot.selfModel));
@@ -213,7 +213,7 @@ function boot(): void {
     required<HTMLElement>("rho").textContent = rho.toFixed(3);
     required<HTMLElement>("entropy").textContent = format(latest?.entropy);
     required<HTMLElement>("gamma").textContent = format(latest?.gammaMag);
-    required<HTMLElement>("mesh").textContent = `${snapshot.mesh.length} · ${regime}`;
+    required<HTMLElement>("mesh").textContent = `${snapshot.mesh.length} · ${thresholdStatus}`;
 
     const frames = snapshot.recentFrames;
     required<SVGPolylineElement>("rho-line").setAttribute("points", sparkPoints(frames, "rho"));
@@ -228,7 +228,7 @@ function boot(): void {
       : "Awaiting the first committed tick.";
     required<SVGDescElement>("spark-desc").textContent = sparkDescription;
     required<HTMLElement>("summary").textContent = latest
-      ? `Tick ${snapshot.psi.t}: ρ ${rho.toFixed(3)}, H ${latest.entropy.toFixed(3)}, ‖Γ‖ ${latest.gammaMag.toFixed(3)}, Φ ${latest.phiEnergy.toFixed(3)}, ${snapshot.eventHistory.total} Λψ events, ${snapshot.mesh.length} Σ◯ nodes, ${regime}.`
+      ? `Tick ${snapshot.psi.t}: ρ ${rho.toFixed(3)}, entropy ${latest.entropy.toFixed(3)}, ‖Γ‖ ${latest.gammaMag.toFixed(3)}, Φ ${latest.phiEnergy.toFixed(3)}, ${snapshot.eventHistory.total} Λψ events, ${snapshot.mesh.length} Σ◯ nodes, ${thresholdStatus}.`
       : "Awaiting first committed tick.";
 
     drawEvents(snapshot);
@@ -487,7 +487,7 @@ function boot(): void {
   window.addEventListener("keydown", (event) => {
     if (event.defaultPrevented) return;
     const target = event.target as HTMLElement | null;
-    if (target?.matches("input, textarea, select, button") || target?.isContentEditable) return;
+    if (target?.closest("input, textarea, select, button, a[href], [role='button'], [contenteditable='true']")) return;
     const key = event.key.toLowerCase();
     if (event.code === "Space") {
       event.preventDefault();
