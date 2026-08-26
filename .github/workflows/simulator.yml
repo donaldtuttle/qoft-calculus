@@ -1,0 +1,38 @@
+name: simulator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/simulator/**"
+      - "src/engine.ts"
+      - "SKILL.md"
+      - ".github/workflows/simulator.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "apps/simulator/**"
+      - "src/engine.ts"
+      - "SKILL.md"
+      - ".github/workflows/simulator.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/simulator
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22.12.0"
+          cache: npm
+          cache-dependency-path: apps/simulator/package-lock.json
+      - run: npm ci
+      - run: npm run verify:provenance
+      - run: npm test
+      - run: npm run build
