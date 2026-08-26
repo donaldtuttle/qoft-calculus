@@ -29,10 +29,11 @@ Node 22.12+:
 npm ci
 npm run typecheck
 npm test
+npm run test:skill-fetch
 npm run run
 ```
 
-The test suite pins deterministic behavior, operator ownership, hysteresis, configuration validation, and individual ablations. A passing run establishes conformance for this implementation only.
+The test suite pins deterministic behavior, operator ownership, hysteresis, configuration validation, and individual ablations. A passing run establishes the tested implementation invariants only; it is not full v1.0 tick-contract conformance.
 
 Interactive simulator:
 
@@ -122,7 +123,7 @@ The equation's early public form and subsequent type refinement are documented i
 | [`apps/simulator`](apps/simulator) | Original interactive visualizer around Public Typed Realization A |
 | [`apps/memory-weather`](apps/memory-weather) | Memory Weather v0.1.1 DEVELOP typed realization and auditable viewport |
 | [`apps/memory-weather-lab`](apps/memory-weather-lab) | React viewport of Memory Weather v0.1.1; same engine, not a replacement |
-| [`scripts/fetch-skill.sh`](scripts/fetch-skill.sh) | Download, validate, hash, and atomically replace the public skill |
+| [`scripts/fetch-skill.sh`](scripts/fetch-skill.sh) | Refresh only from the reviewed hash; use `--check` for a no-write audit |
 | [`skills/qoft-qosmos/SKILL.md`](skills/qoft-qosmos/SKILL.md) | Kernel v1.1 DEVELOP candidate, pending adoption |
 | [`docs/agent-skill.md`](docs/agent-skill.md) | Authority and version boundary between the two skill surfaces |
 | [`docs/RELEASE_PLAN.md`](docs/RELEASE_PLAN.md) | Stable and DEVELOP tag coordinates |
@@ -162,19 +163,19 @@ under identical seed/config/input, and it is not Realization B.
 
 Default seed `0x51e1d` in periodic mode:
 
-| Tick | Live app ρ | Public engine ρ |
+| Tick | Grok workbench (Typed Realization B) ρ | Public engine ρ |
 |---:|---:|---:|
 | `1` | `0.664` | about `0.60` |
 | `5` | `Λψ → closure` | still rising |
 
 Do not assume `src/engine.ts` is the deployed workbench source unless that exact source is published and hash-verified.
 
-Live workbench: <https://glyphogenic-calculus.grok.me>  
+Grok Typed Realization B: <https://glyphogenic-calculus.grok.me>  
 Public skill endpoint: <https://glyphogenic-calculus.grok.me/SKILL.md>
 
 ## Agent skill versions
 
-The root [`SKILL.md`](SKILL.md) remains the authoritative v1.0 contract used by Public Typed Realization A and by `scripts/fetch-skill.sh`.
+The root [`SKILL.md`](SKILL.md) remains the authoritative v1.0 contract used by Public Typed Realization A. `scripts/fetch-skill.sh` preserves its documented no-argument refresh command, but writes only when the downloaded bytes match the reviewed SHA-256 pin; use `--check` for a no-write audit or `--apply` for an explicit refresh.
 
 The portable [`qoft-qosmos`](skills/qoft-qosmos/SKILL.md) skill packages a **Kernel v1.1 DEVELOP candidate** with focused references. Its implicit invocation is disabled and formal adoption is pending. It preserves:
 
@@ -205,6 +206,15 @@ emit Ψmeta                      // after Λψ; entropy from final ψ
 maybe Σ◯                         // mean-pool stateHistory window
 phase ← (phase + 1) mod 8
 ```
+
+This block records Public Typed Realization A's implemented order. Root
+`SKILL.md` v1.0 is internally contradictory: §3 emits `Ψmeta` before `Λψ`, §4
+and the §5 tick body explicitly emit it after `Λψ`, and the §5 public predicate
+signature again accepts `meta` before collapse. Section 1 separately lists
+`Σ◯` before `Λψ`. Public A selects the post-collapse branch stated in §4 and the
+§5 body; this is a disclosed realization choice under an ambiguous contract,
+not a deviation from an unambiguous rule. The tests establish the runtime
+invariants above, not complete tick-contract conformance.
 
 `Λψ` must not write `Πᴽ` or `selfModel`. `Πᴽ` is the only licensed self-model writer.
 

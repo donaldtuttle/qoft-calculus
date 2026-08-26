@@ -2,7 +2,7 @@ name: memory-weather
 
 on:
   push:
-    branches: [main, feature/qosmos-r12-simulator]
+    branches: [main]
     paths:
       - "apps/memory-weather/**"
       - ".github/workflows/memory-weather.yml"
