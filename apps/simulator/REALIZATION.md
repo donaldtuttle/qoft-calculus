@@ -32,8 +32,9 @@ The repository root `SKILL.md` v1.0 governs Public Typed Realization A. The
 supplied stamped genealogy `GENEALOGY_psi_R001_r2_2.md`, SHA-256
 `6cf7ec4cbed5d3da747d80bfb4c60ea8e7466475b7b9cc003dabe7e06c9d6ea0`,
 supports the r2.2 typing, Γ/lift boundary, and open fusion mechanism. The full
-D-Π-01 eight-file corpus is not present here, so this is targeted type
-conformance rather than a complete canon audit.
+D-Π-01 eight-file corpus is not present here, so this is a targeted
+type-boundary audit rather than complete canon or full tick-contract
+conformance.
 
 The Typed Realization Registry is a DEVELOP crosswalk and has no canonical
 weight.
@@ -75,6 +76,14 @@ The simulator does not duplicate the engine. Every transition calls `xiStep`:
 → optional Σ◯
 → phase advance modulo eight
 ```
+
+This is runtime truth for Public Typed Realization A, but it is not full v1.0
+tick-contract conformance. Root `SKILL.md` §§3 and 5 specify `Ψmeta` assessment
+before the collapse predicate, while this engine constructs the committed frame
+after optional `Λψ`. Root Section 1 also places `Σ◯` before `Λψ`, creating a
+separate source-contract order ambiguity. The repository records both facts
+without silently changing the frozen skill or engine; correction requires a
+versioned governance decision and new deterministic fixtures.
 
 The UI field click does not mutate ψ. It queues the engine's existing `pulse`
 stimulus for exactly one committed tick and restores the selected persistent

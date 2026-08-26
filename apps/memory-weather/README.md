@@ -89,7 +89,7 @@ The exact remapping of historical W-space-era visual terms is recorded in [docs/
 ## Repository integration
 
 - Repository: `donaldtuttle/qoft-calculus`
-- Development branch: `feature/qosmos-r12-simulator`
+- Integrated on `main` via [PR #4](https://github.com/donaldtuttle/qoft-calculus/pull/4), merge commit `577658930d0c48a01f83d0fc273edfe17a8c4d3f`
 - App path: `apps/memory-weather`
 - License: MPL-2.0 under the repository's root `LICENSE`
 - CI: `.github/workflows/memory-weather.yml`
