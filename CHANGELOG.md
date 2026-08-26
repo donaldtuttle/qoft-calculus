@@ -9,9 +9,13 @@
   badges, changelog, and release plan;
 - preserved the boundaries among root `SKILL.md`, Public Typed Realization A,
   the deployed live workbench, and the candidate skill.
+- added `apps/simulator`, an original responsive browser visualizer that wraps
+  Public Typed Realization A without modifying the core engine;
+- added an `xiStep`-only session adapter, recorded one-tick Φ pulse scheduling,
+  bounded event history, trace export, and browser-safe implementation checks;
+- added simulator tests and a dedicated CI build workflow.
 
-This documentation work does not adopt the v1.1 candidate or change engine
-behavior.
+This work does not adopt the v1.1 candidate or change core engine behavior.
 
 ## 1.0.2 - 2026-08-23
 

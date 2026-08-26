@@ -1,7 +1,7 @@
 # qoft-calculus
 
 [![CI](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/ci.yml/badge.svg)](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/ci.yml)
-![Node 22+](https://img.shields.io/badge/Node-22%2B-339933?logo=nodedotjs&logoColor=white)
+![Node 22.12+](https://img.shields.io/badge/Node-22.12%2B-339933?logo=nodedotjs&logoColor=white)
 ![Package 1.0.2](https://img.shields.io/badge/package-1.0.2-2563EB)
 ![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-6B7280)
 
@@ -12,6 +12,7 @@
 ## What you can do here
 
 - run one concrete 12-dimensional realization with a fixed seed;
+- explore that realization in an interactive browser simulator;
 - inspect every tick, diagnostic frame, collapse event, memory update, and regime change;
 - disable individual mechanisms and test whether behavior changes;
 - verify self-model ownership, hysteresis, deterministic noise, and configuration rejection;
@@ -20,7 +21,7 @@
 
 ## Run it in sixty seconds
 
-Node 22+:
+Node 22.12+:
 
 ```bash
 npm ci
@@ -30,6 +31,22 @@ npm run run
 ```
 
 The test suite pins deterministic behavior, operator ownership, hysteresis, configuration validation, and individual ablations. A passing run establishes conformance for this implementation only.
+
+Interactive simulator:
+
+```bash
+cd apps/simulator
+npm ci
+npm run check
+npm run dev
+```
+
+The simulator provides play/pause/step/reseed controls, flux modes, one-tick
+field pulses, independent mechanism ablations, live R¹²/ρ/Γ/Φ telemetry,
+collapse hashes, the Σ◯ memory mesh, trace export, and browser-safe
+determinism/integrity checks. See
+[`apps/simulator/REALIZATION.md`](apps/simulator/REALIZATION.md) for the exact
+canonical-target/runtime boundary.
 
 ## The model in plain English
 
@@ -68,23 +85,29 @@ The equation's early public form and subsequent type refinement are documented i
 | [`SKILL.md`](SKILL.md) | Authoritative public v1.0 operator contract and firewall |
 | [`src/engine.ts`](src/engine.ts) | Public Typed Realization A, locked to R¹² |
 | [`tests/determinism.ts`](tests/determinism.ts) | Determinism, ownership, ablation, hysteresis, and validation suite |
+| [`apps/simulator`](apps/simulator) | Original interactive visualizer around Public Typed Realization A |
 | [`scripts/fetch-skill.sh`](scripts/fetch-skill.sh) | Download, validate, hash, and atomically replace the public skill |
 | [`skills/qoft-qosmos/SKILL.md`](skills/qoft-qosmos/SKILL.md) | Kernel v1.1 DEVELOP candidate, pending adoption |
 | [`docs/agent-skill.md`](docs/agent-skill.md) | Authority and version boundary between the two skill surfaces |
 | [`docs/RELEASE_PLAN.md`](docs/RELEASE_PLAN.md) | Stable and DEVELOP tag coordinates |
 | [`CHANGELOG.md`](CHANGELOG.md) | Versioned implementation and documentation history |
 
-## Public engine and live workbench
+## Public engine, repository simulator, and Grok workbench
 
 ```text
-SKILL.md
-    ↓ shared operator contract / firewall
-src/engine.ts                 deployed Grok workbench
-Public Typed Realization A    Typed Realization B
-(R¹² reference engine)        (interactive polar field)
+root SKILL.md v1.0
+    ↓ public operator contract / firewall
+src/engine.ts ── apps/simulator
+Public Typed Realization A
+
+separate deployed Grok workbench
+Typed Realization B
 ```
 
-They share the public contract but are **not trajectory-equivalent under the same seed**.
+The repository simulator is a new interface around `src/engine.ts` and therefore
+uses Realization A trajectories. The Grok workbench remains separate Typed
+Realization B; the two realizations are **not trajectory-equivalent under the
+same seed**.
 
 Default seed `0x51e1d` in periodic mode:
 

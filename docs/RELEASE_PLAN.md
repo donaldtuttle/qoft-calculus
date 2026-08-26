@@ -31,6 +31,7 @@ Purpose:
 
 - preserves the stable root v1.0 contract and engine;
 - publishes the portable `qoft-qosmos` Kernel v1.1 DEVELOP candidate beside it;
+- includes the separately labeled Realization A browser simulator;
 - keeps candidate implicit invocation disabled;
 - does not supersede or formally adopt the candidate.
 
@@ -49,10 +50,11 @@ Mark this release as **pre-release** while adoption remains pending.
 3. Run `npm run typecheck`.
 4. Run `npm test`.
 5. Confirm the root `SKILL.md` version and closed operator set.
-6. Confirm candidate invocation remains disabled for a DEVELOP release.
-7. State whether the live workbench source is included or excluded.
-8. State the realization and claim boundaries.
-9. Create the tag and GitHub Release from the same commit.
+6. Run `cd apps/simulator && npm ci && npm run check`.
+7. Confirm candidate invocation remains disabled for a DEVELOP release.
+8. State whether the deployed Grok workbench source is included or excluded.
+9. State the Realization A simulator and claim boundaries.
+10. Create the tag and GitHub Release from the same commit.
 
 ## Version rule
 
