@@ -12,6 +12,8 @@ does not replace `apps/memory-weather`, `apps/simulator`, root `src/engine.ts`,
 the stable root skill, or the r2.2 DEVELOP candidate. It is **not** Typed
 Realization B (the separate Grok glyphogenic workbench).
 
+Live: [donaldtuttle.github.io/qoft-calculus/memory-weather-lab](https://donaldtuttle.github.io/qoft-calculus/memory-weather-lab/)
+
 ## Run it
 
 ```bash

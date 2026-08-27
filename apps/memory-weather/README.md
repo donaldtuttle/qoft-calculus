@@ -8,6 +8,8 @@ This app lives beside—not inside—the repository's original Realization A
 simulator. It does not replace `apps/simulator`, the root `src/engine.ts`, the
 stable root skill, or the r2.2 DEVELOP candidate.
 
+Live: [donaldtuttle.github.io/qoft-calculus/memory-weather](https://donaldtuttle.github.io/qoft-calculus/memory-weather/)
+
 ## Run it
 
 The easiest path is to open `dist/memory-weather.html`. It is a complete offline build with no server, account, package install, or network request.
