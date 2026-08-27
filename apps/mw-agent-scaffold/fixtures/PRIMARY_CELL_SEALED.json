@@ -1,0 +1,8 @@
+{
+  "schema": "mw-agent-primary-seal/0.1",
+  "sealed": true,
+  "locked_executed_commit": "dc325ae72287312dd967d63a3ad5a69df1225573",
+  "intended_tag": "mw-agent-scaffold-a-v0.1-locked-executed",
+  "result_sha256": "785e07c0453f386e261f58353febc34fa11f34d57846acf8ba1a45f3235a1dbb",
+  "repeat_primary": false
+}

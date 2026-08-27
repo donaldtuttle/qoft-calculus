@@ -1,0 +1,5 @@
+node: v24.15.0
+platform: linux
+arch: x64
+cwd: /tmp/qoft-exec/apps/mw-agent-scaffold
+command: node src/primary.js --authorize-primary
