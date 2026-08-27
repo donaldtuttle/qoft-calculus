@@ -1,7 +1,8 @@
 "use strict";
 
 const fs = require("fs");
-const { PATHS } = require("./config.js");
+const path = require("path");
+const { LOCK, PATHS } = require("./config.js");
 const { sha256File, contentHash } = require("./hashes.js");
 const { runMatrix } = require("./harness.js");
 
