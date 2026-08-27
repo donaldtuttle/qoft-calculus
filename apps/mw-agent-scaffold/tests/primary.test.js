@@ -7,9 +7,16 @@ const { PATHS } = require("../src/config.js");
 const { assertPrimaryPreconditions, EXPECTED } = require("../src/primary.js");
 const { tCriticalTwoSided95, pairedInterval } = require("../src/verdicts.js");
 
-test("primary runner denies missing authorization", () => {
+test("sealed primary cell cannot be repeated", () => {
   assert.throws(
-    () => assertPrimaryPreconditions({ authorizePrimary: false }),
+    () => assertPrimaryPreconditions({ authorizePrimary: true }),
+    /sealed/
+  );
+});
+
+test("primary runner denies missing authorization when seal bypassed", () => {
+  assert.throws(
+    () => assertPrimaryPreconditions({ authorizePrimary: false, allowSealedReplay: true }),
     /PRIMARY_DENIED: missing explicit authorization/
   );
 });
@@ -18,7 +25,7 @@ test("primary runner denies unarmed lock even with authorization", () => {
   const lock = JSON.parse(fs.readFileSync(PATHS.lock, "utf8"));
   lock.primary_experiment_armed = false;
   assert.throws(
-    () => assertPrimaryPreconditions({ authorizePrimary: true }, lock),
+    () => assertPrimaryPreconditions({ authorizePrimary: true, allowSealedReplay: true }, lock),
     /PRIMARY_DENIED: primary_experiment_armed is not true/
   );
 });

@@ -26,6 +26,10 @@ function numbersEqual(a, b) {
 }
 
 function assertPrimaryPreconditions(options = {}, lockOverride = null) {
+  const sealPath = path.join(PATHS.fixtures, "PRIMARY_CELL_SEALED.json");
+  if (fs.existsSync(sealPath) && options.allowSealedReplay !== true) {
+    throw new Error("PRIMARY_DENIED: locked primary cell is sealed; do not repeat");
+  }
   if (options.authorizePrimary !== true) {
     throw new Error("PRIMARY_DENIED: missing explicit authorization");
   }
