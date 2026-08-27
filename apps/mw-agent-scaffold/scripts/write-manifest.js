@@ -15,6 +15,7 @@ const files = [
   "src/runner.js",
   "src/harness.js",
   "src/verdicts.js",
+  "src/primary.js",
   "src/substrates/mw.js",
   "src/substrates/ema.js",
   "src/policy/stub.js",

@@ -30,5 +30,5 @@
   "seeds_hash": "mw-fnv64:7bbb7bc888692c53",
   "engine_file_sha256": "e559a8c187dd05403468d06520980dcd579179af31720ca26c7328a6801b1825",
   "generated": true,
-  "primary_experiment_armed": false
+  "primary_experiment_armed": true
 }

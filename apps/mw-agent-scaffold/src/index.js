@@ -9,6 +9,7 @@ const { runTrial, runEpisode } = require("./runner.js");
 const { runMatrix } = require("./harness.js");
 const verdicts = require("./verdicts.js");
 const { renderPrompt } = require("./policy/prompt.js");
+const primary = require("./primary.js");
 
 module.exports = {
   LOCK,
@@ -23,5 +24,6 @@ module.exports = {
   runEpisode,
   runMatrix,
   verdicts,
-  renderPrompt
+  renderPrompt,
+  primary
 };
