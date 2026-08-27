@@ -6,6 +6,26 @@ import { fileURLToPath } from "node:url";
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const siteRoot = resolve(repositoryRoot, "_site");
 
+const deploymentWorkflow = readFileSync(
+  resolve(repositoryRoot, ".github/workflows/deploy-memory-weather-pages.yml"),
+  "utf8",
+);
+const requiredArtifactRouting = [
+  'pages_artifact_name: ${{ steps.pages_artifact.outputs.name }}',
+  "id: pages_artifact",
+  'run: echo "name=github-pages-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"',
+  'with:\n          name: ${{ steps.pages_artifact.outputs.name }}\n          path: _site',
+  'artifact_name: ${{ needs.build.outputs.pages_artifact_name }}',
+];
+for (const fragment of requiredArtifactRouting) {
+  const occurrences = deploymentWorkflow.split(fragment).length - 1;
+  if (occurrences !== 1) {
+    throw new Error(
+      `Pages workflow must declare its attempt-scoped artifact identity exactly once: ${fragment}`,
+    );
+  }
+}
+
 const requiredFiles = [
   "index.html",
   "memory-weather.html",
