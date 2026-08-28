@@ -95,7 +95,7 @@ export function Viewport() {
         id="fieldCanvas"
         ref={canvasRef}
         role="img"
-        aria-label="Memory Weather viewport; keyboard forcing is available in the X and Y controls"
+        aria-label="Memory Weather regime viewport; keyboard forcing is available in the X and Y controls"
         onPointerDown={(event) => {
           const renderer = rendererRef.current;
           if (!renderer) return;
@@ -154,8 +154,8 @@ export function Viewport() {
       </div>
       {selectedPoint && sample ? (
         <div className="selection-readout">
-          forcing target ({selectedPoint.x.toFixed(2)}, {selectedPoint.y.toFixed(2)}) · ρ{" "}
-          {format(sample.coherence)} · Λψ readiness margin {format(sample.collapseMargin)} · next tick
+          forcing target ({selectedPoint.x.toFixed(2)}, {selectedPoint.y.toFixed(2)}) · coherence ρ{" "}
+          {format(sample.coherence)} · commitment margin Λψ {format(sample.collapseMargin)} · next tick
         </div>
       ) : null}
     </div>

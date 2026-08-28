@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-08-27
+
+- Added technical primary labels for the weather view, telemetry, layers, controls, and event rail.
+- Retained QOFT symbols and displayed the engine’s original weather labels as aliases.
+- Kept the v0.1.1 engine, vendor bodies, deterministic demo hash, and replay schema unchanged.
+- Added compatibility tests for the presentation/runtime boundary.
+
 ## 0.1.1 — 2026-08-26
 
 - Added a React + Vite viewport of Memory Weather v0.1.1.

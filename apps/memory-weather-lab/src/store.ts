@@ -53,25 +53,25 @@ export const STIMULUS_MODES = [
 ] as const;
 
 export const ABLATION_KEYS = [
-  ["collapse", "Λψ collapse"],
-  ["memoryWrite", "Memory write"],
-  ["thetaReplay", "Θλ replay"],
-  ["summarize", "Σ◯ summary"],
-  ["omega", "Ωµ modulation"],
-  ["rhoGate", "ρ gate"],
-  ["reflexAdaptation", "Πᴽ adaptation"],
+  ["collapse", "Commitment projection Λψ"],
+  ["memoryWrite", "Memory writing"],
+  ["thetaReplay", "Memory replay Θλ"],
+  ["summarize", "Trace summarization Σ◯"],
+  ["omega", "Bounded modulation Ωµ"],
+  ["rhoGate", "Coherence gate ρ"],
+  ["reflexAdaptation", "Reflexive adaptation Πᴽ"],
 ] as const;
 
 export const PUBLISHED_DEMO_HASH = "mw-fnv64:e199888bbf930070";
 
 export const SCALAR_OPTIONS: { value: ScalarMode; label: string }[] = [
-  { value: "weather", label: "Weather composite" },
+  { value: "weather", label: "Regime composite" },
   { value: "potential", label: "Attractor potential" },
-  { value: "rho", label: "ρ coherence" },
-  { value: "fronts", label: "Field fronts" },
-  { value: "theta", label: "Θλ influence" },
-  { value: "lambda", label: "Λψ readiness" },
-  { value: "separation", label: "ψ ↔ ψᴽ separation" },
+  { value: "rho", label: "Coherence measure ρ" },
+  { value: "fronts", label: "Update fronts Γ" },
+  { value: "theta", label: "Memory influence Θλ" },
+  { value: "lambda", label: "Commitment readiness Λψ" },
+  { value: "separation", label: "Reflexive separation ψ ↔ ψᴽ" },
 ];
 
 type Forcing = { latent: number[]; label: string };
@@ -285,7 +285,7 @@ export const useLab = create<LabState>((set, get) => ({
   memoryWeight: 1,
   featureId: "weather-composite",
   toast: "Loaded the deterministic 96-tick demonstration run.",
-  liveMessage: "Memory Weather v0.1.1 ready.",
+  liveMessage: "Memory Weather v0.1.1 state-dynamics instrument ready.",
   fps: 0,
   yaw: -0.52,
   pitch: 0.92,
@@ -401,7 +401,7 @@ export const useLab = create<LabState>((set, get) => ({
     rebuildField();
     if (result.frame.collapse_triggered) {
       const event = result.events.find((item: any) => item.kind === "collapse");
-      const message = `Λψ committed at tick ${result.frame.step}, basin ${event ? event.basinLabel : "unknown"}.`;
+      const message = `Commitment projection Λψ registered at tick ${result.frame.step}, attractor region ${event ? event.basinLabel : "unknown"}.`;
       get().announce(message);
       get().toastMessage(message);
     }
@@ -462,7 +462,7 @@ export const useLab = create<LabState>((set, get) => ({
       }
       rebuildField();
       set((s) => ({
-        toast: `Inscribed “${result.memory.label}” as a local memory artifact.`,
+        toast: `Recorded “${result.memory.label}” as a local memory artifact.`,
         rev: s.rev + 1,
       }));
     } catch (error) {
@@ -474,14 +474,14 @@ export const useLab = create<LabState>((set, get) => ({
     rebuildField();
     set((s) => ({
       toast: packet
-        ? `Θλ queued “${packet.label}” at similarity ${packet.similarity.toFixed(3)}.`
-        : "No eligible Θλ recall packet.",
+        ? `Memory replay Θλ queued “${packet.label}” at similarity ${packet.similarity.toFixed(3)}.`
+        : "No eligible memory replay Θλ packet.",
       rev: s.rev + 1,
     }));
   },
   requestCollapse: () => {
     Engine.requestCollapse(sim.state);
-    get().toastMessage("Λψ requested. The next explicit Ξ tick will assess and commit it.");
+    get().toastMessage("Commitment projection Λψ requested. The next state-transition tick Ξ will assess and, if eligible, register it.");
   },
   pickPoint: (point, _sample) => {
     const latent = Projection.viewportToLatent(

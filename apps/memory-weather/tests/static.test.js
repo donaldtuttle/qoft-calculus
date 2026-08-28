@@ -53,3 +53,14 @@ test("all static buttons declare their button type", () => {
   assert.ok(buttons.length >= 12);
   for (const button of buttons) assert.match(button, /\btype="button"/);
 });
+
+test("presentation labels explain glyphs without rewriting runtime weather records", () => {
+  assert.match(html, /Diagnostic telemetry Ψmeta/);
+  assert.match(html, /Contextual forcing Φ/);
+  assert.match(html, /Weather alias: Unformed field/);
+  assert.match(html, /Commitment projection Λψ/);
+  assert.match(app, /const WEATHER_PRESENTATION/);
+  assert.match(app, /High-drive regime/);
+  assert.match(engine, /id: "shear-front", label: "Shear front"/);
+  assert.doesNotMatch(engine, /High-drive regime/);
+});

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-08-27
+
+- Reframed “weather” as a presentation-layer regime analogy rather than an ontology.
+- Added technical primary labels while preserving QOFT symbols and original weather aliases.
+- Added newcomer-facing definitions for ψ, ψᴽ, Πᴽ, Φ, ρ, Γ, ⊕, Ξ, Λψ, Θλ, Σ◯, Ωµ, Π↺, and Ψmeta.
+- Preserved runtime weather IDs, source labels, schema fields, thresholds, engine behavior, and fixed-seed state hashes.
+- Added static tests enforcing the presentation/runtime boundary.
+
 ## 0.1.1 — 2026-08-26
 
 - Declared the `⟦·⟧MW` simulation interpretation and its biological-scope firewall.

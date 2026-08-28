@@ -12,6 +12,15 @@ this app             scheduleRun → executeStep → Engine.step
                      plus canvas/DOM chrome
 ```
 
+## Presentation vocabulary
+
+The React shell uses technical English as the primary interface label while
+retaining QOFT symbols and the engine’s original weather labels as aliases. The
+mapping is presentation-only and is documented in
+[`apps/memory-weather/docs/TERMINOLOGY.md`](../memory-weather/docs/TERMINOLOGY.md).
+It does not alter runtime weather records, hashes, schemas, thresholds, or
+operator behavior.
+
 ## What this is
 
 - A second UI over the same `Psi` / `Πᴽ` / `Φ` / `Γ` / `⊕` / `Ψmeta` / `Λψ` /

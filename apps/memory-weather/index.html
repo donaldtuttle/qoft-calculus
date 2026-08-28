@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#071019">
-  <meta name="description" content="Deterministic R12 QOSMOS observer-field simulation with projection provenance.">
+  <meta name="description" content="Deterministic R12 state-dynamics instrument with memory-conditioned updates, auditable telemetry, and projection provenance.">
   <title>QOSMOS Memory Weather</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -16,12 +16,12 @@
         <span class="brand-mark" aria-hidden="true">Ξ</span>
         <span>
           <strong>Memory Weather</strong>
-          <small>QOSMOS R¹² observer-field lab</small>
+          <small>R¹² state-dynamics instrument</small>
         </span>
       </div>
       <div class="status-strip">
         <span class="status-chip develop">DEVELOP</span>
-        <span class="status-chip">typed realization</span>
+        <span class="status-chip">v0.1.1 engine · clarified labels</span>
         <span class="status-chip live" id="runStatus">paused</span>
       </div>
       <div class="transport" aria-label="Simulation transport">
@@ -42,51 +42,55 @@
       <aside class="panel left-panel" aria-label="Layers and simulation controls">
         <section>
           <div class="section-heading">
-            <div><span class="eyebrow">Live telemetry</span><h2>Ψmeta</h2></div>
+            <div><span class="eyebrow">Live measurements</span><h2>Diagnostic telemetry Ψmeta</h2></div>
             <span class="source-badge direct">direct</span>
           </div>
           <div class="meter-grid">
-            <article class="meter"><span>Coherence ρ</span><strong id="rhoValue">0.420</strong><i><b id="rhoBar"></b></i></article>
-            <article class="meter"><span>Flux energy Φ</span><strong id="phiValue">0.000</strong><i><b id="phiBar"></b></i></article>
-            <article class="meter"><span>Gradient ‖Γ‖</span><strong id="gammaValue">0.000</strong><i><b id="gammaBar"></b></i></article>
-            <article class="meter"><span>Reflex confidence</span><strong id="reflexValue">1.000</strong><i><b id="reflexBar"></b></i></article>
+            <article class="meter"><span>Coherence measure ρ</span><strong id="rhoValue">0.420</strong><i><b id="rhoBar"></b></i></article>
+            <article class="meter"><span>Contextual forcing Φ</span><strong id="phiValue">0.000</strong><i><b id="phiBar"></b></i></article>
+            <article class="meter"><span>Update magnitude ‖Γ‖</span><strong id="gammaValue">0.000</strong><i><b id="gammaBar"></b></i></article>
+            <article class="meter"><span>Reflexive-state alignment</span><strong id="reflexValue">1.000</strong><i><b id="reflexBar"></b></i></article>
           </div>
           <div class="weather-callout">
             <span class="weather-symbol" aria-hidden="true">◌</span>
-            <div><strong id="weatherLabel">Unformed field</strong><small id="weatherRationale">No committed tick yet</small></div>
-            <span class="source-badge interpretive">metaphor</span>
+            <div>
+              <strong id="weatherLabel">No measured regime</strong>
+              <small id="weatherRationale">No committed simulation tick is available yet.</small>
+              <small class="weather-alias" id="weatherAlias">Weather alias: Unformed field</small>
+            </div>
+            <span class="source-badge derived">regime view</span>
           </div>
         </section>
 
         <section>
-          <div class="section-heading"><div><span class="eyebrow">Viewport</span><h2>Layer rack</h2></div></div>
+          <div class="section-heading"><div><span class="eyebrow">Viewport</span><h2>Measured layers</h2></div></div>
           <label class="select-row">Scalar channel
             <select id="scalarSelect">
-              <option value="weather">Weather composite</option>
+              <option value="weather">Regime composite</option>
               <option value="potential">Attractor potential</option>
-              <option value="rho">ρ coherence</option>
-              <option value="fronts">Field fronts</option>
-              <option value="theta">Θλ influence</option>
-              <option value="lambda">Λψ readiness</option>
-              <option value="separation">ψ ↔ ψᴽ separation</option>
+              <option value="rho">Coherence measure ρ</option>
+              <option value="fronts">Update fronts Γ</option>
+              <option value="theta">Memory influence Θλ</option>
+              <option value="lambda">Commitment readiness Λψ</option>
+              <option value="separation">Reflexive separation ψ ↔ ψᴽ</option>
             </select>
           </label>
           <div class="toggle-grid" id="layerControls">
-            <label><input type="checkbox" data-layer="scalar" checked><span>Scalar field</span></label>
-            <label><input type="checkbox" data-layer="vectors" checked><span>Γ vectors</span></label>
+            <label><input type="checkbox" data-layer="scalar" checked><span>Scalar regime map</span></label>
+            <label><input type="checkbox" data-layer="vectors" checked><span>Update vectors Γ</span></label>
             <label><input type="checkbox" data-layer="streamlines" checked><span>Streamlines</span></label>
-            <label><input type="checkbox" data-layer="trace" checked><span>ψ trace</span></label>
-            <label><input type="checkbox" data-layer="reflex" checked><span>ψᴽ separation</span></label>
-            <label><input type="checkbox" data-layer="basins" checked><span>Basins</span></label>
-            <label><input type="checkbox" data-layer="collapse" checked><span>Λψ contour</span></label>
-            <label><input type="checkbox" data-layer="memory" checked><span>Θλ links</span></label>
-            <label><input type="checkbox" data-layer="events" checked><span>Events</span></label>
-            <label><input type="checkbox" data-layer="grid" checked><span>Grid</span></label>
+            <label><input type="checkbox" data-layer="trace" checked><span>State trace ψ</span></label>
+            <label><input type="checkbox" data-layer="reflex" checked><span>Reflexive separation ψ ↔ ψᴽ</span></label>
+            <label><input type="checkbox" data-layer="basins" checked><span>Attractor regions</span></label>
+            <label><input type="checkbox" data-layer="collapse" checked><span>Commitment boundary Λψ</span></label>
+            <label><input type="checkbox" data-layer="memory" checked><span>Memory replay links Θλ</span></label>
+            <label><input type="checkbox" data-layer="events" checked><span>Recorded events</span></label>
+            <label><input type="checkbox" data-layer="grid" checked><span>Projection grid</span></label>
           </div>
         </section>
 
         <section>
-          <div class="section-heading"><div><span class="eyebrow">Observation</span><h2>Φ forcing</h2></div></div>
+          <div class="section-heading"><div><span class="eyebrow">Observation</span><h2>Contextual forcing Φ</h2></div></div>
           <label class="select-row">Preset
             <select id="stimulusSelect">
               <option value="quiet">Quiet</option>
@@ -98,7 +102,7 @@
             </select>
           </label>
           <label class="range-row"><span>Amplitude <output id="amplitudeOutput">0.82</output></span><input id="amplitudeRange" type="range" min="0" max="2" step="0.01" value="0.82"></label>
-          <label class="select-row">Basin target
+          <label class="select-row">Attractor target
             <select id="basinSelect">
               <option value="0">closure</option><option value="1" selected>insight</option><option value="2">identity</option>
               <option value="3">tension</option><option value="4">recall</option><option value="5">threshold</option>
@@ -108,7 +112,7 @@
         </section>
 
         <section>
-          <div class="section-heading"><div><span class="eyebrow">DEVELOP extension</span><h2>Multi-observer projection</h2></div><span class="source-badge derived">local</span></div>
+          <div class="section-heading"><div><span class="eyebrow">DEVELOP extension</span><h2>Multi-observer coupling</h2></div><span class="source-badge derived">local</span></div>
           <label class="switch-row"><input id="peerToggle" type="checkbox"><span>Enable observer B</span></label>
           <label class="range-row"><span>Coupling <output id="couplingOutput">0.14</output></span><input id="couplingRange" type="range" min="0" max="0.5" step="0.01" value="0.14"></label>
           <p class="fine-print">Each observer keeps its own Πᴽ, Γ, ρ, memory, Λψ policy, and telemetry. Coupling uses a frozen prior-state snapshot so processing order cannot steer the result.</p>
@@ -118,13 +122,13 @@
           <details>
             <summary>Mechanism ablations</summary>
             <div class="toggle-grid ablations" id="ablationControls">
-              <label><input type="checkbox" data-ablation="collapse" checked><span>Λψ collapse</span></label>
-              <label><input type="checkbox" data-ablation="memoryWrite" checked><span>Memory write</span></label>
-              <label><input type="checkbox" data-ablation="thetaReplay" checked><span>Θλ replay</span></label>
-              <label><input type="checkbox" data-ablation="summarize" checked><span>Σ◯ summary</span></label>
-              <label><input type="checkbox" data-ablation="omega" checked><span>Ωµ modulation</span></label>
-              <label><input type="checkbox" data-ablation="rhoGate" checked><span>ρ gate</span></label>
-              <label><input type="checkbox" data-ablation="reflexAdaptation" checked><span>Πᴽ adaptation</span></label>
+              <label><input type="checkbox" data-ablation="collapse" checked><span>Commitment projection Λψ</span></label>
+              <label><input type="checkbox" data-ablation="memoryWrite" checked><span>Memory writing</span></label>
+              <label><input type="checkbox" data-ablation="thetaReplay" checked><span>Memory replay Θλ</span></label>
+              <label><input type="checkbox" data-ablation="summarize" checked><span>Trace summarization Σ◯</span></label>
+              <label><input type="checkbox" data-ablation="omega" checked><span>Bounded modulation Ωµ</span></label>
+              <label><input type="checkbox" data-ablation="rhoGate" checked><span>Coherence gate ρ</span></label>
+              <label><input type="checkbox" data-ablation="reflexAdaptation" checked><span>Reflexive adaptation Πᴽ</span></label>
             </div>
           </details>
         </section>
@@ -133,7 +137,7 @@
       <section class="center-stage">
         <div class="viewport-toolbar">
           <div class="segmented" role="group" aria-label="Viewport mode">
-            <button type="button" class="active" data-view="weather" aria-pressed="true">Memory Weather</button>
+            <button type="button" class="active" data-view="weather" aria-pressed="true">Regime Map</button>
             <button type="button" data-view="field" aria-pressed="false">2D Field</button>
             <button type="button" data-view="terrain" aria-pressed="false">3D Terrain</button>
           </div>
@@ -143,7 +147,7 @@
           </div>
         </div>
         <div class="viewport-wrap" id="viewport">
-          <canvas id="fieldCanvas" tabindex="0" role="img" aria-label="Memory Weather viewport. The field has not run yet."></canvas>
+          <canvas id="fieldCanvas" tabindex="0" role="img" aria-label="Memory Weather regime viewport. No measured simulation tick is available yet."></canvas>
           <div class="canvas-legend" aria-hidden="true"><span>low</span><i></i><span>high</span></div>
           <div class="selection-readout" id="selectionReadout" hidden></div>
         </div>
@@ -157,7 +161,7 @@
         <section class="event-rail" aria-labelledby="eventTitle">
           <div class="section-heading rail-heading">
             <div><span class="eyebrow">Committed artifacts</span><h2 id="eventTitle">Event rail</h2></div>
-            <div class="rail-counts"><span id="collapseCount">0 Λψ</span><span id="memoryCount">0 writes</span><span id="summaryCount">0 Σ◯</span></div>
+            <div class="rail-counts"><span id="collapseCount">0 commitments Λψ</span><span id="memoryCount">0 memory records</span><span id="summaryCount">0 summaries Σ◯</span></div>
           </div>
           <div class="timeline" id="timeline"><p class="empty-state">Run the engine or inscribe a memory to create auditable events.</p></div>
         </section>
@@ -170,10 +174,10 @@
           <input id="memoryInput" type="text" maxlength="120" value="observer field" placeholder="Memory label or recall query" autocomplete="off">
           <label class="range-row"><span>Event weight <output id="weightOutput">1.00</output></span><input id="weightRange" type="range" min="0.1" max="2" step="0.05" value="1"></label>
           <div class="button-row">
-            <button id="inscribeBtn" class="primary" type="button">Inscribe memory</button>
-            <button id="recallBtn" type="button">Recall Θλ</button>
+            <button id="inscribeBtn" class="primary" type="button">Record memory</button>
+            <button id="recallBtn" type="button">Queue memory replay Θλ</button>
           </div>
-          <button id="collapseBtn" class="full-width warning" type="button">Request Λψ on next tick</button>
+          <button id="collapseBtn" class="full-width warning" type="button">Request commitment projection Λψ</button>
           <ul class="memory-list" id="memoryList"><li class="empty-state">No inscriptions yet. Σ◯ summaries remain a separate mechanism.</li></ul>
         </section>
 
