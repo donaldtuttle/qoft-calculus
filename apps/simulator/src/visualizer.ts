@@ -16,6 +16,14 @@ type Point = { x: number; y: number };
 
 const TAU = Math.PI * 2;
 const LATENT_LIMIT = 2;
+const RADAR_INNER_RADIUS = 0.16;
+const RADAR_SPAN = 0.8;
+export const ZERO_BASELINE_RADIUS = RADAR_INNER_RADIUS + RADAR_SPAN / 2;
+
+export function radarRadius(value: number): number {
+  return RADAR_INNER_RADIUS
+    + RADAR_SPAN * ((clamp(value, -LATENT_LIMIT, LATENT_LIMIT) + LATENT_LIMIT) / (2 * LATENT_LIMIT));
+}
 
 function clamp(value: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, value));
@@ -36,7 +44,7 @@ function projectVector(vector: Vec, radius: number): Point {
 function radarPoints(vector: Vec, radius: number): Point[] {
   return vector.map((value, index) => {
     const angle = -Math.PI / 2 + (index / vector.length) * TAU;
-    const normalized = 0.16 + 0.8 * ((clamp(value, -LATENT_LIMIT, LATENT_LIMIT) + LATENT_LIMIT) / (2 * LATENT_LIMIT));
+    const normalized = radarRadius(value);
     return {
       x: Math.cos(angle) * radius * normalized,
       y: Math.sin(angle) * radius * normalized,
@@ -53,13 +61,15 @@ function polygon(context: CanvasRenderingContext2D, points: Point[]): void {
 }
 
 export class FieldVisualizer {
+  private readonly canvas: HTMLCanvasElement;
   private readonly context: CanvasRenderingContext2D;
   private readonly resizeObserver: ResizeObserver;
   private state?: FieldVisualState;
   private pulse?: Point;
   private pulseTimer?: number;
 
-  constructor(private readonly canvas: HTMLCanvasElement) {
+  constructor(canvas: HTMLCanvasElement) {
+    this.canvas = canvas;
     const context = canvas.getContext("2d");
     if (!context) throw new Error("Canvas 2D context unavailable");
     this.context = context;
@@ -149,6 +159,21 @@ export class FieldVisualizer {
       ctx.fillStyle = "rgba(196, 218, 222, 0.55)";
       ctx.fillText(String(i + 1).padStart(2, "0"), Math.cos(angle) * radius * 1.09, Math.sin(angle) * radius * 1.09);
     }
+
+    // Signed radar geometry places zero at mid-radius. Draw that baseline
+    // explicitly so contraction toward zero cannot masquerade as a new attractor.
+    const zeroBaseline = radarPoints(Array.from({ length: axisCount }, () => 0), radius);
+    polygon(ctx, zeroBaseline);
+    ctx.setLineDash([2, 5]);
+    ctx.strokeStyle = "rgba(196, 218, 222, 0.30)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = "9px ui-monospace, SFMono-Regular, Menlo, monospace";
+    ctx.textAlign = "left";
+    ctx.fillStyle = "rgba(196, 218, 222, 0.52)";
+    ctx.fillText("0 baseline", radius * ZERO_BASELINE_RADIUS + 6, -7);
+    ctx.textAlign = "center";
 
     for (const trailVector of state.trail.slice(-28)) {
       const point = projectVector(trailVector, radius);

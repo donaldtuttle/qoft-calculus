@@ -92,6 +92,7 @@ export type Ctx = {
   phase: number;
   config: EngineConfig;
   selfModel: Vec;
+  selfModelInitialized: boolean;
   priorRho: number;
   priorGamma: Vec;
   dwellCount: number;
@@ -205,7 +206,7 @@ export function initCtx(runId: string, seed: string | number, config: Partial<En
   validateConfig(cfg);
   return {
     runId, seed: seedToInt(seed), step: 0, phase: 0, config: cfg,
-    selfModel: zeros(cfg.D), priorRho: 0.42, priorGamma: zeros(cfg.D),
+    selfModel: zeros(cfg.D), selfModelInitialized: false, priorRho: 0.42, priorGamma: zeros(cfg.D),
     dwellCount: 0, holdLeft: 0, mesh: [], nextMeshId: 0, stateHistory: [], trace: [],
   };
 }
@@ -217,7 +218,21 @@ export function initPsi(id: string, seed: number, D = 12): Psi {
   return { id, t: 0, latent: boundVec(latent).v, coherence: 0.42, fluxEnergy: 0 };
 }
 
+/**
+ * Realization-local initial condition for the lagged reflexive cache.
+ * This does not invoke Πᴽ or consume a tick; it prevents an absent prior
+ * observation from being represented as a twelve-dimensional zero state.
+ */
+export function warmStartSelfModel(psi: Psi, ctx: Ctx): void {
+  if (psi.latent.length !== ctx.config.D || psi.latent.some((value) => !Number.isFinite(value))) {
+    throw new Error(`self-model warm start requires ${ctx.config.D} finite latent components`);
+  }
+  ctx.selfModel = psi.latent.slice();
+  ctx.selfModelInitialized = true;
+}
+
 export function projectReflex(psi: Psi, ctx: Ctx): PsiReflex {
+  if (!ctx.selfModelInitialized) warmStartSelfModel(psi, ctx);
   const b = ctx.config.reflexRate;
   ctx.selfModel = add(scale(ctx.selfModel, 1 - b), scale(psi.latent, b));
   const conf = Math.exp(-norm(sub(psi.latent, ctx.selfModel)));
@@ -407,6 +422,7 @@ export function xiStep(psi: Psi, ctx: Ctx): { psi_next: Psi; frame: PsiMetaFrame
     collapseTriggered: collapsed, tags,
     scalars: {
       mix: fused.mix, gate: fused.gate, dGamma: drift,
+      stateNorm: norm(next.latent), reflexNorm: norm(reflex.latent), deltaPsi: norm(sub(next.latent, psi.latent)),
       omegaAmp: omega.amp, omegaActive: omega.active ? 1 : 0, omegaRaised: omega.raisedBecauseStuck ? 1 : 0,
     },
   };
@@ -425,6 +441,7 @@ export function xiStep(psi: Psi, ctx: Ctx): { psi_next: Psi; frame: PsiMetaFrame
 export function run(n: number, seed: string | number, config: Partial<EngineConfig> = {}) {
   const ctx = initCtx("run", seed, config);
   let psi = initPsi("ψ", ctx.seed, ctx.config.D);
+  warmStartSelfModel(psi, ctx);
   const frames: PsiMetaFrame[] = [];
   const events: CollapseEvent[] = [];
   const hashes: string[] = [hashPsi(psi)];

@@ -101,6 +101,16 @@ commit only through `QosmosSession.step()` or `tick()`.
 Changing τ, Γ scale, Ωµ amplitude, or an ablation starts a new run. Playback
 speed is presentation-only and does not start a new run.
 
+At creation and reset, this realization initializes the lagged `selfModel` cache
+from `ψ₀` before the first Πᴽ update. This is a runtime initial-condition policy,
+not a canonical redefinition. It prevents an absent prior observation from being
+encoded as a zero vector and erasing most of the seeded state on tick one.
+
+The radar is signed: zero lies at `0.56R`, negative components render inward,
+and positive components render outward. The canvas draws and labels that zero
+polygon explicitly so a near-zero state cannot be mistaken for sudden geometric
+organization.
+
 Interactive runs stop at 16,384 committed ticks. The dashboard renders a
 bounded 256-frame window; the full trace is cloned only when the user exports
 or explicitly runs verification. Current-export verification reconstructs the
@@ -110,13 +120,15 @@ then compares every frame, event, state sample, memory node, and hash.
 The compact probe additionally presents a chained FNV trace digest over the
 post-tick ψ hashes. This digest is a local UI/parity helper, not a QOFT operator,
 canonical field, or cryptographic authenticity claim. Its 64-tick default
-fixture must terminate at the root-engine pin `3ad463b1`.
+fixture must terminate at the current root-engine pin recorded in
+`probe-runtime.ts`.
 
 ## Local equations and constants
 
 These are implementation choices, not canon law:
 
 ```text
+selfModel₀ := ψ₀.latent
 selfModel ← (1 − β)·selfModel + β·ψ.latent
 β = 0.1
 

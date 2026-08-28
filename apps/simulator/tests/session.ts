@@ -29,6 +29,10 @@ function cloneJson<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
 
+function vecNorm(values: number[]): number {
+  return Math.sqrt(values.reduce((sum, value) => sum + value * value, 0));
+}
+
 function throws(fn: () => unknown, message: string): void {
   let threw = false;
   try {
@@ -43,6 +47,25 @@ function test(name: string, fn: () => void): void {
   fn();
   console.log(`ok - ${name}`);
 }
+
+test("reflexive state warm-starts from ψ₀ without a zero-prior implosion", () => {
+  const session = createSession({ seed: "0x51e1d", config: { stimulus: "periodic" } });
+  const initial = session.snapshot();
+  deepEqual(initial.selfModel, initial.psi.latent, "initial selfModel equals ψ₀");
+  const initialNorm = vecNorm(initial.psi.latent);
+
+  const first = session.step();
+  const firstNorm = vecNorm(first.psi.latent);
+  assert(firstNorm / initialNorm > 0.8, `first tick preserves state scale: ${firstNorm / initialNorm}`);
+  equal(first.frame.reflexConf, 1, "first reflexive confidence");
+  assert(Math.abs(first.frame.scalars.stateNorm - firstNorm) < 1e-12, "stateNorm telemetry");
+  assert(Number.isFinite(first.frame.scalars.reflexNorm), "reflexNorm telemetry");
+  assert(Number.isFinite(first.frame.scalars.deltaPsi), "deltaPsi telemetry");
+
+  session.reset({ playing: false });
+  const reset = session.snapshot();
+  deepEqual(reset.selfModel, reset.psi.latent, "reset warm-starts selfModel");
+});
 
 test("same seed and schedule replay exactly", () => {
   const options = {
@@ -347,7 +370,7 @@ test("exported provenance and accepted stimuli cannot mutate validator baselines
   const forged = "0".repeat(40);
   (data.provenance as { engineGitBlob: string }).engineGitBlob = forged;
 
-  equal(SESSION_PROVENANCE.engineGitBlob, "4836eae32544d2b021f39151830d76e489a727e6", "module provenance remains pinned");
+  equal(SESSION_PROVENANCE.engineGitBlob, "e492c1d51ff5f8bf4ee1b7a4ff5a1135440ce6d5", "module provenance remains pinned");
   assert(!evaluateSessionCompliance(data).compliant, "forged per-export provenance rejected");
   equal(session.exportData().provenance.engineGitBlob, SESSION_PROVENANCE.engineGitBlob, "future exports remain authentic to the build pin");
   throws(

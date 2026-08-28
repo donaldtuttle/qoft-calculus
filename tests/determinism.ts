@@ -21,6 +21,10 @@ function vecClose(a: number[], b: number[], eps = 1e-9): boolean {
   return a.every((v, i) => Math.abs(v - b[i]) < eps);
 }
 
+function vecNorm(a: number[]): number {
+  return Math.sqrt(a.reduce((sum, value) => sum + value * value, 0));
+}
+
 // --- Core determinism ---
 const A = run(64, "0x51e1d");
 const B = run(64, "0x51e1d");
@@ -34,7 +38,18 @@ const D = run(32, "0xdead");
 assert(D.hashes.some((h, i) => h !== A.hashes[i]), "different seeds diverge");
 
 // --- Default periodic trajectory pin (Realization A) ---
-assert(A.events.length === 0, "default periodic 0x51e1d produces zero collapses");
+assert(A.events.length === 1, "warm-started periodic 0x51e1d produces one collapse");
+
+// --- Cold-start continuity ---
+const initial = run(0, "0x51e1d");
+assert(vecClose(initial.ctx.selfModel, initial.psi.latent), "run warm-starts selfModel from ψ₀");
+const first = run(1, "0x51e1d");
+const firstRatio = vecNorm(first.psi.latent) / vecNorm(initial.psi.latent);
+assert(firstRatio > 0.8, `first tick must preserve state scale, got ratio ${firstRatio}`);
+assert(first.frames[0]?.reflexConf === 1, "first reflexive projection begins at ψ₀");
+assert(Math.abs((first.frames[0]?.scalars.stateNorm ?? NaN) - vecNorm(first.psi.latent)) < 1e-12, "stateNorm telemetry matches ψ₁");
+assert(Number.isFinite(first.frames[0]?.scalars.reflexNorm), "reflexNorm telemetry finite");
+assert(Number.isFinite(first.frames[0]?.scalars.deltaPsi), "deltaPsi telemetry finite");
 
 // --- R¹² enforcement ---
 let rejected = false;
