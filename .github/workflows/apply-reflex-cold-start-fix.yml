@@ -24,6 +24,13 @@ jobs:
       - name: Apply repair and recompute pins
         run: python scripts/apply_reflex_cold_start_fix.py
 
+      - name: Make radar helper importable in strip-only Node tests
+        run: |
+          perl -0pi -e 's/export class FieldVisualizer \{\n  private readonly context/export class FieldVisualizer {\n  private readonly canvas: HTMLCanvasElement;\n  private readonly context/' apps/simulator/src/visualizer.ts
+          perl -0pi -e 's/  constructor\(private readonly canvas: HTMLCanvasElement\) \{\n    const context = canvas\.getContext/  constructor(canvas: HTMLCanvasElement) {\n    this.canvas = canvas;\n    const context = canvas.getContext/' apps/simulator/src/visualizer.ts
+          grep -Fq 'private readonly canvas: HTMLCanvasElement;' apps/simulator/src/visualizer.ts
+          grep -Fq 'constructor(canvas: HTMLCanvasElement)' apps/simulator/src/visualizer.ts
+
       - name: Test root engine
         run: |
           npm ci
