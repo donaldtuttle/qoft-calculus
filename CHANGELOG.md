@@ -6,6 +6,20 @@ The kernel, Public Typed Realization A interfaces, Memory Weather, hosting, and
 the React viewport use independent version axes. Repository integration does
 not promote one track into another.
 
+### Realization A ↔ Grok B forensic parity
+
+- added `docs/REALIZATION_B_PROVENANCE_AND_PARITY_v0.1.md` to record the
+  2026-08-28 mechanism-level comparison between Public Typed Realization A and
+  the currently deployed Grok Typed Realization B workbench;
+- recorded the pinned live-B asset hashes, verified the shared lagged Πᴽ /
+  non-writing Λψ ownership rule, and documented post-collapse recoil in both
+  realizations without claiming trajectory equivalence;
+- added `docs/CHAT_POSTMORTEM_2026-08-28_R12_A_B.md` covering the cold-start
+  repair, the rejected hard-rebase bugfix hypothesis, the provenance split,
+  and the resulting experimental question about immediate versus gradual
+  reflexive assimilation;
+- changed no engine, simulator, canonical surface, or hosted-app dynamics.
+
 ### Kernel v1.1 DEVELOP candidate
 
 - published the portable `qoft-qosmos` Kernel v1.1 candidate beside the root
