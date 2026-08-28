@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#071019">
-  <meta name="description" content="Deterministic R12 QOSMOS observer-field simulation with projection provenance.">
+  <meta name="description" content="Deterministic R12 state-dynamics instrument with memory-conditioned updates, auditable telemetry, and projection provenance.">
   <title>QOSMOS Memory Weather · Standalone</title>
   <style>
 :root {
@@ -121,6 +121,7 @@ small { color: var(--muted); }
 .weather-callout strong, .weather-callout small { display: block; }
 .weather-callout strong { font-size: 0.78rem; }
 .weather-callout small { margin-top: 0.12rem; font-size: 0.64rem; line-height: 1.25; }
+.weather-callout .weather-alias { color: var(--dim); font-size: 0.59rem; letter-spacing: 0.02em; }
 
 .select-row, .range-row { display: grid; gap: 0.42rem; color: var(--muted); font-size: 0.72rem; }
 .select-row + .select-row, .select-row + .range-row, .range-row + .select-row, .range-row + .button-row { margin-top: 0.72rem; }
@@ -256,12 +257,12 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
         <span class="brand-mark" aria-hidden="true">Ξ</span>
         <span>
           <strong>Memory Weather</strong>
-          <small>QOSMOS R¹² observer-field lab</small>
+          <small>R¹² state-dynamics instrument</small>
         </span>
       </div>
       <div class="status-strip">
         <span class="status-chip develop">DEVELOP</span>
-        <span class="status-chip">typed realization</span>
+        <span class="status-chip">v0.1.1 engine · clarified labels</span>
         <span class="status-chip live" id="runStatus">paused</span>
       </div>
       <div class="transport" aria-label="Simulation transport">
@@ -282,51 +283,55 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
       <aside class="panel left-panel" aria-label="Layers and simulation controls">
         <section>
           <div class="section-heading">
-            <div><span class="eyebrow">Live telemetry</span><h2>Ψmeta</h2></div>
+            <div><span class="eyebrow">Live measurements</span><h2>Diagnostic telemetry Ψmeta</h2></div>
             <span class="source-badge direct">direct</span>
           </div>
           <div class="meter-grid">
-            <article class="meter"><span>Coherence ρ</span><strong id="rhoValue">0.420</strong><i><b id="rhoBar"></b></i></article>
-            <article class="meter"><span>Flux energy Φ</span><strong id="phiValue">0.000</strong><i><b id="phiBar"></b></i></article>
-            <article class="meter"><span>Gradient ‖Γ‖</span><strong id="gammaValue">0.000</strong><i><b id="gammaBar"></b></i></article>
-            <article class="meter"><span>Reflex confidence</span><strong id="reflexValue">1.000</strong><i><b id="reflexBar"></b></i></article>
+            <article class="meter"><span>Coherence measure ρ</span><strong id="rhoValue">0.420</strong><i><b id="rhoBar"></b></i></article>
+            <article class="meter"><span>Contextual forcing Φ</span><strong id="phiValue">0.000</strong><i><b id="phiBar"></b></i></article>
+            <article class="meter"><span>Update magnitude ‖Γ‖</span><strong id="gammaValue">0.000</strong><i><b id="gammaBar"></b></i></article>
+            <article class="meter"><span>Reflexive-state alignment</span><strong id="reflexValue">1.000</strong><i><b id="reflexBar"></b></i></article>
           </div>
           <div class="weather-callout">
             <span class="weather-symbol" aria-hidden="true">◌</span>
-            <div><strong id="weatherLabel">Unformed field</strong><small id="weatherRationale">No committed tick yet</small></div>
-            <span class="source-badge interpretive">metaphor</span>
+            <div>
+              <strong id="weatherLabel">No measured regime</strong>
+              <small id="weatherRationale">No committed simulation tick is available yet.</small>
+              <small class="weather-alias" id="weatherAlias">Weather alias: Unformed field</small>
+            </div>
+            <span class="source-badge derived">regime view</span>
           </div>
         </section>
 
         <section>
-          <div class="section-heading"><div><span class="eyebrow">Viewport</span><h2>Layer rack</h2></div></div>
+          <div class="section-heading"><div><span class="eyebrow">Viewport</span><h2>Measured layers</h2></div></div>
           <label class="select-row">Scalar channel
             <select id="scalarSelect">
-              <option value="weather">Weather composite</option>
+              <option value="weather">Regime composite</option>
               <option value="potential">Attractor potential</option>
-              <option value="rho">ρ coherence</option>
-              <option value="fronts">Field fronts</option>
-              <option value="theta">Θλ influence</option>
-              <option value="lambda">Λψ readiness</option>
-              <option value="separation">ψ ↔ ψᴽ separation</option>
+              <option value="rho">Coherence measure ρ</option>
+              <option value="fronts">Update fronts Γ</option>
+              <option value="theta">Memory influence Θλ</option>
+              <option value="lambda">Commitment readiness Λψ</option>
+              <option value="separation">Reflexive separation ψ ↔ ψᴽ</option>
             </select>
           </label>
           <div class="toggle-grid" id="layerControls">
-            <label><input type="checkbox" data-layer="scalar" checked><span>Scalar field</span></label>
-            <label><input type="checkbox" data-layer="vectors" checked><span>Γ vectors</span></label>
+            <label><input type="checkbox" data-layer="scalar" checked><span>Scalar regime map</span></label>
+            <label><input type="checkbox" data-layer="vectors" checked><span>Update vectors Γ</span></label>
             <label><input type="checkbox" data-layer="streamlines" checked><span>Streamlines</span></label>
-            <label><input type="checkbox" data-layer="trace" checked><span>ψ trace</span></label>
-            <label><input type="checkbox" data-layer="reflex" checked><span>ψᴽ separation</span></label>
-            <label><input type="checkbox" data-layer="basins" checked><span>Basins</span></label>
-            <label><input type="checkbox" data-layer="collapse" checked><span>Λψ contour</span></label>
-            <label><input type="checkbox" data-layer="memory" checked><span>Θλ links</span></label>
-            <label><input type="checkbox" data-layer="events" checked><span>Events</span></label>
-            <label><input type="checkbox" data-layer="grid" checked><span>Grid</span></label>
+            <label><input type="checkbox" data-layer="trace" checked><span>State trace ψ</span></label>
+            <label><input type="checkbox" data-layer="reflex" checked><span>Reflexive separation ψ ↔ ψᴽ</span></label>
+            <label><input type="checkbox" data-layer="basins" checked><span>Attractor regions</span></label>
+            <label><input type="checkbox" data-layer="collapse" checked><span>Commitment boundary Λψ</span></label>
+            <label><input type="checkbox" data-layer="memory" checked><span>Memory replay links Θλ</span></label>
+            <label><input type="checkbox" data-layer="events" checked><span>Recorded events</span></label>
+            <label><input type="checkbox" data-layer="grid" checked><span>Projection grid</span></label>
           </div>
         </section>
 
         <section>
-          <div class="section-heading"><div><span class="eyebrow">Observation</span><h2>Φ forcing</h2></div></div>
+          <div class="section-heading"><div><span class="eyebrow">Observation</span><h2>Contextual forcing Φ</h2></div></div>
           <label class="select-row">Preset
             <select id="stimulusSelect">
               <option value="quiet">Quiet</option>
@@ -338,7 +343,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
             </select>
           </label>
           <label class="range-row"><span>Amplitude <output id="amplitudeOutput">0.82</output></span><input id="amplitudeRange" type="range" min="0" max="2" step="0.01" value="0.82"></label>
-          <label class="select-row">Basin target
+          <label class="select-row">Attractor target
             <select id="basinSelect">
               <option value="0">closure</option><option value="1" selected>insight</option><option value="2">identity</option>
               <option value="3">tension</option><option value="4">recall</option><option value="5">threshold</option>
@@ -348,7 +353,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
         </section>
 
         <section>
-          <div class="section-heading"><div><span class="eyebrow">DEVELOP extension</span><h2>Multi-observer projection</h2></div><span class="source-badge derived">local</span></div>
+          <div class="section-heading"><div><span class="eyebrow">DEVELOP extension</span><h2>Multi-observer coupling</h2></div><span class="source-badge derived">local</span></div>
           <label class="switch-row"><input id="peerToggle" type="checkbox"><span>Enable observer B</span></label>
           <label class="range-row"><span>Coupling <output id="couplingOutput">0.14</output></span><input id="couplingRange" type="range" min="0" max="0.5" step="0.01" value="0.14"></label>
           <p class="fine-print">Each observer keeps its own Πᴽ, Γ, ρ, memory, Λψ policy, and telemetry. Coupling uses a frozen prior-state snapshot so processing order cannot steer the result.</p>
@@ -358,13 +363,13 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
           <details>
             <summary>Mechanism ablations</summary>
             <div class="toggle-grid ablations" id="ablationControls">
-              <label><input type="checkbox" data-ablation="collapse" checked><span>Λψ collapse</span></label>
-              <label><input type="checkbox" data-ablation="memoryWrite" checked><span>Memory write</span></label>
-              <label><input type="checkbox" data-ablation="thetaReplay" checked><span>Θλ replay</span></label>
-              <label><input type="checkbox" data-ablation="summarize" checked><span>Σ◯ summary</span></label>
-              <label><input type="checkbox" data-ablation="omega" checked><span>Ωµ modulation</span></label>
-              <label><input type="checkbox" data-ablation="rhoGate" checked><span>ρ gate</span></label>
-              <label><input type="checkbox" data-ablation="reflexAdaptation" checked><span>Πᴽ adaptation</span></label>
+              <label><input type="checkbox" data-ablation="collapse" checked><span>Commitment projection Λψ</span></label>
+              <label><input type="checkbox" data-ablation="memoryWrite" checked><span>Memory writing</span></label>
+              <label><input type="checkbox" data-ablation="thetaReplay" checked><span>Memory replay Θλ</span></label>
+              <label><input type="checkbox" data-ablation="summarize" checked><span>Trace summarization Σ◯</span></label>
+              <label><input type="checkbox" data-ablation="omega" checked><span>Bounded modulation Ωµ</span></label>
+              <label><input type="checkbox" data-ablation="rhoGate" checked><span>Coherence gate ρ</span></label>
+              <label><input type="checkbox" data-ablation="reflexAdaptation" checked><span>Reflexive adaptation Πᴽ</span></label>
             </div>
           </details>
         </section>
@@ -373,7 +378,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
       <section class="center-stage">
         <div class="viewport-toolbar">
           <div class="segmented" role="group" aria-label="Viewport mode">
-            <button type="button" class="active" data-view="weather" aria-pressed="true">Memory Weather</button>
+            <button type="button" class="active" data-view="weather" aria-pressed="true">Regime Map</button>
             <button type="button" data-view="field" aria-pressed="false">2D Field</button>
             <button type="button" data-view="terrain" aria-pressed="false">3D Terrain</button>
           </div>
@@ -383,7 +388,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
           </div>
         </div>
         <div class="viewport-wrap" id="viewport">
-          <canvas id="fieldCanvas" tabindex="0" role="img" aria-label="Memory Weather viewport. The field has not run yet."></canvas>
+          <canvas id="fieldCanvas" tabindex="0" role="img" aria-label="Memory Weather regime viewport. No measured simulation tick is available yet."></canvas>
           <div class="canvas-legend" aria-hidden="true"><span>low</span><i></i><span>high</span></div>
           <div class="selection-readout" id="selectionReadout" hidden></div>
         </div>
@@ -397,7 +402,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
         <section class="event-rail" aria-labelledby="eventTitle">
           <div class="section-heading rail-heading">
             <div><span class="eyebrow">Committed artifacts</span><h2 id="eventTitle">Event rail</h2></div>
-            <div class="rail-counts"><span id="collapseCount">0 Λψ</span><span id="memoryCount">0 writes</span><span id="summaryCount">0 Σ◯</span></div>
+            <div class="rail-counts"><span id="collapseCount">0 commitments Λψ</span><span id="memoryCount">0 memory records</span><span id="summaryCount">0 summaries Σ◯</span></div>
           </div>
           <div class="timeline" id="timeline"><p class="empty-state">Run the engine or inscribe a memory to create auditable events.</p></div>
         </section>
@@ -410,10 +415,10 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
           <input id="memoryInput" type="text" maxlength="120" value="observer field" placeholder="Memory label or recall query" autocomplete="off">
           <label class="range-row"><span>Event weight <output id="weightOutput">1.00</output></span><input id="weightRange" type="range" min="0.1" max="2" step="0.05" value="1"></label>
           <div class="button-row">
-            <button id="inscribeBtn" class="primary" type="button">Inscribe memory</button>
-            <button id="recallBtn" type="button">Recall Θλ</button>
+            <button id="inscribeBtn" class="primary" type="button">Record memory</button>
+            <button id="recallBtn" type="button">Queue memory replay Θλ</button>
           </div>
-          <button id="collapseBtn" class="full-width warning" type="button">Request Λψ on next tick</button>
+          <button id="collapseBtn" class="full-width warning" type="button">Request commitment projection Λψ</button>
           <ul class="memory-list" id="memoryList"><li class="empty-state">No inscriptions yet. Σ◯ summaries remain a separate mechanism.</li></ul>
         </section>
 
@@ -2833,6 +2838,65 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
   const Renderer = window.MemoryWeatherRenderer;
   const M = window.MWMath;
 
+  const WEATHER_PRESENTATION = Object.freeze({
+    initial: {
+      label: "No measured regime",
+      rationale: "No committed simulation tick is available yet."
+    },
+    "collapse-clearing": {
+      label: "Commitment event registered",
+      rationale: "A commitment projection Λψ was applied and recorded on this tick."
+    },
+    "stable-high": {
+      label: "Coherent low-update regime",
+      rationale: "Coherence ρ is high while update magnitude ‖Γ‖ remains low."
+    },
+    "shear-front": {
+      label: "High-drive regime",
+      rationale: "Contextual forcing Φ and update magnitude ‖Γ‖ are elevated."
+    },
+    "collapse-watch": {
+      label: "Commitment condition active",
+      rationale: "The Λψ readiness condition is active; dwell or hold rules may still prevent commitment."
+    },
+    "memory-front": {
+      label: "Recall-influenced regime",
+      rationale: "A memory replay packet Θλ is influencing the current update."
+    },
+    variable: {
+      label: "Mixed dynamical regime",
+      rationale: "No specialized deterministic regime rule matched the current telemetry."
+    }
+  });
+
+  const FEATURE_LABELS = Object.freeze({
+    "weather-composite": "Regime composite",
+    "attractor-potential": "Attractor potential",
+    "rho-field": "Coherence field ρ",
+    "gamma-vectors": "Context-conditioned update Γ",
+    "memory-influence": "Memory influence Θλ",
+    "collapse-surface": "Commitment readiness Λψ",
+    "psi-reflex": "Reflexive separation ψ ↔ ψᴽ",
+    "event-markers": "Recorded events",
+    "multi-observer-coupling": "Multi-observer coupling"
+  });
+
+  function presentWeather(weather) {
+    const source = weather || {
+      id: "initial",
+      label: "Unformed field",
+      rationale: "No committed tick yet"
+    };
+    const presentation = WEATHER_PRESENTATION[source.id] || {
+      label: source.label || "Measured regime",
+      rationale: source.rationale || "Derived from the current telemetry."
+    };
+    return {
+      ...presentation,
+      alias: source.label || source.id || "Unformed field"
+    };
+  }
+
   const byId = (id) => document.getElementById(id);
   const canvas = byId("fieldCanvas");
   const renderer = Renderer.createRenderer(canvas);
@@ -2916,7 +2980,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
     updateUi();
     if (result.frame.collapse_triggered) {
       const event = result.events.find((item) => item.kind === "collapse");
-      const message = `Λψ committed at tick ${result.frame.step}, basin ${event ? event.basinLabel : "unknown"}.`;
+      const message = `Commitment projection Λψ registered at tick ${result.frame.step}, attractor region ${event ? event.basinLabel : "unknown"}.`;
       announce(message);
       showToast(message);
     }
@@ -3012,18 +3076,20 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
     setMeter("phiValue", "phiBar", frame ? frame.phi_energy : 0, 2);
     setMeter("gammaValue", "gammaBar", frame ? frame.gamma_mag : 0, state.config.gammaCap);
     setMeter("reflexValue", "reflexBar", frame ? frame.reflex_conf : 1, 1);
-    const weather = frame ? frame.weather : { label: "Unformed field", rationale: "No committed tick yet" };
+    const sourceWeather = frame ? frame.weather : { id: "initial", label: "Unformed field", rationale: "No committed tick yet" };
+    const weather = presentWeather(sourceWeather);
     setText("weatherLabel", weather.label);
     setText("weatherRationale", weather.rationale);
+    setText("weatherAlias", `Weather alias: ${weather.alias}`);
     setText("tickValue", state.ctx.step);
     setText("phaseValue", state.ctx.phase);
     setText("psiHash", shortHash(state.currentHash));
     setText("projectionHash", shortHash(projection.matrixHash));
     setText("fieldHash", shortHash(field.dataHash));
-    setText("collapseCount", `${state.counters.collapse} Λψ`);
-    setText("memoryCount", `${state.counters.memoryWrites} writes`);
-    setText("summaryCount", `${state.counters.summaries} Σ◯`);
-    canvas.setAttribute("aria-label", `${weather.label}. Tick ${state.ctx.step}. Coherence ${format(state.psi.coherence, 2)}. ${state.events.length} committed events. ${state.memories.length} memory inscriptions.${peerState ? ` Observer B coherence ${format(peerState.psi.coherence, 2)}.` : ""}`);
+    setText("collapseCount", `${state.counters.collapse} commitments Λψ`);
+    setText("memoryCount", `${state.counters.memoryWrites} memory records`);
+    setText("summaryCount", `${state.counters.summaries} summaries Σ◯`);
+    canvas.setAttribute("aria-label", `${weather.label}, weather alias ${weather.alias}. Tick ${state.ctx.step}. Coherence ${format(state.psi.coherence, 2)}. ${state.events.length} recorded events. ${state.memories.length} memory records.${peerState ? ` Observer B coherence ${format(peerState.psi.coherence, 2)}.` : ""}`);
   }
 
   function syncFeatureOptions() {
@@ -3035,7 +3101,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
       for (const record of ordered) {
         const option = document.createElement("option");
         option.value = record.feature_id;
-        option.textContent = record.label;
+        option.textContent = FEATURE_LABELS[record.feature_id] || record.label;
         select.append(option);
       }
     }
@@ -3089,7 +3155,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
     if (!state.memories.length) {
       const empty = document.createElement("li");
       empty.className = "empty-state";
-      empty.textContent = "No inscriptions yet. Σ◯ summaries remain a separate mechanism.";
+      empty.textContent = "No memory records yet. Trace summaries Σ◯ remain a separate mechanism.";
       list.append(empty);
       return;
     }
@@ -3107,10 +3173,10 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
   }
 
   function eventTitle(event) {
-    if (event.kind === "collapse") return `Λψ · ${event.basinLabel}`;
-    if (event.kind === "memory-write") return `Write · ${event.label}`;
-    if (event.kind === "summary") return "Σ◯ · mesh node";
-    if (event.kind === "basin-transition") return `Basin · ${event.toBasinLabel}`;
+    if (event.kind === "collapse") return `Commitment Λψ · ${event.basinLabel}`;
+    if (event.kind === "memory-write") return `Memory record · ${event.label}`;
+    if (event.kind === "summary") return "Summary Σ◯ · mesh node";
+    if (event.kind === "basin-transition") return `Attractor region · ${event.toBasinLabel}`;
     return event.kind;
   }
 
@@ -3164,7 +3230,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
     currentForcing = { latent, label: `viewport(${point.x.toFixed(2)},${point.y.toFixed(2)})` };
     const readout = byId("selectionReadout");
     readout.hidden = false;
-    readout.textContent = `forcing target (${point.x.toFixed(2)}, ${point.y.toFixed(2)}) · ρ ${sample.coherence.toFixed(3)} · Λ margin ${sample.collapseMargin.toFixed(3)} · next tick`;
+    readout.textContent = `forcing target (${point.x.toFixed(2)}, ${point.y.toFixed(2)}) · coherence ρ ${sample.coherence.toFixed(3)} · commitment margin Λψ ${sample.collapseMargin.toFixed(3)} · next tick`;
     dirty = true;
   }
 
@@ -3337,7 +3403,7 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
         if (!result.memory) return showToast("Memory writing is currently ablated.");
         rebuildField();
         updateUi();
-        showToast(`Inscribed “${result.memory.label}” as a local memory artifact.`);
+        showToast(`Recorded “${result.memory.label}” as a local memory artifact.`);
       } catch (error) {
         showToast(error.message);
       }
@@ -3346,11 +3412,11 @@ details[open] summary { margin-bottom: 0.75rem; color: var(--ink); }
       const packet = Engine.queueRecall(state, byId("memoryInput").value);
       rebuildField();
       updateUi();
-      showToast(packet ? `Θλ queued “${packet.label}” at similarity ${packet.similarity.toFixed(3)}.` : "No eligible Θλ recall packet.");
+      showToast(packet ? `Memory replay Θλ queued “${packet.label}” at similarity ${packet.similarity.toFixed(3)}.` : "No eligible memory replay Θλ packet.");
     });
     byId("collapseBtn").addEventListener("click", () => {
       Engine.requestCollapse(state);
-      showToast("Λψ requested. The next explicit Ξ tick will assess and commit it.");
+      showToast("Commitment projection Λψ requested. The next state-transition tick Ξ will assess and, if eligible, register it.");
     });
     byId("featureSelect").addEventListener("change", () => {
       selectedEvent = null;

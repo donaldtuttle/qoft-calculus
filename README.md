@@ -16,7 +16,7 @@
 | Surface | Realization | URL |
 |---|---|---|
 | **Repository app launcher** | hosting index; no engine | [donaldtuttle.github.io/qoft-calculus/apps](https://donaldtuttle.github.io/qoft-calculus/apps/) |
-| **Memory Weather** | v0.1.1 DEVELOP typed realization | [donaldtuttle.github.io/qoft-calculus/memory-weather](https://donaldtuttle.github.io/qoft-calculus/memory-weather/) |
+| **Memory Weather** | v0.1.1 DEVELOP typed realization; clarified regime labels | [donaldtuttle.github.io/qoft-calculus/memory-weather](https://donaldtuttle.github.io/qoft-calculus/memory-weather/) |
 | **QOSMOS R¹² simulator** | Public Typed Realization A | [donaldtuttle.github.io/qoft-calculus/simulator](https://donaldtuttle.github.io/qoft-calculus/simulator/) |
 | **Compact repository probe** | Public A via `QosmosSession → xiStep`; no fallback | [simulator/probe.html](https://donaldtuttle.github.io/qoft-calculus/simulator/probe.html) |
 | **Memory Weather Lab** | sync-checked React viewport of the v0.1.1 Memory Weather realization | [memory-weather-lab](https://donaldtuttle.github.io/qoft-calculus/memory-weather-lab/) |
@@ -34,7 +34,7 @@ The Grok-hosted probe is a 12-axis radar instrument: run / step / Φ pulse, inde
 - launch every hosted repository interface from the [QOSMOS Research Apps index](https://donaldtuttle.github.io/qoft-calculus/apps/);
 - run one concrete 12-dimensional realization with a fixed seed;
 - explore that realization in an interactive browser simulator;
-- run the separate Memory Weather v0.1.1 observer-field viewport offline;
+- run the separate Memory Weather v0.1.1 state-dynamics viewport offline;
 - run the React Memory Weather lab, a viewport of that same engine;
 - inspect every tick, diagnostic frame, collapse event, memory update, and regime change;
 - disable individual mechanisms and test whether behavior changes;
@@ -91,8 +91,10 @@ python3 -m http.server 8000
 Then open `http://localhost:8000`, or open the dependency-free
 `apps/memory-weather/dist/memory-weather.html` directly. Memory Weather is a
 separate DEVELOP typed realization with its own JavaScript engine, projection
-provenance, staged-routing experiment, and deterministic replay fixtures. It
-does not replace the original simulator or the root TypeScript engine.
+provenance, staged-routing experiment, and deterministic replay fixtures. Its “weather” vocabulary is a presentation-layer regime analogy with technical
+primary labels and preserved aliases. See
+[`apps/memory-weather/docs/TERMINOLOGY.md`](apps/memory-weather/docs/TERMINOLOGY.md).
+It does not replace the original simulator or the root TypeScript engine.
 
 React Memory Weather lab (same engine, same hashes):
 

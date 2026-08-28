@@ -7,6 +7,65 @@
   const Renderer = window.MemoryWeatherRenderer;
   const M = window.MWMath;
 
+  const WEATHER_PRESENTATION = Object.freeze({
+    initial: {
+      label: "No measured regime",
+      rationale: "No committed simulation tick is available yet."
+    },
+    "collapse-clearing": {
+      label: "Commitment event registered",
+      rationale: "A commitment projection Λψ was applied and recorded on this tick."
+    },
+    "stable-high": {
+      label: "Coherent low-update regime",
+      rationale: "Coherence ρ is high while update magnitude ‖Γ‖ remains low."
+    },
+    "shear-front": {
+      label: "High-drive regime",
+      rationale: "Contextual forcing Φ and update magnitude ‖Γ‖ are elevated."
+    },
+    "collapse-watch": {
+      label: "Commitment condition active",
+      rationale: "The Λψ readiness condition is active; dwell or hold rules may still prevent commitment."
+    },
+    "memory-front": {
+      label: "Recall-influenced regime",
+      rationale: "A memory replay packet Θλ is influencing the current update."
+    },
+    variable: {
+      label: "Mixed dynamical regime",
+      rationale: "No specialized deterministic regime rule matched the current telemetry."
+    }
+  });
+
+  const FEATURE_LABELS = Object.freeze({
+    "weather-composite": "Regime composite",
+    "attractor-potential": "Attractor potential",
+    "rho-field": "Coherence field ρ",
+    "gamma-vectors": "Context-conditioned update Γ",
+    "memory-influence": "Memory influence Θλ",
+    "collapse-surface": "Commitment readiness Λψ",
+    "psi-reflex": "Reflexive separation ψ ↔ ψᴽ",
+    "event-markers": "Recorded events",
+    "multi-observer-coupling": "Multi-observer coupling"
+  });
+
+  function presentWeather(weather) {
+    const source = weather || {
+      id: "initial",
+      label: "Unformed field",
+      rationale: "No committed tick yet"
+    };
+    const presentation = WEATHER_PRESENTATION[source.id] || {
+      label: source.label || "Measured regime",
+      rationale: source.rationale || "Derived from the current telemetry."
+    };
+    return {
+      ...presentation,
+      alias: source.label || source.id || "Unformed field"
+    };
+  }
+
   const byId = (id) => document.getElementById(id);
   const canvas = byId("fieldCanvas");
   const renderer = Renderer.createRenderer(canvas);
@@ -90,7 +149,7 @@
     updateUi();
     if (result.frame.collapse_triggered) {
       const event = result.events.find((item) => item.kind === "collapse");
-      const message = `Λψ committed at tick ${result.frame.step}, basin ${event ? event.basinLabel : "unknown"}.`;
+      const message = `Commitment projection Λψ registered at tick ${result.frame.step}, attractor region ${event ? event.basinLabel : "unknown"}.`;
       announce(message);
       showToast(message);
     }
@@ -186,18 +245,20 @@
     setMeter("phiValue", "phiBar", frame ? frame.phi_energy : 0, 2);
     setMeter("gammaValue", "gammaBar", frame ? frame.gamma_mag : 0, state.config.gammaCap);
     setMeter("reflexValue", "reflexBar", frame ? frame.reflex_conf : 1, 1);
-    const weather = frame ? frame.weather : { label: "Unformed field", rationale: "No committed tick yet" };
+    const sourceWeather = frame ? frame.weather : { id: "initial", label: "Unformed field", rationale: "No committed tick yet" };
+    const weather = presentWeather(sourceWeather);
     setText("weatherLabel", weather.label);
     setText("weatherRationale", weather.rationale);
+    setText("weatherAlias", `Weather alias: ${weather.alias}`);
     setText("tickValue", state.ctx.step);
     setText("phaseValue", state.ctx.phase);
     setText("psiHash", shortHash(state.currentHash));
     setText("projectionHash", shortHash(projection.matrixHash));
     setText("fieldHash", shortHash(field.dataHash));
-    setText("collapseCount", `${state.counters.collapse} Λψ`);
-    setText("memoryCount", `${state.counters.memoryWrites} writes`);
-    setText("summaryCount", `${state.counters.summaries} Σ◯`);
-    canvas.setAttribute("aria-label", `${weather.label}. Tick ${state.ctx.step}. Coherence ${format(state.psi.coherence, 2)}. ${state.events.length} committed events. ${state.memories.length} memory inscriptions.${peerState ? ` Observer B coherence ${format(peerState.psi.coherence, 2)}.` : ""}`);
+    setText("collapseCount", `${state.counters.collapse} commitments Λψ`);
+    setText("memoryCount", `${state.counters.memoryWrites} memory records`);
+    setText("summaryCount", `${state.counters.summaries} summaries Σ◯`);
+    canvas.setAttribute("aria-label", `${weather.label}, weather alias ${weather.alias}. Tick ${state.ctx.step}. Coherence ${format(state.psi.coherence, 2)}. ${state.events.length} recorded events. ${state.memories.length} memory records.${peerState ? ` Observer B coherence ${format(peerState.psi.coherence, 2)}.` : ""}`);
   }
 
   function syncFeatureOptions() {
@@ -209,7 +270,7 @@
       for (const record of ordered) {
         const option = document.createElement("option");
         option.value = record.feature_id;
-        option.textContent = record.label;
+        option.textContent = FEATURE_LABELS[record.feature_id] || record.label;
         select.append(option);
       }
     }
@@ -263,7 +324,7 @@
     if (!state.memories.length) {
       const empty = document.createElement("li");
       empty.className = "empty-state";
-      empty.textContent = "No inscriptions yet. Σ◯ summaries remain a separate mechanism.";
+      empty.textContent = "No memory records yet. Trace summaries Σ◯ remain a separate mechanism.";
       list.append(empty);
       return;
     }
@@ -281,10 +342,10 @@
   }
 
   function eventTitle(event) {
-    if (event.kind === "collapse") return `Λψ · ${event.basinLabel}`;
-    if (event.kind === "memory-write") return `Write · ${event.label}`;
-    if (event.kind === "summary") return "Σ◯ · mesh node";
-    if (event.kind === "basin-transition") return `Basin · ${event.toBasinLabel}`;
+    if (event.kind === "collapse") return `Commitment Λψ · ${event.basinLabel}`;
+    if (event.kind === "memory-write") return `Memory record · ${event.label}`;
+    if (event.kind === "summary") return "Summary Σ◯ · mesh node";
+    if (event.kind === "basin-transition") return `Attractor region · ${event.toBasinLabel}`;
     return event.kind;
   }
 
@@ -338,7 +399,7 @@
     currentForcing = { latent, label: `viewport(${point.x.toFixed(2)},${point.y.toFixed(2)})` };
     const readout = byId("selectionReadout");
     readout.hidden = false;
-    readout.textContent = `forcing target (${point.x.toFixed(2)}, ${point.y.toFixed(2)}) · ρ ${sample.coherence.toFixed(3)} · Λ margin ${sample.collapseMargin.toFixed(3)} · next tick`;
+    readout.textContent = `forcing target (${point.x.toFixed(2)}, ${point.y.toFixed(2)}) · coherence ρ ${sample.coherence.toFixed(3)} · commitment margin Λψ ${sample.collapseMargin.toFixed(3)} · next tick`;
     dirty = true;
   }
 
@@ -511,7 +572,7 @@
         if (!result.memory) return showToast("Memory writing is currently ablated.");
         rebuildField();
         updateUi();
-        showToast(`Inscribed “${result.memory.label}” as a local memory artifact.`);
+        showToast(`Recorded “${result.memory.label}” as a local memory artifact.`);
       } catch (error) {
         showToast(error.message);
       }
@@ -520,11 +581,11 @@
       const packet = Engine.queueRecall(state, byId("memoryInput").value);
       rebuildField();
       updateUi();
-      showToast(packet ? `Θλ queued “${packet.label}” at similarity ${packet.similarity.toFixed(3)}.` : "No eligible Θλ recall packet.");
+      showToast(packet ? `Memory replay Θλ queued “${packet.label}” at similarity ${packet.similarity.toFixed(3)}.` : "No eligible memory replay Θλ packet.");
     });
     byId("collapseBtn").addEventListener("click", () => {
       Engine.requestCollapse(state);
-      showToast("Λψ requested. The next explicit Ξ tick will assess and commit it.");
+      showToast("Commitment projection Λψ requested. The next state-transition tick Ξ will assess and, if eligible, register it.");
     });
     byId("featureSelect").addEventListener("change", () => {
       selectedEvent = null;

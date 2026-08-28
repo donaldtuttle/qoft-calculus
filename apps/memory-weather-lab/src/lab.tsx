@@ -16,17 +16,84 @@ import {
   type ViewMode,
 } from "./store";
 
+type WeatherPresentation = {
+  label: string;
+  rationale: string;
+  alias: string;
+};
+
+const WEATHER_PRESENTATION: Record<string, Omit<WeatherPresentation, "alias">> = {
+  initial: {
+    label: "No measured regime",
+    rationale: "No committed simulation tick is available yet.",
+  },
+  "collapse-clearing": {
+    label: "Commitment event registered",
+    rationale: "A commitment projection Λψ was applied and recorded on this tick.",
+  },
+  "stable-high": {
+    label: "Coherent low-update regime",
+    rationale: "Coherence ρ is high while update magnitude ‖Γ‖ remains low.",
+  },
+  "shear-front": {
+    label: "High-drive regime",
+    rationale: "Contextual forcing Φ and update magnitude ‖Γ‖ are elevated.",
+  },
+  "collapse-watch": {
+    label: "Commitment condition active",
+    rationale: "The Λψ readiness condition is active; dwell or hold rules may still prevent commitment.",
+  },
+  "memory-front": {
+    label: "Recall-influenced regime",
+    rationale: "A memory replay packet Θλ is influencing the current update.",
+  },
+  variable: {
+    label: "Mixed dynamical regime",
+    rationale: "No specialized deterministic regime rule matched the current telemetry.",
+  },
+};
+
+const FEATURE_LABELS: Record<string, string> = {
+  "weather-composite": "Regime composite",
+  "attractor-potential": "Attractor potential",
+  "rho-field": "Coherence field ρ",
+  "gamma-vectors": "Context-conditioned update Γ",
+  "memory-influence": "Memory influence Θλ",
+  "collapse-surface": "Commitment readiness Λψ",
+  "psi-reflex": "Reflexive separation ψ ↔ ψᴽ",
+  "event-markers": "Recorded events",
+  "multi-observer-coupling": "Multi-observer coupling",
+};
+
+function presentWeather(
+  weather: { id?: string; label?: string; rationale?: string } | null,
+): WeatherPresentation {
+  const source = weather ?? {
+    id: "initial",
+    label: "Unformed field",
+    rationale: "No committed tick yet",
+  };
+  const presentation = WEATHER_PRESENTATION[source.id ?? ""] ?? {
+    label: source.label ?? "Measured regime",
+    rationale: source.rationale ?? "Derived from the current telemetry.",
+  };
+  return {
+    ...presentation,
+    alias: source.label ?? source.id ?? "Unformed field",
+  };
+}
+
 const LAYER_LABELS: { id: keyof Layers; label: string }[] = [
-  { id: "scalar", label: "Scalar field" },
-  { id: "vectors", label: "Γ vectors" },
+  { id: "scalar", label: "Scalar regime map" },
+  { id: "vectors", label: "Update vectors Γ" },
   { id: "streamlines", label: "Streamlines" },
-  { id: "trace", label: "ψ trace" },
-  { id: "reflex", label: "ψᴽ separation" },
-  { id: "basins", label: "Basins" },
-  { id: "collapse", label: "Λψ contour" },
-  { id: "memory", label: "Θλ links" },
-  { id: "events", label: "Events" },
-  { id: "grid", label: "Grid" },
+  { id: "trace", label: "State trace ψ" },
+  { id: "reflex", label: "Reflexive separation ψ ↔ ψᴽ" },
+  { id: "basins", label: "Attractor regions" },
+  { id: "collapse", label: "Commitment boundary Λψ" },
+  { id: "memory", label: "Memory replay links Θλ" },
+  { id: "events", label: "Recorded events" },
+  { id: "grid", label: "Projection grid" },
 ];
 
 function Meter({
@@ -116,7 +183,7 @@ function Provenance() {
         <select value={record?.feature_id ?? ""} onChange={(event) => setFeatureId(event.target.value)}>
           {records.map((item) => (
             <option key={item.feature_id} value={item.feature_id}>
-              {item.label}
+              {FEATURE_LABELS[item.feature_id] ?? item.label}
             </option>
           ))}
         </select>
@@ -173,7 +240,7 @@ export function Lab() {
   }, [setRunning]);
 
   const frame = latestFrame();
-  const weather = frame ? frame.weather : { label: "Unformed field", rationale: "No committed tick yet" };
+  const weather = presentWeather(frame ? frame.weather : { id: "initial", label: "Unformed field", rationale: "No committed tick yet" });
   const rho = frame ? frame.rho : sim.state.psi.coherence;
   const phi = frame ? frame.phi_energy : 0;
   const gamma = frame ? frame.gamma_mag : 0;
@@ -191,12 +258,12 @@ export function Lab() {
           </span>
           <span>
             <strong>Memory Weather</strong>
-            <small>QOSMOS R¹² observer-field lab</small>
+            <small>R¹² state-dynamics instrument</small>
           </span>
         </div>
         <div className="status-strip">
           <span className="status-chip develop">DEVELOP</span>
-          <span className="status-chip">v0.1.1 typed realization</span>
+          <span className="status-chip">v0.1.1 engine · clarified labels</span>
           <span className={`status-chip live${running ? " running" : ""}`}>{running ? "running" : "paused"}</span>
         </div>
         <div className="transport" aria-label="Simulation transport">
@@ -229,12 +296,12 @@ export function Lab() {
       <main className="workspace">
         <aside className="panel left-panel" aria-label="Layers and simulation controls">
           <section>
-            <Heading eyebrow="Live telemetry" title="Ψmeta" badge="direct" badgeClass="direct" />
+            <Heading eyebrow="Live measurements" title="Diagnostic telemetry Ψmeta" badge="direct" badgeClass="direct" />
             <div className="meter-grid">
-              <Meter label="Coherence ρ" value={rho} scale={1} />
-              <Meter label="Flux energy Φ" value={phi} scale={2} />
-              <Meter label="Gradient ‖Γ‖" value={gamma} scale={sim.state.config.gammaCap} />
-              <Meter label="Reflex confidence" value={reflex} scale={1} />
+              <Meter label="Coherence measure ρ" value={rho} scale={1} />
+              <Meter label="Contextual forcing Φ" value={phi} scale={2} />
+              <Meter label="Update magnitude ‖Γ‖" value={gamma} scale={sim.state.config.gammaCap} />
+              <Meter label="Reflexive-state alignment" value={reflex} scale={1} />
             </div>
             <div className="weather-callout">
               <span className="weather-symbol" aria-hidden="true">
@@ -243,13 +310,14 @@ export function Lab() {
               <div>
                 <strong>{weather.label}</strong>
                 <small>{weather.rationale}</small>
+                <small className="weather-alias">Weather alias: {weather.alias}</small>
               </div>
-              <span className="source-badge interpretive">metaphor</span>
+              <span className="source-badge derived">regime view</span>
             </div>
           </section>
 
           <section>
-            <Heading eyebrow="Viewport" title="Layer rack" />
+            <Heading eyebrow="Viewport" title="Measured layers" />
             <label className="select-row">
               Scalar channel
               <select
@@ -293,7 +361,7 @@ export function Lab() {
             <div className="segmented" role="group" aria-label="Viewport mode">
               {(
                 [
-                  ["weather", "Memory Weather"],
+                  ["weather", "Regime Map"],
                   ["field", "2D Field"],
                   ["terrain", "3D Terrain"],
                 ] as [ViewMode, string][]
@@ -387,7 +455,7 @@ function ForcingControls() {
 
   return (
     <section>
-      <Heading eyebrow="Observation" title="Φ forcing" />
+      <Heading eyebrow="Observation" title="Contextual forcing Φ" />
       <label className="select-row">
         Preset
         <select value={stimulusMode} onChange={(event) => setStimulusMode(event.target.value)}>
@@ -412,7 +480,7 @@ function ForcingControls() {
         />
       </label>
       <label className="select-row">
-        Basin target
+        Attractor target
         <select value={String(selectedBasin)} onChange={(event) => setSelectedBasin(Number(event.target.value))}>
           {Engine.BASINS.map((basin: { id: number; label: string }) => (
             <option key={basin.id} value={basin.id}>
@@ -467,7 +535,7 @@ function PeerControls() {
   const setCoupling = useLab((s) => s.setCoupling);
   return (
     <section>
-      <Heading eyebrow="DEVELOP extension" title="Multi-observer projection" badge="local" badgeClass="derived" />
+      <Heading eyebrow="DEVELOP extension" title="Multi-observer coupling" badge="local" badgeClass="derived" />
       <label className="switch-row">
         <input type="checkbox" checked={peerEnabled} onChange={(event) => setPeerEnabled(event.target.checked)} />
         <span>Enable observer B</span>
@@ -536,9 +604,9 @@ function EventRail() {
           <h2 id="eventTitle">Event rail</h2>
         </div>
         <div className="rail-counts">
-          <span>{sim.state.counters.collapse} Λψ</span>
-          <span>{sim.state.counters.memoryWrites} writes</span>
-          <span>{sim.state.counters.summaries} Σ◯</span>
+          <span>{sim.state.counters.collapse} commitments Λψ</span>
+          <span>{sim.state.counters.memoryWrites} memory records</span>
+          <span>{sim.state.counters.summaries} summaries Σ◯</span>
         </div>
       </div>
       <div className="timeline">
@@ -563,10 +631,10 @@ function EventRail() {
 }
 
 function eventTitle(event: { kind: string; basinLabel?: string; label?: string; toBasinLabel?: string }) {
-  if (event.kind === "collapse") return `Λψ · ${event.basinLabel}`;
-  if (event.kind === "memory-write") return `Write · ${event.label}`;
-  if (event.kind === "summary") return "Σ◯ · mesh node";
-  if (event.kind === "basin-transition") return `Basin · ${event.toBasinLabel}`;
+  if (event.kind === "collapse") return `Commitment Λψ · ${event.basinLabel}`;
+  if (event.kind === "memory-write") return `Memory record · ${event.label}`;
+  if (event.kind === "summary") return "Summary Σ◯ · mesh node";
+  if (event.kind === "basin-transition") return `Attractor region · ${event.toBasinLabel}`;
   return event.kind;
 }
 
@@ -631,18 +699,18 @@ function MemoryPanel() {
       </label>
       <div className="button-row">
         <button className="primary" type="button" onClick={inscribe}>
-          Inscribe memory
+          Record memory
         </button>
         <button type="button" onClick={recall}>
-          Recall Θλ
+          Queue memory replay Θλ
         </button>
       </div>
       <button className="full-width warning" type="button" onClick={requestCollapse}>
-        Request Λψ on next tick
+        Request commitment projection Λψ
       </button>
       <ul className="memory-list">
         {memories.length === 0 ? (
-          <li className="empty-state">No inscriptions yet. Σ◯ summaries remain a separate mechanism.</li>
+          <li className="empty-state">No memory records yet. Trace summaries Σ◯ remain a separate mechanism.</li>
         ) : (
           memories.map((memory) => (
             <li key={memory.memoryId}>

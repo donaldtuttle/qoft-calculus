@@ -112,6 +112,7 @@ small { color: var(--muted); }
 .weather-callout strong, .weather-callout small { display: block; }
 .weather-callout strong { font-size: 0.78rem; }
 .weather-callout small { margin-top: 0.12rem; font-size: 0.64rem; line-height: 1.25; }
+.weather-callout .weather-alias { color: var(--dim); font-size: 0.59rem; letter-spacing: 0.02em; }
 
 .select-row, .range-row { display: grid; gap: 0.42rem; color: var(--muted); font-size: 0.72rem; }
 .select-row + .select-row, .select-row + .range-row, .range-row + .select-row, .range-row + .button-row { margin-top: 0.72rem; }

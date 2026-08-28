@@ -1,8 +1,9 @@
 # Memory Weather Lab
 
 A React viewport of **Memory Weather v0.1.1**. It renders the same deterministic
-R¹² observer-field engine as [`apps/memory-weather`](../memory-weather), with the
-same published demo hash.
+R¹² state-dynamics engine as [`apps/memory-weather`](../memory-weather), with the
+same published demo hash. Technical labels are primary, QOFT symbols remain
+visible, and original weather terms are retained as presentation aliases.
 
 > **Status:** DEVELOP · viewport of an existing typed realization · not a new
 > engine and not a claim of physics or consciousness.
@@ -48,12 +49,13 @@ rounded `ψ` hashes and event order. A passing lab test is not evidence that
 canonical `⊕` is uniquely realized, and it does not promote this viewport to
 canon.
 
-Operator contract, projection provenance, and the staged-routing experiment
-remain in [`apps/memory-weather/docs`](../memory-weather/docs).
+Operator contract, projection provenance, terminology, and the staged-routing experiment
+remain in [`apps/memory-weather/docs`](../memory-weather/docs). Start with the
+[terminology guide](../memory-weather/docs/TERMINOLOGY.md).
 
 ## Controls
 
-Transport, layers, inscription, Θλ recall, Λψ, observer B, and replay
+Transport, measured layers, memory recording, memory replay Θλ, commitment projection Λψ, observer B, and replay
 import/export match the sibling viewport. `Space` toggles run/pause when focus
 is outside an interactive control. Step, reset, and view changes use explicit
 buttons. X/Y sliders provide keyboard forcing coordinates, and four buttons

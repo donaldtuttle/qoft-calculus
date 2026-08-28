@@ -103,12 +103,28 @@ test("UI source preserves focus, keyboard, notation, and contrast contracts", ()
   assert.match(labSource, /aria-label="Viewport forcing coordinates"/);
   assert.match(viewportSource, /tabIndex=\{-1\}/);
   assert.match(viewportSource, /aria-label="Terrain orbit controls"/);
-  assert.match(viewportSource, /Λψ readiness margin/);
+  assert.match(viewportSource, /commitment margin Λψ/);
   assert.doesNotMatch(viewportSource, /Λ(?!ψ)/u);
 
   const dim = stylesSource.match(/--dim:\s*(#[0-9a-f]{6})/i)?.[1];
   assert.equal(dim, "#789091");
   assert.ok(contrastRatio(dim, "#111e2a") >= 4.5);
+});
+
+test("clarified UI labels preserve glyphs and leave runtime weather IDs untouched", () => {
+  const labSource = readFileSync(new URL("../src/lab.tsx", import.meta.url), "utf8");
+  const storeSource = readFileSync(new URL("../src/store.ts", import.meta.url), "utf8");
+  const siblingEngineSource = readFileSync(
+    new URL("../../memory-weather/src/engine.js", import.meta.url),
+    "utf8",
+  );
+  assert.match(labSource, /Diagnostic telemetry Ψmeta/);
+  assert.match(labSource, /High-drive regime/);
+  assert.match(labSource, /Weather alias:/);
+  assert.match(storeSource, /Commitment projection Λψ/);
+  assert.match(storeSource, /Memory replay Θλ/);
+  assert.match(siblingEngineSource, /id: "shear-front", label: "Shear front"/);
+  assert.doesNotMatch(siblingEngineSource, /High-drive regime/);
 });
 
 function contrastRatio(foreground: string, background: string) {
