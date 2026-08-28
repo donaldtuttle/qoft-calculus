@@ -19,6 +19,7 @@ import {
   probeHoldTicks,
   runProbeReference64,
 } from "../src/probe-runtime.ts";
+import { ZERO_BASELINE_RADIUS, radarRadius } from "../src/visualizer.ts";
 
 function assert(condition: boolean, message: string): void {
   if (!condition) throw new Error(message);
@@ -49,7 +50,14 @@ test("compact probe declares the real engine seam and no fallback", () => {
   equal(PROBE_RUNTIME.realization, "Public Typed Realization A (R¹²)", "realization identity");
   equal(PROBE_RUNTIME.transitionPath, "QosmosSession.step/tick → xiStep", "transition path");
   equal(PROBE_RUNTIME.fallback, false, "fallback disabled");
-  equal(PROBE_RUNTIME.engineGitBlob, "4836eae32544d2b021f39151830d76e489a727e6", "engine pin");
+  equal(PROBE_RUNTIME.engineGitBlob, "e492c1d51ff5f8bf4ee1b7a4ff5a1135440ce6d5", "engine pin");
+});
+
+test("signed radar exposes its zero baseline", () => {
+  equal(ZERO_BASELINE_RADIUS, 0.56, "zero baseline radius");
+  equal(radarRadius(0), ZERO_BASELINE_RADIUS, "zero maps to the declared baseline");
+  assert(radarRadius(-1) < ZERO_BASELINE_RADIUS, "negative components render inward");
+  assert(radarRadius(1) > ZERO_BASELINE_RADIUS, "positive components render outward");
 });
 
 test("64-tick reference matches the root Realization A pin", () => {
@@ -57,7 +65,7 @@ test("64-tick reference matches the root Realization A pin", () => {
   const second = runProbeReference64();
   equal(first.data.psiHash, PROBE_REFERENCE_64.expectedFinalHash, "reference terminal hash");
   equal(first.data.frameCount, 64, "reference frame count");
-  equal(first.data.eventHistory.total, 0, "default reference collapse count");
+  equal(first.data.eventHistory.total, 1, "default reference collapse count");
   equal(first.matchesPin, true, "reference pin status");
   deepEqual(first.data.hashes, second.data.hashes, "reference hash replay");
   equal(first.digest, second.digest, "reference digest replay");
@@ -126,8 +134,8 @@ test("probe session matches direct xiStep over a mixed 64-tick schedule", () => 
   deepEqual(data.stateHistory, directCtx.stateHistory, "direct/session state history");
   deepEqual(data.mesh, directCtx.mesh, "direct/session mesh");
   deepEqual(data.pulseSteps, [12, 37], "mixed-schedule pulse ticks");
-  equal(data.psiHash, "322442ef", "mixed-schedule terminal pin");
-  equal(data.eventHistory.total, 6, "mixed-schedule collapse count");
+  equal(data.psiHash, "0132b0a2", "mixed-schedule terminal pin");
+  equal(data.eventHistory.total, 7, "mixed-schedule collapse count");
   equal(data.mesh.length, 15, "mixed-schedule mesh count");
   assertSessionCompliance(data);
 });

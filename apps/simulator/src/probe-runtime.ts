@@ -32,7 +32,7 @@ export const PROBE_REFERENCE_64 = Object.freeze({
   seed: "0x51e1d",
   ticks: 64,
   stimulus: "periodic",
-  expectedFinalHash: "3ad463b1",
+  expectedFinalHash: "fbc08652",
 } as const);
 
 function fnvString(value: string): string {

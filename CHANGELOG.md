@@ -24,7 +24,10 @@ not promote one track into another.
 - added a compact `probe.html` entry point wired directly to the existing
   Realization A session/`xiStep` path, with no silent fallback;
 - added a pinned 64-tick reference, probe-local trace digest, direct
-  session-versus-`xiStep` parity coverage, and fail-closed trace export.
+  session-versus-`xiStep` parity coverage, and fail-closed trace export;
+- warm-started the realization-local reflexive cache from ψ₀, exposed state,
+  reflexive, and Δψ norms in telemetry, and marked the signed radar's `0.56R`
+  zero baseline so near-zero contraction is not rendered as spontaneous order.
 
 ### Memory Weather v0.1.1
 

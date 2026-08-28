@@ -11,6 +11,7 @@ import {
   hashPsi,
   initCtx,
   initPsi,
+  warmStartSelfModel,
   xiStep,
   type Ablations,
   type CollapseEvent,
@@ -27,7 +28,7 @@ export const SESSION_REALIZATION = "Public Typed Realization A (R¹²)" as const
 export const SESSION_CLAIM_BOUNDARY = "Operational R¹² software realization only; no physical, quantum, neural, consciousness, or universal-observer claim." as const;
 export const SESSION_PROVENANCE = {
   enginePath: "src/engine.ts",
-  engineGitBlob: "4836eae32544d2b021f39151830d76e489a727e6",
+  engineGitBlob: "e492c1d51ff5f8bf4ee1b7a4ff5a1135440ce6d5",
   rootSkillPath: "SKILL.md",
   rootSkillGitBlob: "8281e74ed18f121246833012cccbc2f052d13e98",
   stampedGenealogySha256: "6cf7ec4cbed5d3da747d80bfb4c60ea8e7466475b7b9cc003dabe7e06c9d6ea0",
@@ -289,6 +290,7 @@ export class QosmosSession {
     this.persistentFlux = config.stimulus as PersistentStimulus;
     this.ctx = initCtx(this.runId, this.seedInput, config);
     this.psi = initPsi(this.psiId, this.ctx.seed, this.ctx.config.D);
+    warmStartSelfModel(this.psi, this.ctx);
     this.hashes = [hashPsi(this.psi)];
   }
 
@@ -433,6 +435,7 @@ export class QosmosSession {
 
     this.ctx = initCtx(this.runId, this.seedInput, config);
     this.psi = initPsi(this.psiId, this.ctx.seed, this.ctx.config.D);
+    warmStartSelfModel(this.psi, this.ctx);
     this.pulseQueued = false;
     this.retainedEvents = [];
     this.totalEvents = 0;

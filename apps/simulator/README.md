@@ -58,7 +58,12 @@ pulse tick; during playback it is consumed by the next scheduled tick. The full
 simulator always leaves a paused pulse pending until Step or Play.
 
 Configuration and ablation edits start a fresh fixed-config run so exports stay
-replayable. Runs stop at 16,384 ticks, while ordinary rendering reads only the
+replayable. Session creation and reset warm-start the lagged self-model from ψ₀,
+so the first tick evolves the seeded shape instead of contracting toward an
+implicit zero prior. The signed radar marks its `0.56R` zero baseline; negative
+components render inward and positive components outward.
+
+Runs stop at 16,384 ticks, while ordinary rendering reads only the
 most recent 256 frames. Full trace cloning occurs only for an explicit export
 or verification request. State hashes are deterministic diagnostics, not
 cryptographic signatures.
