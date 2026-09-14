@@ -6,6 +6,7 @@
 ![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-6B7280)
 [![Pages](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/deploy-memory-weather-pages.yml/badge.svg)](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/deploy-memory-weather-pages.yml)
 [![Live probe](https://img.shields.io/badge/live-QOSMOS%20R12%20probe-4DA3FF)](https://qosmos-r-12.grok.me)
+[![QOFT Lab](https://img.shields.io/badge/live-QOFT%20Lab%20n%3D2-F59E0B)](https://pine-apple-dream-topaz.grok.me/)
 
 > **The contract names the operators. The engine shows what they actually do.**
 
@@ -23,15 +24,30 @@
 | **QOSMOS R¹² probe** | named-spine Realization A + CE-9 Ω-map | [qosmos-r-12.grok.me](https://qosmos-r-12.grok.me) |
 | Operator guide | same probe | [qosmos-r-12.grok.me/guide](https://qosmos-r-12.grok.me/guide) |
 | Glyphogenic Calculus workbench | Typed Realization B | [glyphogenic-calculus.grok.me](https://glyphogenic-calculus.grok.me) |
+| **QOFT Lab (n=2 lattice toy)** | separate DEVELOP GU×QOFT toy; canonical weight none | [pine-apple-dream-topaz.grok.me](https://pine-apple-dream-topaz.grok.me/) |
+
+QOFT Lab is **not** Public Typed Realization A, Memory Weather, the R¹² probe, or Typed Realization B. It is a lattice toy with identity Πᴽ and an experiment-only phase flip. Source: [donaldtuttle/qoft-lab](https://github.com/donaldtuttle/qoft-lab).
 
 The four hosted repository interfaces run client-side from one GitHub Pages package; Pages supplies static files, not a Python daemon, persistent backend, or server-side state. The existing `/` and `/memory-weather.html` addresses remain compatibility redirects to the exact manifest-covered app at `/memory-weather/`. Shared hosting does not merge the engines, imply trajectory equivalence, confer canonical status, or identify any repository interface with the separate Grok Typed Realization B.
 
 The Grok-hosted probe is a 12-axis radar instrument: run / step / Φ pulse, independent ablations, spark telemetry, replay digest, and A/C parity. It is a **separate hosted surface** from both `apps/simulator` and the Realization B workbench, and it is **not** claimed trajectory-equivalent to `src/engine.ts` under the same seed.
 
+## Related repositories
+
+| Repo | Role |
+|---|---|
+| [donaldtuttle/qoft-calculus](https://github.com/donaldtuttle/qoft-calculus) | This reference engine + public operator contract |
+| [donaldtuttle/qoft-lab](https://github.com/donaldtuttle/qoft-lab) | n=2 lattice toy + [live Grok lab](https://pine-apple-dream-topaz.grok.me/) |
+| [donaldtuttle/qosmos-kernel](https://github.com/donaldtuttle/qosmos-kernel) | Minimal contract-enforced QOSMOS runtime kernel |
+| [donaldtuttle/HME](https://github.com/donaldtuttle/HME) | Hybrid field+ledger memory engine |
+| [donaldtuttle/QOFT_Scaffold_Public](https://github.com/donaldtuttle/QOFT_Scaffold_Public) | Historical public scaffold / calculus genealogy |
+| [donaldtuttle/ARC-CEB-1.0](https://github.com/donaldtuttle/ARC-CEB-1.0) | ARC candidate-enumeration boundary suite |
+
 ## What you can do here
 
 - open the hosted [QOSMOS R¹² probe](https://qosmos-r-12.grok.me) without installing anything;
 - launch every hosted repository interface from the [QOSMOS Research Apps index](https://donaldtuttle.github.io/qoft-calculus/apps/);
+- run the separate [QOFT Lab n=2 lattice toy](https://pine-apple-dream-topaz.grok.me/);
 - run one concrete 12-dimensional realization with a fixed seed;
 - explore that realization in an interactive browser simulator;
 - run the separate Memory Weather v0.1.1 state-dynamics viewport offline;
@@ -135,10 +151,10 @@ memory, consolidation, and recurrence
 The invariant is:
 
 ```text
-Ξ(ψ) = ψ꜍ ⊕ Γ(ψ)
+Ξ(ψ) = ψꟽ ⊕ Γ(ψ)
 ```
 
-`ψ꜍` is the bounded reflexive projection, `Γ(ψ)` is the update carrier, and `⊕` is typed fusion. The `+` symbol found in older writing is a historical synonym for `⊕`, never arithmetic addition.
+`ψꟽ` is the bounded reflexive projection, `Γ(ψ)` is the update carrier, and `⊕` is typed fusion. The `+` symbol found in older writing is a historical synonym for `⊕`, never arithmetic addition.
 
 The equation's early public form and subsequent type refinement are documented in [`QOFT_Scaffold_Public`](https://github.com/donaldtuttle/QOFT_Scaffold_Public/blob/main/CALCULUS_EVOLUTION.md). That scaffold is a historical genealogy artifact, not an authority surface for either skill version or a conformant implementation of Public Typed Realization A.
 
@@ -177,6 +193,9 @@ named-spine Realization A radar instrument
 
 separate deployed Grok workbench
 Typed Realization B
+
+separate QOFT Lab Grok app
+n=2 lattice toy (identity Πᴽ; experiment-only phase flip)
 ```
 
 The repository simulator is a new interface around `src/engine.ts` and therefore
@@ -185,7 +204,7 @@ Realization B; the two realizations are **not trajectory-equivalent under the
 same seed**.
 
 The hosted QOSMOS R¹² probe is a Grok-published radar instrument on the
-named-spine Realization A path (Π꜍ Θλ Ωµ Φ Γ ⊕ ρ Λψ Σ◯ + CE-9 Ω-map). It is
+named-spine Realization A path (Πꟽ Θλ Ωµ Φ Γ ⊕ ρ Λψ Σ◯ + CE-9 Ω-map). It is
 not a replacement for `apps/simulator`, and it is not claimed to be byte-identical
 to `src/engine.ts`.
 
@@ -207,10 +226,11 @@ Default seed `0x51e1d` in periodic mode:
 
 Do not assume `src/engine.ts` is the deployed workbench source unless that exact source is published and hash-verified.
 
-QOSMOS R¹² probe (named-spine Realization A): <https://qosmos-r-12.grok.me>  
+QOSMOS R¹² probe: <https://qosmos-r-12.grok.me>  
 Operator guide: <https://qosmos-r-12.grok.me/guide>  
 Grok Typed Realization B: <https://glyphogenic-calculus.grok.me>  
-Public skill endpoint: <https://glyphogenic-calculus.grok.me/SKILL.md>
+Public skill endpoint: <https://glyphogenic-calculus.grok.me/SKILL.md>  
+QOFT Lab n=2 toy: <https://pine-apple-dream-topaz.grok.me/>
 
 ## Agent skill versions
 
@@ -219,8 +239,8 @@ The root [`SKILL.md`](SKILL.md) remains the authoritative v1.0 contract used by 
 The portable [`qoft-qosmos`](skills/qoft-qosmos/SKILL.md) skill packages a **Kernel v1.1 DEVELOP candidate** with focused references. Its implicit invocation is disabled and formal adoption is pending. It preserves:
 
 ```text
-Ξ(ψ) = ψ꜍ ⊕ Γ(ψ; ctx)
-⊕ : Ψ꜍ × G → Ψ
+Ξ(ψ) = ψꟽ ⊕ Γ(ψ; ctx)
+⊕ : Ψꟽ × G → Ψ
 ```
 
 The two skill files are versioned independently. Publishing the candidate beside v1.0 does not silently merge, supersede, adopt, or promote it.
@@ -228,7 +248,7 @@ The two skill files are versioned independently. Publishing the candidate beside
 ## Closed operator set
 
 ```text
-Ξ  Π꜍  Γ  ⊕  Λψ  Σ◯  Θλ  Ωµ  Π↺  Ψmeta  Φ  ρ
+Ξ  Πꟽ  Γ  ⊕  Λψ  Σ◯  Θλ  Ωµ  Π↺  Ψmeta  Φ  ρ
 ```
 
 Do not add glyphs to this realization. Compose the existing set or declare a local helper without promoting it into the operator alphabet.
@@ -236,10 +256,10 @@ Do not add glyphs to this realization. Compose the existing set or declare a loc
 ## Reference tick
 
 ```text
-ψ꜍ = Π꜍(ψ)
+ψꟽ = Πꟽ(ψ)
 Φ  = sampleFlux(Θλ(ψ))          // includes Ωµ Gaussian when active
 Γ  = gradient(Φ, ρ)
-ψ̃ = fuse(ψ꜍, Γ)                 // ⊕
+ψ̃ = fuse(ψꟽ, Γ)                 // ⊕
 if ρ ≥ τ for dwell ticks: ψ ← Λψ(ψ̃)
 emit Ψmeta                      // after Λψ; entropy from final ψ
 maybe Σ◯                         // mean-pool stateHistory window
@@ -255,7 +275,7 @@ signature again accepts `meta` before collapse. Section 1 separately lists
 not a deviation from an unambiguous rule. The tests establish the runtime
 invariants above, not complete tick-contract conformance.
 
-`Λψ` must not write `Π꜍` or `selfModel`. `Π꜍` is the only licensed self-model writer.
+`Λψ` must not write `Πꟽ` or `selfModel`. `Πꟽ` is the only licensed self-model writer.
 
 ## Typed Realization A details
 
