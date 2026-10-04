@@ -12,6 +12,12 @@ stable root skill, or the r2.2 DEVELOP candidate.
 
 Live: [donaldtuttle.github.io/qoft-calculus/memory-weather](https://donaldtuttle.github.io/qoft-calculus/memory-weather/)
 
+## Start here: what you are looking at
+
+For a non-technical walkthrough of the visualization, including **Current state**, the state trail, **Input**, **Update**, **Memory influence**, **Smoothed state**, regime labels, and how AI systems or researchers can use the instrument, read [Memory Weather, in plain English](docs/GENERAL_AUDIENCE.md).
+
+The short version: Memory Weather is a live map of how a simulated agent state changes over time. It makes applied memory influence and other state-update signals visible so they can be replayed, ablated, and compared rather than inferred from a final output alone.
+
 ## Run it
 
 The easiest path is to open `dist/memory-weather.html`. It is a complete offline build with no server, account, package install, or network request.
