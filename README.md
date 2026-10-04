@@ -6,7 +6,7 @@
 ![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-6B7280)
 [![Pages](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/deploy-memory-weather-pages.yml/badge.svg)](https://github.com/donaldtuttle/qoft-calculus/actions/workflows/deploy-memory-weather-pages.yml)
 [![Live probe](https://img.shields.io/badge/live-QOSMOS%20R12%20probe-4DA3FF)](https://qosmos-r-12.grok.me)
-[![QOFT Lab](https://img.shields.io/badge/live-QOFT%20Lab%20n%3D2-F59E0B)](https://pine-apple-dream-topaz.grok.me/)
+[![QOFT Lab](https://img.shields.io/badge/live-QOFT%20Lab%20n%3D2-F59E0B)](https://donaldtuttle.github.io/qoft-lab/)
 
 > **The contract names the operators. The engine shows what they actually do.**
 
@@ -24,7 +24,7 @@
 | **QOSMOS R¹² probe** | named-spine Realization A + CE-9 Ω-map | [qosmos-r-12.grok.me](https://qosmos-r-12.grok.me) |
 | Operator guide | same probe | [qosmos-r-12.grok.me/guide](https://qosmos-r-12.grok.me/guide) |
 | Glyphogenic Calculus workbench | Typed Realization B | [glyphogenic-calculus.grok.me](https://glyphogenic-calculus.grok.me) |
-| **QOFT Lab (n=2 lattice toy)** | separate DEVELOP GU×QOFT toy; canonical weight none | [pine-apple-dream-topaz.grok.me](https://pine-apple-dream-topaz.grok.me/) |
+| **QOFT Lab (n=2 lattice toy)** | separate DEVELOP GU×QOFT toy; canonical weight none | [GitHub Pages](https://donaldtuttle.github.io/qoft-lab/) · [Grok host, unpinned](https://pine-apple-dream-topaz.grok.me/) |
 
 QOFT Lab is **not** Public Typed Realization A, Memory Weather, the R¹² probe, or Typed Realization B. It is a lattice toy with identity Πᴽ and an experiment-only phase flip. Source: [donaldtuttle/qoft-lab](https://github.com/donaldtuttle/qoft-lab).
 
@@ -47,7 +47,7 @@ The Grok-hosted probe is a 12-axis radar instrument: run / step / Φ pulse, inde
 
 - open the hosted [QOSMOS R¹² probe](https://qosmos-r-12.grok.me) without installing anything;
 - launch every hosted repository interface from the [QOSMOS Research Apps index](https://donaldtuttle.github.io/qoft-calculus/apps/);
-- run the separate [QOFT Lab n=2 lattice toy](https://pine-apple-dream-topaz.grok.me/);
+- run the separate [QOFT Lab n=2 lattice toy](https://donaldtuttle.github.io/qoft-lab/) ([source](https://github.com/donaldtuttle/qoft-lab); Grok host remains [unpinned](https://pine-apple-dream-topaz.grok.me/));
 - run one concrete 12-dimensional realization with a fixed seed;
 - explore that realization in an interactive browser simulator;
 - run the separate Memory Weather v0.1.1 state-dynamics viewport offline;
@@ -230,7 +230,9 @@ QOSMOS R¹² probe: <https://qosmos-r-12.grok.me>
 Operator guide: <https://qosmos-r-12.grok.me/guide>  
 Grok Typed Realization B: <https://glyphogenic-calculus.grok.me>  
 Public skill endpoint: <https://glyphogenic-calculus.grok.me/SKILL.md>  
-QOFT Lab n=2 toy: <https://pine-apple-dream-topaz.grok.me/>
+QOFT Lab n=2 toy: <https://donaldtuttle.github.io/qoft-lab/>  
+QOFT Lab source: <https://github.com/donaldtuttle/qoft-lab>  
+QOFT Lab Grok host (unpinned): <https://pine-apple-dream-topaz.grok.me/>
 
 ## Agent skill versions
 
