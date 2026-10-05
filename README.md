@@ -12,6 +12,28 @@
 
 `qoft-calculus` is a deterministic TypeScript reference engine and agent-facing contract for studying typed recursive state updates. It is for developers and researchers who want an inspectable implementation, ablations, and reproducible traces, not evidence that QOFT describes physics, consciousness, or neural dynamics.
 
+## What is this?
+
+A TypeScript reference implementation that turns a typed state-update
+contract into a concrete, inspectable 12-dimensional simulation.
+
+## Why care?
+
+A symbolic update rule leaves practical choices open. Here you can inspect one
+implementation, switch mechanisms off, and compare traces to see what those
+choices actually do. That helps separate a stated contract from the behavior
+of a particular realization.
+
+## Try this
+
+Follow [Run it in sixty seconds](#run-it-in-sixty-seconds), then open the
+repository simulator and step a run. Repeat with the same seed, input, and
+step count while disabling one mechanism, and compare the telemetry.
+Keep comparisons within that implementation: Memory Weather and the separately
+hosted Grok workbench have different realization boundaries. These checks do
+not establish physical or cognitive validity.
+
+
 ## Live demos
 
 | Surface | Realization | URL |
