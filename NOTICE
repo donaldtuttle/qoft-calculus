@@ -7,10 +7,11 @@ Live workbench: https://glyphogenic-calculus.grok.me
 Canonical skill: ./SKILL.md  (also https://glyphogenic-calculus.grok.me/SKILL.md)
 
 Related repositories:
-- https://github.com/donaldtuttle/qosmos-core (private spec / implementation)
 - https://github.com/donaldtuttle/qosmos-kernel (public kernel)
-- https://github.com/donaldtuttle/XiSymbolic_Equation_QOFT_SAL (equation + QOFT-SAL)
-- https://github.com/donaldtuttle/QOFT_Scaffold_Public
+
+The old scaffold, the separate equation writeup, and the core spec are private.
+They are not part of this project. This repository does not depend on them.
+You do not need them to read, run, or check the code here.
 
 Scope limit: operational model. Not a physical claim.
 

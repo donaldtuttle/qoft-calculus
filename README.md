@@ -40,8 +40,9 @@ The Grok-hosted probe is a 12-axis radar instrument: run / step / Φ pulse, inde
 | [donaldtuttle/qoft-lab](https://github.com/donaldtuttle/qoft-lab) | n=2 lattice toy + [live Grok lab](https://qoft-lab-toy.grok.me/) |
 | [donaldtuttle/qosmos-kernel](https://github.com/donaldtuttle/qosmos-kernel) | Minimal contract-enforced QOSMOS runtime kernel |
 | [donaldtuttle/HME](https://github.com/donaldtuttle/HME) | Hybrid field+ledger memory engine |
-| [donaldtuttle/QOFT_Scaffold_Public](https://github.com/donaldtuttle/QOFT_Scaffold_Public) | Historical public scaffold / calculus genealogy |
 | [donaldtuttle/ARC-CEB-1.0](https://github.com/donaldtuttle/ARC-CEB-1.0) | ARC candidate-enumeration boundary suite |
+
+Older notes are private and are not part of this project. That includes the old scaffold, the separate equation writeup, and the private core spec. This repository does not depend on them. You do not need them to read, run, or check the code here.
 
 ## What you can do here
 
@@ -156,7 +157,7 @@ The invariant is:
 
 `ψꟽ` is the bounded reflexive projection, `Γ(ψ)` is the update carrier, and `⊕` is typed fusion. The `+` symbol found in older writing is a historical synonym for `⊕`, never arithmetic addition.
 
-The equation's early public form and subsequent type refinement are documented in [`QOFT_Scaffold_Public`](https://github.com/donaldtuttle/QOFT_Scaffold_Public/blob/main/CALCULUS_EVOLUTION.md). That scaffold is a historical genealogy artifact, not an authority surface for either skill version or a conformant implementation of Public Typed Realization A.
+Older notes that traced that wording change are private and are not part of this project. The equation in this repository is the one to use. Those notes are not an authority here, and you do not need them to read, run, or check the code.
 
 ## Repository map
 
