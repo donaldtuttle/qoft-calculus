@@ -67,10 +67,13 @@ version for those independently versioned apps.
 
 ## Hosting status
 
-The Pages workflow is present, but repository Pages is not enabled. An owner
-must select **Settings → Pages → Build and deployment → Source: GitHub Actions**
-and rerun the workflow. Add a live demo URL and repository homepage only after
-the deployment succeeds.
+The repository uses GitHub Actions to verify the applications, assemble the
+Pages artifact, and deploy successful builds from `main` to GitHub Pages.
+The hosted interfaces are listed in the root README. Pull requests run the
+applicable verification jobs without deploying.
+
+For an independent deployment from a fork, select **GitHub Actions** under
+**Settings → Pages → Build and deployment → Source** before deploying.
 
 ## Release checklist
 
